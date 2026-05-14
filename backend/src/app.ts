@@ -1,6 +1,7 @@
 //Packages
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 
 //configs
@@ -21,6 +22,7 @@ import globalErrorHandler from "./middleware/errorHandler.middleware.js";
 const app = express();
 
 app.use(cors());
+app.use(cookieParser());
 app.set('trust proxy', true);
 
 app.use(express.urlencoded({ extended: true }));
@@ -30,7 +32,7 @@ app.use(express.json({
     type: "application/json",
 }));
 
-app.use("/api", healthRouter);
+app.use("/api/v1/health", healthRouter);
 app.use("/api/v1/auth", authRouter);
 
 app.use(globalErrorHandler);
@@ -39,8 +41,8 @@ const connectWithDatabase = async () => {
     try {
         await connectDB();
         await sequelize.sync({
-            alter: Boolean(config.DB.FORCE_ALTER_TABLE),
-            force: Boolean(config.DB.FORCE_DROP_TABLE)
+            alter: Boolean(config.DB.FORCE_ALTER_TABLE === "true"),
+            force: Boolean(config.DB.FORCE_DROP_TABLE === "true")
         });
         logger.log(`💃 Models synchronized successfully on port ${config.PORT}`);
     } catch (error) {

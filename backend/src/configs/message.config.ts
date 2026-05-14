@@ -17,8 +17,13 @@ export const StatusMessages = {
     // User / Profile
     USER_CREATED: "User registered successfully.",
     USER_UPDATED: "User profile updated successfully.",
-    USER_EXISTS: "An account with this email already exists.",
-    
+    USER_LOGGED_IN: "User logged in successfully.",
+    USER_ALREADY_EXISTS: "An account with this email already exists.",
+    USER_NOT_FOUND: "User not found.",
+    USER_EMAIL_ALREADY_EXISTS: "An account with this email already exists.",
+    USER_USERNAME_ALREADY_EXISTS: "An account with this username already exists.",
+
+
     // Database
     DATABASE_ERROR: "A database error occurred while processing your request.",
     CONNECTION_SUCCESS: "Database connection established successfully.",

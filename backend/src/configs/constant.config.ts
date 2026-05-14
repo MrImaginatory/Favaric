@@ -31,7 +31,12 @@ const config = {
 
     NODE_ENV: getEnv("NODE_ENV", true),
 
-    UPLOADS_PATH: getEnv("UPLOADS_PATH", true)
+    UPLOADS_PATH: getEnv("UPLOADS_PATH", true),
+
+    JWT: {
+        SECRET: getEnv("JWT_SECRET", true),
+        REFRESH_SECRET: getEnv("JWT_REFRESH_SECRET", true),
+    }
 }
 
 if (missingKeys.length > 0) {
