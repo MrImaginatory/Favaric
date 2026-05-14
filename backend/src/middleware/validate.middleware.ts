@@ -19,7 +19,7 @@ export const validate = (schema: ZodSchema) => {
             if (error instanceof ZodError) {
                 // Combine all validation errors into a single message
                 const message = error.issues
-                    .map((issue) => `${issue.path.join(".")}: ${issue.message}`)
+                    .map((issue) => issue.message)
                     .join(", ");
                 
                 return next(new AppError(message, 400));

@@ -1,4 +1,5 @@
 import User from "./users/user.model.js"
+import UserSession from "./users/userSession.model.js"
 import UserAddress from "./users/userAddress.model.js"
 import UserWishList from "./users/userWishList.model.js"
 import UserCart from "./users/usercart.model.js"
@@ -10,6 +11,7 @@ import Product from "./product/product.model.js"
 
 const models = {
     User,
+    UserSession,
     UserAddress,
     UserWishList,
     UserCart,

@@ -36,6 +36,14 @@ const config = {
     JWT: {
         SECRET: getEnv("JWT_SECRET", true),
         REFRESH_SECRET: getEnv("JWT_REFRESH_SECRET", true),
+    },
+    REDIS: {
+        HOST: getEnv("REDIS_HOST", true),
+        PORT: getEnv("REDIS_PORT", true),
+        PASSWORD: getEnv("REDIS_PASSWORD", false),
+    },
+    SESSION: {
+        SECRET: getEnv("SESSION_SECRET", true),
     }
 }
 

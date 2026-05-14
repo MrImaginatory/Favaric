@@ -9,7 +9,7 @@ export const signupSchema = z.object({
         email: z.string().email("Invalid email address"),
         password: z.string().min(6, "Password must be at least 6 characters").max(255, "Password cannot exceed 255 characters"),
         countryCode: z.string().min(2, "Country code must be at least 2 characters").max(5, "Country code cannot exceed 10 characters"),
-        mobile: z.string().min(10, "Mobile number must be at least 10 characters").max(15, "Mobile number cannot exceed 10 characters"),
+        mobile: z.string().min(10, "Mobile number must be at least 10 characters").max(10, "Mobile number cannot exceed 10 digits").regex(/^[0-9]+$/, "Mobile number must contain only digits"),
     }),
 });
 

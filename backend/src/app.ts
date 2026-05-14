@@ -2,10 +2,12 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-
+import session from "express-session";
+import { RedisStore } from "connect-redis";
 
 //configs
 import config from "./configs/constant.config.js";
+import redis from "./utils/redis.util.js";
 
 //databases
 import sequelize, { connectDB } from "./database/database.js";
@@ -14,6 +16,9 @@ import "./models/index.model.js";
 //utils
 import logger from "./utils/logger.util.js"
 
+//middleware
+import { sessionMetadataMiddleware } from "./middleware/sessionMetadata.middleware.js";
+
 //routes
 import healthRouter from "./routes/health.route.js";
 import authRouter from "./routes/v1/auth.route.js";
@@ -21,9 +26,29 @@ import globalErrorHandler from "./middleware/errorHandler.middleware.js";
 
 const app = express();
 
+// Initialize Redis Store
+const redisStore = new RedisStore({
+    client: redis,
+    prefix: "sess:",
+});
+
 app.use(cors());
 app.use(cookieParser());
 app.set('trust proxy', true);
+
+app.use(session({
+    store: redisStore,
+    secret: config.SESSION.SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: config.NODE_ENV === "production",
+        httpOnly: true,
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    }
+}));
+
+app.use(sessionMetadataMiddleware);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({
