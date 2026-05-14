@@ -21,14 +21,17 @@ const config = {
         DBPORT: getEnv("DBPORT", true),
         DBUSER: getEnv("DBUSER", true),
         DBPASSWORD: getEnv("DBPASSWORD", true),
-        DBNAME: getEnv("DBNAME", true)
+        DBNAME: getEnv("DBNAME", true),
+
+        FORCE_DROP_TABLE: getEnv("FORCE_DROP_TABLE", true),
+        FORCE_ALTER_TABLE: getEnv("FORCE_ALTER_TABLE", true)
     },
 
     WEBSITE_URL: getEnv("WEBSITE_URL", true),
 
     NODE_ENV: getEnv("NODE_ENV", true),
 
-
+    UPLOADS_PATH: getEnv("UPLOADS_PATH", true)
 }
 
 if (missingKeys.length > 0) {

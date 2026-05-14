@@ -15,7 +15,8 @@ import logger from "./utils/logger.util.js"
 
 //routes
 import healthRouter from "./routes/health.route.js";
-
+import authRouter from "./routes/v1/auth.route.js";
+import globalErrorHandler from "./middleware/errorHandler.middleware.js";
 
 const app = express();
 
@@ -30,11 +31,17 @@ app.use(express.json({
 }));
 
 app.use("/api", healthRouter);
+app.use("/api/v1/auth", authRouter);
+
+app.use(globalErrorHandler);
 
 const connectWithDatabase = async () => {
     try {
         await connectDB();
-        await sequelize.sync({ alter: true });
+        await sequelize.sync({
+            alter: Boolean(config.DB.FORCE_ALTER_TABLE),
+            force: Boolean(config.DB.FORCE_DROP_TABLE)
+        });
         logger.log(`💃 Models synchronized successfully on port ${config.PORT}`);
     } catch (error) {
         logger.error(`❌ Database initialization failed: ${error}`);

@@ -25,6 +25,7 @@ class User extends Model {
 
     public role!: string;
     public isActive!: boolean;
+    public isVerified!: boolean;
     public isDeleted!: boolean;
 }
 
@@ -67,41 +68,47 @@ User.init({
     },
     whatsAppNumberCountryCode: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     whatsAppNumber: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         unique: true
     },
     gender: {
         type: DataTypes.ENUM("Male", "Female", "Other"),
-        allowNull: false
+        allowNull: true
     },
     profilePicture: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     country: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     state: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     city: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     role: {
         type: DataTypes.ENUM("Admin", "Retailer", "Customer"),
-        allowNull: false
+        allowNull: false,
+        defaultValue: "Customer"
     },
     isActive: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: true
+        defaultValue: false
+    },
+    isVerified: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
     },
     isDeleted: {
         type: DataTypes.BOOLEAN,
