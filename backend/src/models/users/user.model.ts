@@ -23,6 +23,9 @@ class User extends Model {
     public state!: string;
     public city!: string;
 
+    public resetPasswordToken!: string;
+    public resetPasswordExpires!: Date;
+
     public role!: string;
     public isActive!: boolean;
     public isVerified!: boolean;
@@ -99,6 +102,14 @@ User.init({
         type: DataTypes.ENUM("Admin", "Retailer", "Customer"),
         allowNull: false,
         defaultValue: "Customer"
+    },
+    resetPasswordToken: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    resetPasswordExpires: {
+        type: DataTypes.DATE,
+        allowNull: true
     },
     isActive: {
         type: DataTypes.BOOLEAN,
