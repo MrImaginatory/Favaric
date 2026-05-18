@@ -2,13 +2,13 @@ import { DataTypes, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
 class SubCategory extends Model {
-    public subCategoryId!: number;
+    public subCategoryId!: string;
     public subcategoryName!: string;
     public subcategorySlug!: string;
     public subcategoryDescription!: string;
     public subcategoryImage!: string;
 
-    public categoryId!: number;
+    public categoryId!: string;
 
     public isFeatured!: boolean;
     public isPopular!: boolean;
@@ -24,8 +24,8 @@ class SubCategory extends Model {
 
 SubCategory.init({
     subCategoryId: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
     subcategoryName: {
@@ -45,7 +45,7 @@ SubCategory.init({
         allowNull: false
     },
     categoryId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     isFeatured: {

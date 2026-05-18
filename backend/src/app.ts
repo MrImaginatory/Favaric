@@ -21,7 +21,8 @@ import { sessionMetadataMiddleware } from "./middleware/sessionMetadata.middlewa
 
 //routes
 import healthRouter from "./routes/health.route.js";
-import authRouter from "./routes/v1/auth.route.js";
+import authRouter from "./routes/v1/auth/auth.route.js";
+import statusRouter from "./routes/status.route.js";
 import globalErrorHandler from "./middleware/errorHandler.middleware.js";
 
 const app = express();
@@ -32,7 +33,9 @@ const redisStore = new RedisStore({
     prefix: "sess:",
 });
 
-app.use(cors());
+app.use(cors({
+    origin: "*",
+}));
 app.use(cookieParser());
 app.set('trust proxy', true);
 
@@ -59,6 +62,7 @@ app.use(express.json({
 
 app.use("/api/v1/health", healthRouter);
 app.use("/api/v1/auth", authRouter);
+app.use(statusRouter);
 
 app.use(globalErrorHandler);
 

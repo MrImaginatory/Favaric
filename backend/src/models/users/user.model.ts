@@ -2,7 +2,7 @@ import { DataTypes, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
 class User extends Model {
-    public userId!: number;
+    public userId!: string;
 
     public firstName!: string;
     public lastName!: string;
@@ -34,9 +34,9 @@ class User extends Model {
 
 User.init({
     userId: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true
     },
     firstName: {
         type: DataTypes.STRING,

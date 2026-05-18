@@ -3,7 +3,7 @@ import sequelize from "../../database/database.js";
 
 class UserSession extends Model {
     public sessionId!: string;
-    public userId!: number;
+    public userId!: string;
     public userName!: string;
     public ipAddress!: string;
     public location!: string;
@@ -18,7 +18,7 @@ UserSession.init({
         primaryKey: true,
     },
     userId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false,
     },
     userName: {

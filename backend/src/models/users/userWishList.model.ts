@@ -2,23 +2,23 @@ import { DataTypes, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
 class UserWishList extends Model {
-    public id!: number;
-    public userId!: number;
-    public productId!: number;
+    public wishListId!: string;
+    public userId!: string;
+    public productId!: string;
 }
 
 UserWishList.init({
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+    wishListId: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true
     },
     userId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     productId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     }
 }, {

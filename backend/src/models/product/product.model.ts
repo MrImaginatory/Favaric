@@ -2,7 +2,7 @@ import { DataTypes, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
 class Product extends Model {
-    public productId!: number;
+    public productId!: string;
 
     public productName!: string;
     public productTitle!: string;
@@ -14,16 +14,18 @@ class Product extends Model {
     public currency!: string;
     public gstPercentage!: number;
 
-    public category!: number;
-    public subCategory!: number;
+    public category!: string;
+    public subCategory!: string;
 
-    public brand!: number;
+    public brand!: string;
 
     public thumbnailImage!: string;
     public image!: string;
     public subImages!: string[];
 
     public stock!: number;
+    public maxOrderQty!: number;
+    public minOrderQty!: number;
 
     public designCode!: string;
     public sku!: string;
@@ -77,8 +79,8 @@ class Product extends Model {
 
 Product.init({
     productId: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
     productName: {
@@ -115,15 +117,15 @@ Product.init({
         allowNull: false
     },
     category: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     subCategory: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     brand: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     thumbnailImage: {
@@ -141,6 +143,16 @@ Product.init({
     stock: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    maxOrderQty: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 100
+    },
+    minOrderQty: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1
     },
     designCode: {
         type: DataTypes.STRING,

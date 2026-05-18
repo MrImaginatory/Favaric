@@ -29,7 +29,7 @@ const getWishlist = asyncHandler(async (req: Request, res: Response) => {
     return sendResponse(res, 200, StatusMessages.SUCCESS, wishlist);
 });
 
-const deleteWishlist = asyncHandler(async (req: Request, res: Response) => {
+const deleteWishlistItem = asyncHandler(async (req: Request, res: Response) => {
     const { wishlistId } = req.params;
     const userId = req.session?.userId;
 
@@ -46,8 +46,9 @@ const deleteWishlist = asyncHandler(async (req: Request, res: Response) => {
     return sendResponse(res, 200, StatusMessages.SUCCESS, { message: "Wishlist item deleted successfully" });
 });
 
+
 export default {
     addToWishlist,
     getWishlist,
-    deleteWishlist
+    deleteWishlistItem
 };

@@ -2,8 +2,8 @@ import { DataTypes, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
 class UserAddress extends Model {
-    public id!: number;
-    public userId!: number;
+    public addressId!: string;
+    public userId!: string;
     public addressLine1!: string;
     public addressLine2!: string;
     public city!: string;
@@ -16,13 +16,13 @@ class UserAddress extends Model {
 }
 
 UserAddress.init({
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+    addressId: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true
     },
     userId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     addressLine1: {

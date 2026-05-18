@@ -2,7 +2,7 @@ import { DataTypes, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
 class Category extends Model {
-    public categoryId!: number;
+    public categoryId!: string;
     public categoryName!: string;
     public categorySlug!: string;
     public categoryDescription!: string;
@@ -22,8 +22,8 @@ class Category extends Model {
 
 Category.init({
     categoryId: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
     categoryName: {

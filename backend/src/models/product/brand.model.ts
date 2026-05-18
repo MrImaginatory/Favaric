@@ -2,7 +2,7 @@ import { DataTypes, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
 class Brand extends Model {
-    public brandId!: number;
+    public brandId!: string;
     public brandName!: string;
     public brandSlug!: string;
     public brandDescription!: string;
@@ -19,8 +19,8 @@ class Brand extends Model {
 
 Brand.init({
     brandId: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
     brandName: {

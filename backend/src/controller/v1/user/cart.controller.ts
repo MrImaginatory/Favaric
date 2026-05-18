@@ -10,6 +10,38 @@ const addToCart = asyncHandler(async (req: Request, res: Response) => {
     const userId = req.session?.userId;
     const { productId, quantity } = req.body;
 
+    const findProduct = await Product.findOne({
+        where: { id: productId },
+        attributes: ["stock", "maxOrderQty", "minOrderQty"]
+    });
+
+    if (!findProduct) {
+        throw new AppError("Product not found", 404);
+    }
+
+    if (quantity > findProduct.stock) {
+        throw new AppError(`Quantity is greater than stock. Stock is ${findProduct.stock}`, 400);
+    }
+
+    if (quantity < findProduct.minOrderQty) {
+        throw new AppError(`Quantity is less than min order quantity. Min order quantity is ${findProduct.minOrderQty}`, 400);
+    }
+
+    if (quantity > findProduct.maxOrderQty) {
+        throw new AppError(`Quantity is greater than max order quantity. Max order quantity is ${findProduct.maxOrderQty}`, 400);
+    }
+
+    const findCart = await Cart.findOne({
+        where: { productId, userId }
+    });
+
+    if (findCart) {
+        await findCart.update({
+            quantity: findCart.quantity + quantity
+        })
+        return sendResponse(res, 200, StatusMessages.SUCCESS, findCart);
+    }
+
     const cart = await Cart.create({
         userId,
         productId,
@@ -24,16 +56,44 @@ const getCart = asyncHandler(async (req: Request, res: Response) => {
 
     const cart = await Cart.findAll({
         where: { userId },
-        include: [{ model: Product, attributes: ["name", "price", "image"] }]
+        include: [{
+            model: Product,
+            attributes: ["productName", "regularPrice", "salePrice", "thumbnailImage", "size", "color", "stock"],
+        }]
     });
 
-    return sendResponse(res, 200, StatusMessages.SUCCESS, cart);
+    if (!cart) {
+        throw new AppError("Cart not found", 404);
+    }
+
+    return sendResponse(res, 200, StatusMessages.SUCCESS, { cart });
 });
 
 const updateCart = asyncHandler(async (req: Request, res: Response) => {
     const { cartId } = req.params;
     const userId = req.session?.userId;
-    const { quantity } = req.body;
+    const { productId, quantity } = req.body;
+
+    const findProduct = await Product.findOne({
+        where: { id: productId },
+        attributes: ["stock", "maxOrderQty", "minOrderQty"]
+    });
+
+    if (!findProduct) {
+        throw new AppError("Product not found", 404);
+    }
+
+    if (quantity > findProduct.stock) {
+        throw new AppError(`Quantity is greater than stock. Stock is ${findProduct.stock}`, 400);
+    }
+
+    if (quantity < findProduct.minOrderQty) {
+        throw new AppError(`Quantity is less than min order quantity. Min order quantity is ${findProduct.minOrderQty}`, 400);
+    }
+
+    if (quantity > findProduct.maxOrderQty) {
+        throw new AppError(`Quantity is greater than max order quantity. Max order quantity is ${findProduct.maxOrderQty}`, 400);
+    }
 
     const cart = await Cart.findOne({
         where: { id: cartId, userId }
