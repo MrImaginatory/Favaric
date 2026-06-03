@@ -6,7 +6,7 @@ import protect from "../middleware/auth.middleware.js";
 
 const healthRouter = Router();
 
-healthRouter.get("/health", requestLogger, protect, checkHealth);
-healthRouter.get("/db-health", requestLogger, protect, checkDbHealth);
+healthRouter.get("/health", requestLogger, checkHealth);
+healthRouter.get("/db-health", requestLogger, checkDbHealth);
 
 export default healthRouter;

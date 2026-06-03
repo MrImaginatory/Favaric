@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Status | Favaric</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      
+      --green-bg: #f0fdf4;
+      --green-border: #bbf7d0;
+      --green-text: #166534;
+      --green-indicator: #22c55e;
+      
+      --red-bg: #fef2f2;
+      --red-border: #fecaca;
+      --red-text: #991b1b;
+      --red-indicator: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      line-height: 1.5;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+    }
+
+    .header {
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+    }
+
+    .logo span {
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .api-badge {
+      font-size: 11px;
+      font-weight: 600;
+      background-color: #e2e8f0;
+      color: #334155;
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background-color 0.2s;
+    }
+
+    .api-badge:hover {
+      background-color: #cbd5e1;
+    }
+
+    .banner {
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      font-weight: 600;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    .banner.success {
+      background-color: var(--green-bg);
+      border: 1px solid var(--green-border);
+      color: var(--green-text);
+    }
+
+    .banner.error {
+      background-color: var(--red-bg);
+      border: 1px solid var(--red-border);
+      color: var(--red-text);
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .status-badge {
+      font-size: 12px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot.green {
+      background-color: var(--green-indicator);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15);
+      animation: pulse-green 2s infinite;
+    }
+
+    .dot.red {
+      background-color: var(--red-indicator);
+      box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+      animation: pulse-red 2s infinite;
+    }
+
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+      70% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+
+    @keyframes pulse-red {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+      70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 12px;
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .refresh-badge {
+      display: inline-flex;
+      align-self: center;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+      background-color: #f1f5f9;
+      padding: 4px 10px;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="app">
+    <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+      Loading status...
+    </div>
+  </div>
+
+  <script>
+    async function loadStatus() {
+      try {
+        const res = await fetch('/status/json');
+        
+        // Ensure successful response before parsing
+        if (!res.ok && res.status !== 500) {
+          throw new Error('Network response was not ok');
+        }
+        
+        const data = await res.json();
+        
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+
+        const isOperational = data.status === "operational";
+        const app = document.getElementById('app');
+        
+        app.innerHTML = `
+          <div class="header">
+            <div class="logo">Favaric <span>Status</span></div>
+            <a href="/status/json" class="api-badge" target="_blank">View JSON API</a>
+          </div>
+          
+          <div class="banner ${isOperational ? 'success' : 'error'}">
+            <span class="dot ${isOperational ? 'green' : 'red'}"></span>
+            <span>${isOperational ? 'All Systems Operational' : 'Service Disruptions Detected'}</span>
+          </div>
+          
+          <!-- API Server -->
+          <div class="card">
+            <div class="card-title">
+              <span>${data.services.api.name}</span>
+              <span class="status-badge">
+                <span class="dot ${data.services.api.status === 'operational' ? 'green' : 'red'}"></span>
+                ${data.services.api.status === 'operational' ? 'Operational' : 'Outage'}
+              </span>
+            </div>
+          </div>
+          
+          <!-- Database -->
+          <div class="card">
+            <div class="card-title">
+              <span>${data.services.database.name}</span>
+              <span class="status-badge">
+                <span class="dot ${data.services.database.status === 'operational' ? 'green' : 'red'}"></span>
+                ${data.services.database.status === 'operational' ? 'Operational' : 'Outage'}
+              </span>
+            </div>
+          </div>
+          
+          <!-- Redis Cache -->
+          <div class="card">
+            <div class="card-title">
+              <span>${data.services.cache.name}</span>
+              <span class="status-badge">
+                <span class="dot ${data.services.cache.status === 'operational' ? 'green' : 'red'}"></span>
+                ${data.services.cache.status === 'operational' ? 'Operational' : 'Outage'}
+              </span>
+            </div>
+          </div>
+          
+          <div class="footer">
+            <span>Last checked at ${data.checkedAt}</span>
+            <div class="refresh-badge">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+              </svg>
+              <span>Autorefreshes every 30s</span>
+            </div>
+          </div>
+        `;
+      } catch (err) {
+        document.getElementById('app').innerHTML = `
+          <div class="banner error" style="margin-top: 40px;">
+            <span class="dot red"></span>
+            <span>Failed to load status: ${err.message}</span>
+          </div>
+        `;
+      }
+    }
+    
+    // Initial load
+    loadStatus();
+    
+    // Refresh every 30s
+    setInterval(loadStatus, 30000);
+  </script>
+</body>
+</html>

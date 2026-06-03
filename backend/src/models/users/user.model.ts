@@ -11,9 +11,9 @@ class User extends Model {
     public email!: string;
     public password!: string;
 
-    public countryCode!: string;
+    public countryCode!: number;
     public mobile!: string;
-    public whatsAppNumberCountryCode!: string;
+    public whatsAppNumberCountryCode!: number;
     public whatsAppNumber!: string;
 
     public gender!: string;
@@ -61,7 +61,7 @@ User.init({
         allowNull: false
     },
     countryCode: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     mobile: {
@@ -70,7 +70,7 @@ User.init({
         unique: true
     },
     whatsAppNumberCountryCode: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: true
     },
     whatsAppNumber: {
