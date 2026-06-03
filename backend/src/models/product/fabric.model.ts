@@ -1,15 +1,11 @@
 import { DataTypes, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
-class Category extends Model {
-    public categoryId!: string;
-    public categoryName!: string;
-    public categorySlug!: string;
-    public categoryDescription!: string;
-    public categoryImage!: string;
-
-    public isFeatured!: boolean;
-    public isPopular!: boolean;
+class Fabric extends Model {
+    public fabricId!: string;
+    public fabricName!: string;
+    public fabricSlug!: string;
+    public fabricDescription!: string;
 
     public metaTitle!: string;
     public metaDescription!: string;
@@ -20,35 +16,23 @@ class Category extends Model {
     public deletedAt!: Date;
 }
 
-Category.init({
-    categoryId: {
+Fabric.init({
+    fabricId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-    categoryName: {
+    fabricName: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    categorySlug: {
+    fabricSlug: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    categoryDescription: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    categoryImage: {
+    fabricDescription: {
         type: DataTypes.STRING,
         allowNull: true
-    },
-    isFeatured: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false
-    },
-    isPopular: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false
     },
     metaTitle: {
         type: DataTypes.STRING,
@@ -76,16 +60,18 @@ Category.init({
     }
 }, {
     sequelize,
-    tableName: "categories",
+    tableName: "fabrics",
     timestamps: true,
     paranoid: true
 });
 
-(Category as any).associate = (models: any) => {
-    Category.hasMany(models.SubCategory, {
-        foreignKey: "categoryId",
-        as: "subcategories"
+(Fabric as any).associate = (models: any) => {
+    Fabric.belongsToMany(models.Product, {
+        through: "product_fabrics",
+        foreignKey: "fabricId",
+        otherKey: "productId",
+        as: "products"
     });
 };
 
-export default Category;
+export default Fabric;

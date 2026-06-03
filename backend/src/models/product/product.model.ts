@@ -302,6 +302,37 @@ Product.init({
         foreignKey: "brand",
         as: "brandDetails"
     });
+
+    Product.belongsToMany(models.Color, {
+        through: "product_colors",
+        foreignKey: "productId",
+        otherKey: "colorId",
+        as: "colors"
+    });
+    Product.belongsToMany(models.Size, {
+        through: "product_sizes",
+        foreignKey: "productId",
+        otherKey: "sizeId",
+        as: "sizes"
+    });
+    Product.belongsToMany(models.Pattern, {
+        through: "product_patterns",
+        foreignKey: "productId",
+        otherKey: "patternId",
+        as: "patterns"
+    });
+    Product.belongsToMany(models.Occasion, {
+        through: "product_occasions",
+        foreignKey: "productId",
+        otherKey: "occasionId",
+        as: "occasions"
+    });
+    Product.belongsToMany(models.Fabric, {
+        through: "product_fabrics",
+        foreignKey: "productId",
+        otherKey: "fabricId",
+        as: "fabrics"
+    });
 };
 
 export default Product;

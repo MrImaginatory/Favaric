@@ -3,7 +3,7 @@ import asyncHandler from "../../../utils/asyncHandler.util.js";
 import StatusMessages from "../../../configs/message.config.js";
 import sendResponse from "../../../utils/responseHandler.util.js";
 import AppError from "../../../utils/appError.util.js";
-import Cart from "../../../models/users/usercart.model.js";
+import Cart from "../../../models/users/userCart.model.js";
 import Product from "../../../models/product/product.model.js";
 
 const addToCart = asyncHandler(async (req: Request, res: Response) => {

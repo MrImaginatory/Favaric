@@ -1,15 +1,11 @@
 import { DataTypes, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
-class Category extends Model {
-    public categoryId!: string;
-    public categoryName!: string;
-    public categorySlug!: string;
-    public categoryDescription!: string;
-    public categoryImage!: string;
-
-    public isFeatured!: boolean;
-    public isPopular!: boolean;
+class Occasion extends Model {
+    public occasionId!: string;
+    public occasionName!: string;
+    public occasionSlug!: string;
+    public occasionDescription!: string;
 
     public metaTitle!: string;
     public metaDescription!: string;
@@ -20,35 +16,23 @@ class Category extends Model {
     public deletedAt!: Date;
 }
 
-Category.init({
-    categoryId: {
+Occasion.init({
+    occasionId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-    categoryName: {
+    occasionName: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    categorySlug: {
+    occasionSlug: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    categoryDescription: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    categoryImage: {
+    occasionDescription: {
         type: DataTypes.STRING,
         allowNull: true
-    },
-    isFeatured: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false
-    },
-    isPopular: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false
     },
     metaTitle: {
         type: DataTypes.STRING,
@@ -76,16 +60,18 @@ Category.init({
     }
 }, {
     sequelize,
-    tableName: "categories",
+    tableName: "occasions",
     timestamps: true,
     paranoid: true
 });
 
-(Category as any).associate = (models: any) => {
-    Category.hasMany(models.SubCategory, {
-        foreignKey: "categoryId",
-        as: "subcategories"
+(Occasion as any).associate = (models: any) => {
+    Occasion.belongsToMany(models.Product, {
+        through: "product_occasions",
+        foreignKey: "occasionId",
+        otherKey: "productId",
+        as: "products"
     });
 };
 
-export default Category;
+export default Occasion;

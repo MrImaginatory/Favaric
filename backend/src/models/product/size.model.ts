@@ -1,56 +1,38 @@
 import { DataTypes, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
-class Brand extends Model {
-    public brandId!: string;
-    public brandName!: string;
-    public brandSlug!: string;
-    public brandDescription!: string;
-    public brandLogo!: string;
+class Size extends Model {
+    public sizeId!: string;
+    public sizeName!: string;
+    public sizeSlug!: string;
+    public sizeValue!: string;
 
-    public metaTitle!: string;
-    public metaDescription!: string;
-    public metaKeywords!: string;
+
 
     public uploadedBy!: number;
     public lastModifiedBy!: number;
     public deletedAt!: Date;
 }
 
-Brand.init({
-    brandId: {
+Size.init({
+    sizeId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-    brandName: {
+    sizeName: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    brandSlug: {
+    sizeSlug: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    brandDescription: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    brandLogo: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    metaTitle: {
+    sizeValue: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    metaDescription: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    metaKeywords: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
+
     uploadedBy: {
         type: DataTypes.INTEGER,
         allowNull: false
@@ -65,9 +47,18 @@ Brand.init({
     }
 }, {
     sequelize,
-    tableName: "brands",
+    tableName: "sizes",
     timestamps: true,
     paranoid: true
 });
 
-export default Brand;
+(Size as any).associate = (models: any) => {
+    Size.belongsToMany(models.Product, {
+        through: "product_sizes",
+        foreignKey: "sizeId",
+        otherKey: "productId",
+        as: "products"
+    });
+};
+
+export default Size;

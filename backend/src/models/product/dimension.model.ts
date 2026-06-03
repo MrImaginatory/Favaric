@@ -1,56 +1,60 @@
 import { DataTypes, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
-class Brand extends Model {
-    public brandId!: string;
-    public brandName!: string;
-    public brandSlug!: string;
-    public brandDescription!: string;
-    public brandLogo!: string;
+class Dimension extends Model {
+    public dimensionId!: string;
 
-    public metaTitle!: string;
-    public metaDescription!: string;
-    public metaKeywords!: string;
+    public dimensionName!: string;
+    public dimensionSlug!: string;
+    public dimensionDescription!: string;
+
+    public dimensionLength!: number;
+    public dimensionBreadth!: number;
+    public dimensionHeight!: number;
+    public dimensionUnit!: string;
+
+
 
     public uploadedBy!: number;
     public lastModifiedBy!: number;
     public deletedAt!: Date;
 }
 
-Brand.init({
-    brandId: {
+Dimension.init({
+    dimensionId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-    brandName: {
+    dimensionName: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    brandSlug: {
+    dimensionSlug: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    brandDescription: {
+    dimensionDescription: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    brandLogo: {
-        type: DataTypes.STRING,
-        allowNull: true
+    dimensionLength: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     },
-    metaTitle: {
+    dimensionBreadth: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    dimensionHeight: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    dimensionUnit: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    metaDescription: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    metaKeywords: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
+
     uploadedBy: {
         type: DataTypes.INTEGER,
         allowNull: false
@@ -65,9 +69,9 @@ Brand.init({
     }
 }, {
     sequelize,
-    tableName: "brands",
+    tableName: "dimensions",
     timestamps: true,
     paranoid: true
 });
 
-export default Brand;
+export default Dimension;

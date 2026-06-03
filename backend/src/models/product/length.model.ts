@@ -1,56 +1,44 @@
 import { DataTypes, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
-class Brand extends Model {
-    public brandId!: string;
-    public brandName!: string;
-    public brandSlug!: string;
-    public brandDescription!: string;
-    public brandLogo!: string;
+class Length extends Model {
+    public lengthId!: string;
+    public lengthName!: string;
+    public lengthSlug!: string;
 
-    public metaTitle!: string;
-    public metaDescription!: string;
-    public metaKeywords!: string;
+    public lengthValue!: number;
+    public lengthUnit!: string;
+
+
 
     public uploadedBy!: number;
     public lastModifiedBy!: number;
     public deletedAt!: Date;
 }
 
-Brand.init({
-    brandId: {
+Length.init({
+    lengthId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-    brandName: {
+    lengthName: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    brandSlug: {
+    lengthSlug: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    brandDescription: {
-        type: DataTypes.STRING,
-        allowNull: true
+    lengthValue: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     },
-    brandLogo: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    metaTitle: {
+    lengthUnit: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    metaDescription: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    metaKeywords: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
+
     uploadedBy: {
         type: DataTypes.INTEGER,
         allowNull: false
@@ -65,9 +53,9 @@ Brand.init({
     }
 }, {
     sequelize,
-    tableName: "brands",
+    tableName: "lengths",
     timestamps: true,
     paranoid: true
 });
 
-export default Brand;
+export default Length;
