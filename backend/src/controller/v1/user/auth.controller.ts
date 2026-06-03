@@ -17,17 +17,17 @@ const signupController = asyncHandler(async (req: Request, res: Response) => {
     const existingUser = await User.findOne({
         where: {
             [Op.or]: [
-                { email: email },
-                { userName: userName }
+                { email: email.toLowerCase() },
+                { userName: userName.toLowerCase() }
             ]
         }
     })
 
     if (existingUser) {
-        if (existingUser.email === email) {
+        if (existingUser.email === email.toLowerCase()) {
             return sendResponse(res, 409, StatusMessages.USER_EMAIL_ALREADY_EXISTS)
         }
-        if (existingUser.userName === userName) {
+        if (existingUser.userName === userName.toLowerCase()) {
             return sendResponse(res, 409, StatusMessages.USER_USERNAME_ALREADY_EXISTS)
         }
     }
@@ -55,7 +55,7 @@ const loginController = asyncHandler(async (req: any, res: Response) => {
 
     const user = await User.findOne({
         where: {
-            email: reqBody.email
+            email: reqBody.email.toLowerCase()
         }
     })
 
@@ -69,11 +69,11 @@ const loginController = asyncHandler(async (req: any, res: Response) => {
 
     // Capture Session Metadata
     const metadata = req.sessionMetadata;
-    
+
     // Save to Express Session to trigger Redis storage
     req.session.userId = user.userId;
     req.session.userName = user.userName;
-    
+
     const sessionId = req.sessionID;
 
     // Store in Postgres
@@ -110,6 +110,7 @@ const loginController = asyncHandler(async (req: any, res: Response) => {
         userName: user.userName,
         email: user.email,
         accessToken,
+        refreshToken
     });
 })
 

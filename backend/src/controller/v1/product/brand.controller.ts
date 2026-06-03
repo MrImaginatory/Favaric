@@ -4,6 +4,7 @@ import AppError from "../../../utils/appError.util.js";
 import sendResponse from "../../../utils/responseHandler.util.js";
 import StatusMessages from "../../../configs/message.config.js";
 import Brand from "../../../models/product/brand.model.js";
+import User from "../../../models/users/user.model.js";
 import { createRecord, updateRecord, getRecord } from "../../../services/base.service.js";
 import { getRecordByIdController, getAllRecordsController, deleteRecordController } from "../base.controller.js";
 import slugGenerator from "../../../utils/slug.util.js";
@@ -54,9 +55,19 @@ const updateBrand = asyncHandler(async (req: Request, res: Response) => {
     sendResponse(res, 200, StatusMessages.SUCCESS, null);
 });
 
-const getBrands = getAllRecordsController(Brand);
+const getBrands = getAllRecordsController(Brand, {
+    include: [
+        { model: User, as: "uploader", attributes: ["userName"] },
+        { model: User, as: "modifier", attributes: ["userName"] }
+    ]
+});
 
-const getBrandById = getRecordByIdController(Brand, "brandId", "Brand");
+const getBrandById = getRecordByIdController(Brand, "brandId", "Brand", {
+    include: [
+        { model: User, as: "uploader", attributes: ["userName"] },
+        { model: User, as: "modifier", attributes: ["userName"] }
+    ]
+});
 
 const deleteBrand = deleteRecordController(Brand, "brandId", "Brand");
 

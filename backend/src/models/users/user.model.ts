@@ -49,12 +49,18 @@ User.init({
     userName: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        set(value: string) {
+            this.setDataValue('userName', value.toLowerCase());
+        }
     },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        set(value: string) {
+            this.setDataValue('email', value.toLowerCase());
+        }
     },
     password: {
         type: DataTypes.STRING,

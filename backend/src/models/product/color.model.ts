@@ -59,6 +59,14 @@ Color.init({
         otherKey: "productId",
         as: "products"
     });
+    Color.belongsTo(models.User, {
+        foreignKey: "uploadedBy",
+        as: "uploader"
+    });
+    Color.belongsTo(models.User, {
+        foreignKey: "lastModifiedBy",
+        as: "modifier"
+    });
 };
 
 export default Color;

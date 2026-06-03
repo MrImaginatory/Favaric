@@ -17,15 +17,8 @@ const editColorValidation = z.object({
     })
 })
 
-const uuidValidation = z.object({
-    params: z.object({
-        id: z.string("ID must be a string").uuid("Invalid ID"),
-    })
-})
-
 
 export {
     addColorValidation,
     editColorValidation,
-    uuidValidation as colorIdValidation,
 }

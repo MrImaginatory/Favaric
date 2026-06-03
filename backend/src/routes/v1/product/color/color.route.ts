@@ -1,15 +1,15 @@
 import { Router } from "express";
-import { createColor, getColors, getColorById, updateColor, deleteColor } from "../../../../controller/v1/product/color.controller.js";
-import protect from "../../../../middleware/auth.middleware.js";
 import { validate } from "../../../../middleware/validate.middleware.js";
-import { addColorValidation, editColorValidation, colorIdValidation } from "../../../../validations/product/color.validation.js";
+import { uuidValidation } from "../../../../validations/uuid.validation.js";
+import { createColor, getColors, getColorById, updateColor, deleteColor } from "../../../../controller/v1/product/color.controller.js";
+import { addColorValidation, editColorValidation } from "../../../../validations/product/color.validation.js";
 
 const colorRouter = Router();
 
-colorRouter.post("/addColor", protect, validate(addColorValidation), createColor);
-colorRouter.get("/getColors", protect, getColors);
-colorRouter.get("/getColor/:id", protect, validate(colorIdValidation), getColorById);
-colorRouter.patch("/updateColor/:id", protect, validate(editColorValidation), updateColor);
-colorRouter.delete("/deleteColor/:id", protect, validate(colorIdValidation), deleteColor);
+colorRouter.post("/addColor", validate(addColorValidation), createColor);
+colorRouter.get("/getColors", getColors);
+colorRouter.get("/getColor/:id", validate(uuidValidation), getColorById);
+colorRouter.patch("/updateColor/:id", validate(editColorValidation), updateColor);
+colorRouter.delete("/deleteColor/:id", validate(uuidValidation), deleteColor);
 
 export default colorRouter;

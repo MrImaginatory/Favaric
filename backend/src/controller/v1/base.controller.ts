@@ -10,10 +10,12 @@ import { getRecord, getAllRecords, deleteRecord } from "../../services/base.serv
 export const getRecordByIdController = <T extends Model>(
     model: ModelStatic<T>,
     primaryKeyField: string,
-    entityName: string = "Record"
+    entityName: string = "Record",
+    queryOptions: any = {}
 ) => asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id as string;
-    const record = await getRecord(model, { where: { [primaryKeyField]: id } as any });
+    const options = { ...queryOptions, where: { ...queryOptions.where, [primaryKeyField]: id } as any };
+    const record = await getRecord(model, options);
 
     if (!record) {
         throw new AppError(`${entityName} not found`, 404);
@@ -24,9 +26,10 @@ export const getRecordByIdController = <T extends Model>(
 
 
 export const getAllRecordsController = <T extends Model>(
-    model: ModelStatic<T>
+    model: ModelStatic<T>,
+    queryOptions: any = {}
 ) => asyncHandler(async (_req: Request, res: Response) => {
-    const records = await getAllRecords(model);
+    const records = await getAllRecords(model, queryOptions);
     sendResponse(res, 200, StatusMessages.SUCCESS, records);
 });
 
