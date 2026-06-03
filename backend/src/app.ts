@@ -22,7 +22,10 @@ import { sessionMetadataMiddleware } from "./middleware/sessionMetadata.middlewa
 //routes
 import healthRouter from "./routes/health.route.js";
 import authRouter from "./routes/v1/auth/auth.route.js";
+import colorRouter from "./routes/v1/product/color/color.route.js";
 import statusRouter from "./routes/status.route.js";
+import productRouter from "./routes/v1/product/product.route.js";
+
 import globalErrorHandler from "./middleware/errorHandler.middleware.js";
 
 const app = express();
@@ -62,6 +65,8 @@ app.use(express.json({
 
 app.use("/api/v1/health", healthRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/product", productRouter);
+
 app.use(statusRouter);
 
 app.use(globalErrorHandler);

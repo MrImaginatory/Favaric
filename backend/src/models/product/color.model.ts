@@ -34,11 +34,11 @@ Color.init({
     },
 
     uploadedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     lastModifiedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     deletedAt: {
