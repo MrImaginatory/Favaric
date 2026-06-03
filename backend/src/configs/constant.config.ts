@@ -28,6 +28,7 @@ const config = {
     },
 
     WEBSITE_URL: getEnv("WEBSITE_URL", true),
+    WEBSITE_NAME: getEnv("WEBSITE_NAME", true),
 
     NODE_ENV: getEnv("NODE_ENV", true),
 
