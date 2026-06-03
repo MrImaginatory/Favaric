@@ -33,9 +33,10 @@ const getColorById = getRecordByIdController(Color, "colorId", "Color");
 
 const updateColor = asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id as string;
-    const { colorName, colorSlug, colorCode } = req.body;
+    const { colorName, colorCode } = req.body;
 
     const lastModifiedBy = req.session?.userId;
+    const colorSlug = slugGenerator(colorName);
 
     const color = await getRecord(Color, { where: { colorId: id } });
     if (!color) {

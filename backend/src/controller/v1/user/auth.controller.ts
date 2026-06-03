@@ -77,7 +77,7 @@ const loginController = asyncHandler(async (req: any, res: Response) => {
     const sessionId = req.sessionID;
 
     // Store in Postgres
-    await UserSession.create({
+    await UserSession.upsert({
         sessionId: sessionId,
         userId: user.userId,
         userName: user.userName,
