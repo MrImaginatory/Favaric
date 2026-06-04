@@ -18,8 +18,10 @@ import ProductType from "./product/productType.model.js"
 import ShippingCharge from "./product/shippingCharge.model.js"
 import Size from "./product/size.model.js"
 import SubCategory from "./product/subcategory.model.js"
-import Volume from "./product/volume.model.js"
 import Weight from "./product/weight.model.js"
+
+/*Depreciated Models*/
+// import Volume from "./product/volume.model.js"
 
 const models = {
     //Users
@@ -41,11 +43,13 @@ const models = {
     Fabric,
     ProductType,
     ShippingCharge,
-    Volume,
     Weight,
     Dimension,
     Length,
     CountryOfOrigin
+
+    /*Depreciated Models*/
+    // Volume,
 };
 
 Object.values(models).forEach((model: any) => {

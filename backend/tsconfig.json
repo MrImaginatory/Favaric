@@ -22,10 +22,13 @@
     "noImplicitOverride": true,
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "src/validations/product/.depreciated/**/*",
+    "src/controller/v1/product/.depreciated/**/*",
+    "src/routes/v1/product/.depreciated/**/"
   ]
 }

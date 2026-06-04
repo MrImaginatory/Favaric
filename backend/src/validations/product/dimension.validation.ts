@@ -1,0 +1,27 @@
+import { z } from "zod"
+import StatusMessages from "../../configs/message.config.js";
+
+const createDimension = z.object({
+    body: z.object({
+        dimensionName: z.string().min(1, "Dimension name is required").max(30, "Dimension name cannot exceed 30 characters"),
+        dimensionDescription: z.string().min(1, "Dimension description is required").max(255, "Dimension description cannot exceed 255 characters"),
+        dimensionLength: z.number().min(1, "Dimension length is required").max(100000, "Dimension length cannot exceed 100000 characters"),
+        dimensionBreadth: z.number().min(1, "Dimension breadth is required").max(100000, "Dimension breadth cannot exceed 100000 characters"),
+        dimensionHeight: z.number().min(1, "Dimension height is required").max(100000, "Dimension height cannot exceed 100000 characters"),
+    })
+})
+
+const updateDimension = z.object({
+    params: z.object({
+        id: z.string().regex(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/, StatusMessages.NOT_FOUND),
+    }),
+    body: z.object({
+        dimensionName: z.string().min(1, "Dimension name is required").max(30, "Dimension name cannot exceed 30 characters").optional(),
+        dimensionDescription: z.string().min(1, "Dimension description is required").max(255, "Dimension description cannot exceed 255 characters").optional(),
+        dimensionLength: z.number().min(1, "Dimension length is required").max(100000, "Dimension length cannot exceed 100000 characters").optional(),
+        dimensionBreadth: z.number().min(1, "Dimension breadth is required").max(100000, "Dimension breadth cannot exceed 100000 characters").optional(),
+        dimensionHeight: z.number().min(1, "Dimension height is required").max(100000, "Dimension height cannot exceed 100000 characters").optional(),
+    })
+})
+
+export { createDimension, updateDimension }

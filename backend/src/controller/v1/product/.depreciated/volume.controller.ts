@@ -1,14 +1,16 @@
+/// <reference types="express-session" />
+/// <reference path="../../../../types/express-session.d.ts" />
 import type { Request, Response } from "express";
-import asyncHandler from "../../../utils/asyncHandler.util.js";
-import AppError from "../../../utils/appError.util.js";
-import sendResponse from "../../../utils/responseHandler.util.js";
-import StatusMessages from "../../../configs/message.config.js";
-import Volume from "../../../models/product/volume.model.js";
-import User from "../../../models/users/user.model.js";
-import { createRecord, updateRecord, getRecord, checkRecordExists } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController, deleteRecordController } from "../base.controller.js";
-import slugGenerator from "../../../utils/slug.util.js";
+import asyncHandler from "../../../../utils/asyncHandler.util.js";
+import AppError from "../../../../utils/appError.util.js";
+import sendResponse from "../../../../utils/responseHandler.util.js";
+import StatusMessages from "../../../../configs/message.config.js";
+import User from "../../../../models/users/user.model.js";
+import { createRecord, updateRecord, getRecord, checkRecordExists } from "../../../../services/base.service.js";
+import { getRecordByIdController, getAllRecordsController, deleteRecordController } from "../../base.controller.js";
+import slugGenerator from "../../../../utils/slug.util.js";
 import { Op } from "@sequelize/core";
+import Volume from "../../../../models/product/.depreciated/volume.model.js";
 
 const createVolume = asyncHandler(async (req: Request, res: Response) => {
     const { volumeName, volumeValue } = req.body;

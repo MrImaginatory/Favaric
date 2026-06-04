@@ -1,4 +1,5 @@
 import { z } from "zod";
+import StatusMessages from "../../configs/message.config.js";
 
 const addColorValidation = z.object({
     body: z.object({
@@ -9,7 +10,7 @@ const addColorValidation = z.object({
 
 const editColorValidation = z.object({
     params: z.object({
-        id: z.string("ID must be a string").uuid("Invalid ID"),
+        id: z.string("ID must be a string").regex(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/, StatusMessages.NOT_FOUND),
     }),
     body: z.object({
         colorName: z.string("Color name must be a string").min(3, "Color name must be at least 3 characters long").max(50, "Color name must be at most 50 characters long").optional(),
