@@ -1,7 +1,7 @@
 import { z } from "zod"
 import StatusMessages from "../../configs/message.config.js";
 
-const createDimension = z.object({
+const createDimensionValidation = z.object({
     body: z.object({
         dimensionName: z.string().min(1, "Dimension name is required").max(30, "Dimension name cannot exceed 30 characters"),
         dimensionDescription: z.string().min(1, "Dimension description is required").max(255, "Dimension description cannot exceed 255 characters"),
@@ -11,7 +11,7 @@ const createDimension = z.object({
     })
 })
 
-const updateDimension = z.object({
+const updateDimensionValidation = z.object({
     params: z.object({
         id: z.string().regex(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/, StatusMessages.NOT_FOUND),
     }),
@@ -24,4 +24,4 @@ const updateDimension = z.object({
     })
 })
 
-export { createDimension, updateDimension }
+export { createDimensionValidation, updateDimensionValidation }

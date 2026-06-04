@@ -90,7 +90,7 @@ const updatePattern = asyncHandler(async (req: Request, res: Response) => {
     sendResponse(res, 200, `Pattern ${StatusMessages.UPDATED}`, updatedPattern);
 })
 
-const getAllPatterns = getAllRecordsController(Pattern, {
+const getPatterns = getAllRecordsController(Pattern, {
     include: [
         { model: User, as: "uploader", attributes: ["userName"] },
         { model: User, as: "modifier", attributes: ["userName"] }
@@ -106,4 +106,4 @@ const getPatternById = getRecordByIdController(Pattern, "id", "Pattern", {
 
 const deletePattern = deleteRecordController(Pattern, "id", "Pattern")
 
-export { createPattern, updatePattern, getAllPatterns, getPatternById, deletePattern }
+export { createPattern, updatePattern, getPatterns, getPatternById, deletePattern }
