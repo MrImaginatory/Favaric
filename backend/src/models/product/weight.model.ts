@@ -8,8 +8,6 @@ class Weight extends Model {
     public weightValue!: number;
     public weightUnit!: string;
 
-
-
     public uploadedBy!: number;
     public lastModifiedBy!: number;
     public deletedAt!: Date;
@@ -32,6 +30,12 @@ Weight.init({
     weightValue: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    weightUnit: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "grams",
+        comment: "in grams"
     },
 
     uploadedBy: {

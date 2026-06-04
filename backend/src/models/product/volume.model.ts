@@ -7,8 +7,6 @@ class Volume extends Model {
     public volumeSlug!: string;
     public volumeValue!: number;
 
-
-
     public uploadedBy!: number;
     public lastModifiedBy!: number;
     public deletedAt!: Date;

@@ -2,10 +2,10 @@ import { DataTypes, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
 class ProductType extends Model {
-    public typeId!: string;
-    public typeName!: string;
-    public typeSlug!: string;
-    public typeDescription!: string;
+    public productTypeId!: string;
+    public productTypeName!: string;
+    public productTypeSlug!: string;
+    public productTypeDescription!: string;
 
     public metaTitle!: string;
     public metaDescription!: string;
@@ -17,20 +17,20 @@ class ProductType extends Model {
 }
 
 ProductType.init({
-    typeId: {
+    productTypeId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-    typeName: {
+    productTypeName: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    typeSlug: {
+    productTypeSlug: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    typeDescription: {
+    productTypeDescription: {
         type: DataTypes.STRING,
         allowNull: true
     },

@@ -40,19 +40,24 @@ Dimension.init({
     },
     dimensionLength: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        comment: "in cm"
     },
     dimensionBreadth: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        comment: "in cm"
     },
     dimensionHeight: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        comment: "in cm"
     },
     dimensionUnit: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        defaultValue: "cm",
+        comment: "in cm"
     },
 
     uploadedBy: {

@@ -45,3 +45,11 @@ export const deleteRecord = async <T extends Model>(
         where: { [primaryKeyField]: id } as any
     });
 };
+
+export const checkRecordExists = async <T extends Model>(
+    model: ModelStatic<T>,
+    queryOptions: any = {}
+): Promise<boolean> => {
+    const record = await model.findOne(queryOptions);
+    return record !== null;
+};

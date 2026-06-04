@@ -2,16 +2,14 @@ import { DataTypes, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
 class ShippingCharge extends Model {
-    public chargeId!: string;
-    public baseCountry!: string;
+    public shippingChargeId!: string;
+    public shippingBaseCountry!: string;
     public shippingPrice!: number;
     public isFreeShipping!: boolean;
-    public minimumOrderAmount!: number;
-    public weightSlabFrom!: number;
-    public weightSlabTo!: number;
-    public status!: boolean;
-
-
+    public shippingMinimumOrderAmount!: number;
+    public shippingWeightSlabFrom!: number;
+    public shippingWeightSlabTo!: number;
+    public shippingStatus!: boolean;
 
     public uploadedBy!: number;
     public lastModifiedBy!: number;
@@ -19,12 +17,12 @@ class ShippingCharge extends Model {
 }
 
 ShippingCharge.init({
-    chargeId: {
+    shippingChargeId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-    baseCountry: {
+    shippingBaseCountry: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -36,19 +34,21 @@ ShippingCharge.init({
         type: DataTypes.BOOLEAN,
         allowNull: false
     },
-    minimumOrderAmount: {
+    shippingMinimumOrderAmount: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false
     },
-    weightSlabFrom: {
+    shippingWeightSlabFrom: {
         type: DataTypes.DECIMAL(10, 2),
-        allowNull: false
+        allowNull: false,
+        comment: "in grams"
     },
-    weightSlabTo: {
+    shippingWeightSlabTo: {
         type: DataTypes.DECIMAL(10, 2),
-        allowNull: false
+        allowNull: false,
+        comment: "in grams"
     },
-    status: {
+    shippingStatus: {
         type: DataTypes.BOOLEAN,
         allowNull: false
     },

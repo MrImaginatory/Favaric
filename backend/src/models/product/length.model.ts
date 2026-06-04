@@ -9,8 +9,6 @@ class Length extends Model {
     public lengthValue!: number;
     public lengthUnit!: string;
 
-
-
     public uploadedBy!: number;
     public lastModifiedBy!: number;
     public deletedAt!: Date;
@@ -36,7 +34,9 @@ Length.init({
     },
     lengthUnit: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        defaultValue: "cm",
+        comment: "in cm"
     },
 
     uploadedBy: {

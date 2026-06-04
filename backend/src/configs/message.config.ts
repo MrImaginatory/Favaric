@@ -5,6 +5,9 @@ export const StatusMessages = {
     BAD_REQUEST: "The request could not be understood or was invalid.",
     NOT_FOUND: "The requested resource was not found.",
     VALIDATION_ERROR: "One or more validation errors occurred.",
+    ALREADY_EXISTS: "Record already exists.",
+    CREATED: "Record created successfully.",
+    UPDATED: "Record updated successfully.",
 
     // Authentication & Authorization
     AUTH_SUCCESS: "Authentication successful.",
@@ -35,6 +38,7 @@ export const StatusMessages = {
     ORDER_CREATED: "Order placed successfully.",
     PAYMENT_SUCCESS: "Payment processed successfully.",
     PAYMENT_FAILED: "Payment processing failed.",
+
 };
 
 export default StatusMessages;

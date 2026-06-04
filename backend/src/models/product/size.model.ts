@@ -7,8 +7,6 @@ class Size extends Model {
     public sizeSlug!: string;
     public sizeValue!: string;
 
-
-
     public uploadedBy!: number;
     public lastModifiedBy!: number;
     public deletedAt!: Date;

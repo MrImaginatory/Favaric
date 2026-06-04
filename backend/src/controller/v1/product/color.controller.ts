@@ -5,9 +5,10 @@ import sendResponse from "../../../utils/responseHandler.util.js";
 import StatusMessages from "../../../configs/message.config.js";
 import Color from "../../../models/product/color.model.js";
 import User from "../../../models/users/user.model.js";
-import { createRecord, updateRecord, getRecord } from "../../../services/base.service.js";
+import { createRecord, updateRecord, getRecord, checkRecordExists } from "../../../services/base.service.js";
 import { getRecordByIdController, getAllRecordsController, deleteRecordController } from "../base.controller.js";
 import slugGenerator from "../../../utils/slug.util.js";
+import { Op } from "@sequelize/core";
 
 const createColor = asyncHandler(async (req: Request, res: Response) => {
     const { colorName, colorCode } = req.body;
@@ -17,14 +18,14 @@ const createColor = asyncHandler(async (req: Request, res: Response) => {
     const uploadedBy = req.session?.userId;
     const lastModifiedBy = req.session?.userId;
 
-    const colorExists = await getRecord(Color, { where: { colorName, deletedAt: null } });
+    const colorExists = await checkRecordExists(Color, { where: { colorName, deletedAt: null } });
     if (colorExists) {
-        throw new AppError("Color already exists", 400);
+        throw new AppError(`Color ${StatusMessages.ALREADY_EXISTS}`, 409);
     }
 
-    const colorCodeExists = await getRecord(Color, { where: { colorCode, deletedAt: null } });
+    const colorCodeExists = await checkRecordExists(Color, { where: { colorCode, deletedAt: null } });
     if (colorCodeExists) {
-        throw new AppError("Color code already exists", 400);
+        throw new AppError(`Color code ${StatusMessages.ALREADY_EXISTS}`, 400);
     }
 
     const newColor = await createRecord(Color, {
@@ -35,8 +36,53 @@ const createColor = asyncHandler(async (req: Request, res: Response) => {
         lastModifiedBy
     });
 
-    sendResponse(res, 201, StatusMessages.SUCCESS, newColor);
+    sendResponse(res, 201, `Color ${StatusMessages.CREATED}`, newColor);
 });
+
+const updateColor = asyncHandler(async (req: Request, res: Response) => {
+    const id = req.params.id as string;
+    const { colorName, colorCode } = req.body;
+
+    const lastModifiedBy = req.session?.userId;
+    const colorSlug = slugGenerator(colorName);
+
+    const color = await getRecord(Color, { where: { colorId: id, deletedAt: null } });
+    if (!color) {
+        throw new AppError(`Color ${StatusMessages.NOT_FOUND}`, 404);
+    }
+
+    const colorExists = await checkRecordExists(Color, {
+        where: {
+            colorName,
+            colorId: { [Op.ne]: id },
+            deletedAt: null
+        }
+    });
+    if (colorExists) {
+        throw new AppError(`Color ${StatusMessages.ALREADY_EXISTS}`, 409);
+    }
+
+    const colorCodeExists = await checkRecordExists(Color, {
+        where: {
+            colorCode,
+            colorId: { [Op.ne]: id },
+            deletedAt: null
+        }
+    });
+    if (colorCodeExists) {
+        throw new AppError(`Color code ${StatusMessages.ALREADY_EXISTS}`, 400);
+    }
+
+    await updateRecord(Color, {
+        colorName,
+        colorSlug,
+        colorCode,
+        lastModifiedBy
+    }, { where: { colorId: id } });
+
+    sendResponse(res, 200, `Color ${StatusMessages.UPDATED}`, null);
+});
+
 
 const getColors = getAllRecordsController(Color, {
     include: [
@@ -52,27 +98,6 @@ const getColorById = getRecordByIdController(Color, "colorId", "Color", {
     ]
 });
 
-const updateColor = asyncHandler(async (req: Request, res: Response) => {
-    const id = req.params.id as string;
-    const { colorName, colorCode } = req.body;
-
-    const lastModifiedBy = req.session?.userId;
-    const colorSlug = slugGenerator(colorName);
-
-    const color = await getRecord(Color, { where: { colorId: id } });
-    if (!color) {
-        throw new AppError("Color not found", 404);
-    }
-
-    await updateRecord(Color, {
-        colorName,
-        colorSlug,
-        colorCode,
-        lastModifiedBy
-    }, { where: { colorId: id } });
-
-    sendResponse(res, 200, StatusMessages.SUCCESS, null);
-});
 
 const deleteColor = deleteRecordController(Color, "colorId", "Color");
 

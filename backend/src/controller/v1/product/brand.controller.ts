@@ -5,9 +5,10 @@ import sendResponse from "../../../utils/responseHandler.util.js";
 import StatusMessages from "../../../configs/message.config.js";
 import Brand from "../../../models/product/brand.model.js";
 import User from "../../../models/users/user.model.js";
-import { createRecord, updateRecord, getRecord } from "../../../services/base.service.js";
+import { createRecord, updateRecord, getRecord, checkRecordExists } from "../../../services/base.service.js";
 import { getRecordByIdController, getAllRecordsController, deleteRecordController } from "../base.controller.js";
 import slugGenerator from "../../../utils/slug.util.js";
+import { Op } from "@sequelize/core";
 
 const createBrand = asyncHandler(async (req: Request, res: Response) => {
     const { brandName, brandDescription, brandIcon, brandType } = req.body;
@@ -16,6 +17,11 @@ const createBrand = asyncHandler(async (req: Request, res: Response) => {
 
     const uploadedBy = req.session?.userId;
     const lastModifiedBy = req.session?.userId;
+
+    const isExist = await checkRecordExists(Brand, { where: { brandName, deletedAt: null } });
+    if (isExist) {
+        throw new AppError(`Brand ${StatusMessages.ALREADY_EXISTS}`, 409);
+    }
 
     const newBrand = await createRecord(Brand, {
         brandName,
@@ -27,7 +33,7 @@ const createBrand = asyncHandler(async (req: Request, res: Response) => {
         lastModifiedBy
     });
 
-    sendResponse(res, 201, StatusMessages.SUCCESS, newBrand);
+    sendResponse(res, 201, `Brand ${StatusMessages.CREATED}`, newBrand);
 });
 
 const updateBrand = asyncHandler(async (req: Request, res: Response) => {
@@ -38,9 +44,20 @@ const updateBrand = asyncHandler(async (req: Request, res: Response) => {
 
     const brandSlug = slugGenerator(brandName);
 
-    const brand = await getRecord(Brand, { where: { brandId: id } });
+    const brand = await getRecord(Brand, { where: { brandId: id, deletedAt: null } });
     if (!brand) {
-        throw new AppError("Brand not found", 404);
+        throw new AppError(`Brand ${StatusMessages.NOT_FOUND}`, 404);
+    }
+
+    const isExist = await checkRecordExists(Brand, {
+        where: {
+            brandName,
+            brandId: { [Op.ne]: id },
+            deletedAt: null
+        }
+    });
+    if (isExist) {
+        throw new AppError(`Brand ${StatusMessages.ALREADY_EXISTS}`, 409);
     }
 
     await updateRecord(Brand, {
@@ -52,7 +69,7 @@ const updateBrand = asyncHandler(async (req: Request, res: Response) => {
         lastModifiedBy
     }, { where: { brandId: id } });
 
-    sendResponse(res, 200, StatusMessages.SUCCESS, null);
+    sendResponse(res, 200, `Brand ${StatusMessages.UPDATED}`, null);
 });
 
 const getBrands = getAllRecordsController(Brand, {
