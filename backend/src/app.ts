@@ -22,7 +22,6 @@ import { sessionMetadataMiddleware } from "./middleware/sessionMetadata.middlewa
 //routes
 import healthRouter from "./routes/health.route.js";
 import authRouter from "./routes/v1/auth/auth.route.js";
-import colorRouter from "./routes/v1/product/color/color.route.js";
 import statusRouter from "./routes/status.route.js";
 import productRouter from "./routes/v1/product/product.route.js";
 

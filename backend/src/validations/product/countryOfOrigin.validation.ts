@@ -3,8 +3,8 @@ import StatusMessages from "../../configs/message.config.js";
 
 const createCountryOriginValidation = z.object({
     body: z.object({
-        countryName: z.string().min(1, "Country name is required").max(100, "Country name cannot exceed 100 characters"),
-        countryDescription: z.string().min(1, "Country description is required").max(255, "Country description cannot exceed 255 characters"),
+        countryName: z.string("Country Name is Required and Must be an String").min(1, "Country Name minimum length should be 1").max(255, "Country Name maximum length should be 255"),
+        countryDescription: z.string("Country Description is Required and Must be an String").min(1, "Country Description minimum length should be 1").max(255, "Country Description maximum length should be 255"),
     })
 })
 
@@ -13,8 +13,8 @@ const updateCountryOriginValidation = z.object({
         id: z.string().regex(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/, StatusMessages.NOT_FOUND),
     }),
     body: z.object({
-        countryName: z.string().min(1, "Country name is required").max(100, "Country name cannot exceed 100 characters").optional(),
-        countryDescription: z.string().min(1, "Country description is required").max(255, "Country description cannot exceed 255 characters").optional(),
+        countryName: z.string("Country Name is Required and Must be an String").min(1, "Country Name minimum length should be 1").max(255, "Country Name maximum length should be 255").optional(),
+        countryDescription: z.string("Country Description is Required and Must be an String").min(1, "Country Description minimum length should be 1").max(255, "Country Description maximum length should be 255").optional(),
     })
 })
 

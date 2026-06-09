@@ -12,8 +12,8 @@ class Brand extends Model {
     public metaDescription!: string;
     public metaKeywords!: string;
 
-    public uploadedBy!: number;
-    public lastModifiedBy!: number;
+    public uploadedBy!: string;
+    public lastModifiedBy!: string;
     public deletedAt!: Date;
 }
 
@@ -52,11 +52,11 @@ Brand.init({
         allowNull: false
     },
     uploadedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     lastModifiedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     deletedAt: {
@@ -69,5 +69,16 @@ Brand.init({
     timestamps: true,
     paranoid: true
 });
+
+(Brand as any).associate = (models: any) => {
+    Brand.belongsTo(models.User, {
+        foreignKey: "uploadedBy",
+        as: "uploader"
+    });
+    Brand.belongsTo(models.User, {
+        foreignKey: "lastModifiedBy",
+        as: "modifier"
+    });
+};
 
 export default Brand;

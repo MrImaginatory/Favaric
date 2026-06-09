@@ -7,13 +7,17 @@ import Brand from "../../../models/product/brand.model.js";
 import User from "../../../models/users/user.model.js";
 import { createRecord, updateRecord, getRecord, checkRecordExists } from "../../../services/base.service.js";
 import { getRecordByIdController, getAllRecordsController, deleteRecordController } from "../base.controller.js";
+import { generateMetaTitle, generateMetaDescription, generateMetaKeywords } from "../../../utils/metaData.util.js"
 import slugGenerator from "../../../utils/slug.util.js";
 import { Op } from "@sequelize/core";
 
 const createBrand = asyncHandler(async (req: Request, res: Response) => {
-    const { brandName, brandDescription, brandIcon, brandType } = req.body;
+    const { brandName, brandDescription, brandLogo } = req.body;
 
     const brandSlug = slugGenerator(brandName);
+    const metaTitle = generateMetaTitle(brandName);
+    const metaDescription = generateMetaDescription(brandDescription);
+    const metaKeywords = generateMetaKeywords([brandName]);
 
     const uploadedBy = req.session?.userId;
     const lastModifiedBy = req.session?.userId;
@@ -27,8 +31,10 @@ const createBrand = asyncHandler(async (req: Request, res: Response) => {
         brandName,
         brandSlug,
         brandDescription,
-        brandIcon,
-        brandType,
+        brandLogo,
+        metaTitle,
+        metaDescription,
+        metaKeywords,
         uploadedBy,
         lastModifiedBy
     });
@@ -38,11 +44,14 @@ const createBrand = asyncHandler(async (req: Request, res: Response) => {
 
 const updateBrand = asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id as string;
-    const { brandName, brandDescription, brandIcon, brandType } = req.body;
+    const { brandName, brandDescription, brandLogo } = req.body;
 
     const lastModifiedBy = req.session?.userId;
 
     const brandSlug = slugGenerator(brandName);
+    const metaTitle = generateMetaTitle(brandName);
+    const metaDescription = generateMetaDescription(brandDescription);
+    const metaKeywords = generateMetaKeywords([brandName]);
 
     const brand = await getRecord(Brand, { where: { brandId: id, deletedAt: null } });
     if (!brand) {
@@ -63,9 +72,11 @@ const updateBrand = asyncHandler(async (req: Request, res: Response) => {
     await updateRecord(Brand, {
         brandName,
         brandDescription,
-        brandIcon,
-        brandType,
+        brandLogo,
         brandSlug,
+        metaTitle,
+        metaDescription,
+        metaKeywords,
         lastModifiedBy
     }, { where: { brandId: id } });
 

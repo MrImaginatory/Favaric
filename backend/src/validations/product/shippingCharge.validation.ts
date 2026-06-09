@@ -1,7 +1,7 @@
 import { z } from "zod";
 import StatusMessages from "../../configs/message.config.js";
 
-const createShippingCharge = z.object({
+const createShippingChargeValidation = z.object({
     body: z.object({
         shippingBaseCountry: z.string().min(1, "Shipping base country is required").max(30, "Shipping base country cannot exceed 30 characters"),
         shippingPrice: z.number().min(1, "Shipping price is required").max(100000000, "Shipping price cannot exceed 100000 characters"),
@@ -13,7 +13,7 @@ const createShippingCharge = z.object({
     })
 })
 
-const updateShippingCharge = z.object({
+const updateShippingChargeValidation = z.object({
     params: z.object({
         id: z.string().regex(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/, StatusMessages.NOT_FOUND),
     }),
@@ -28,4 +28,4 @@ const updateShippingCharge = z.object({
     })
 })
 
-export { createShippingCharge, updateShippingCharge }
+export { createShippingChargeValidation, updateShippingChargeValidation }
