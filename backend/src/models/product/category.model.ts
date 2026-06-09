@@ -15,8 +15,8 @@ class Category extends Model {
     public metaDescription!: string;
     public metaKeywords!: string;
 
-    public uploadedBy!: number;
-    public lastModifiedBy!: number;
+    public uploadedBy!: string;
+    public lastModifiedBy!: string;
     public deletedAt!: Date;
 }
 
@@ -63,11 +63,11 @@ Category.init({
         allowNull: false
     },
     uploadedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     lastModifiedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     deletedAt: {
@@ -82,9 +82,13 @@ Category.init({
 });
 
 (Category as any).associate = (models: any) => {
-    Category.hasMany(models.SubCategory, {
-        foreignKey: "categoryId",
-        as: "subcategories"
+    Category.belongsTo(models.User, {
+        foreignKey: "uploadedBy",
+        as: "uploader"
+    });
+    Category.belongsTo(models.User, {
+        foreignKey: "lastModifiedBy",
+        as: "modifier"
     });
 };
 

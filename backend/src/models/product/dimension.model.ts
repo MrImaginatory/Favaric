@@ -15,8 +15,8 @@ class Dimension extends Model {
 
 
 
-    public uploadedBy!: number;
-    public lastModifiedBy!: number;
+    public uploadedBy!: string;
+    public lastModifiedBy!: string;
     public deletedAt!: Date;
 }
 
@@ -61,11 +61,11 @@ Dimension.init({
     },
 
     uploadedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     lastModifiedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     deletedAt: {
@@ -78,5 +78,16 @@ Dimension.init({
     timestamps: true,
     paranoid: true
 });
+
+(Dimension as any).associate = (models: any) => {
+    Dimension.belongsTo(models.User, {
+        foreignKey: "uploadedBy",
+        as: "uploader"
+    });
+    Dimension.belongsTo(models.User, {
+        foreignKey: "lastModifiedBy",
+        as: "modifier"
+    });
+};
 
 export default Dimension;

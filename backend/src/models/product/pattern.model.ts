@@ -11,8 +11,8 @@ class Pattern extends Model {
     public metaDescription!: string;
     public metaKeywords!: string;
 
-    public uploadedBy!: number;
-    public lastModifiedBy!: number;
+    public uploadedBy!: string;
+    public lastModifiedBy!: string;
     public deletedAt!: Date;
 }
 
@@ -47,11 +47,11 @@ Pattern.init({
         allowNull: false
     },
     uploadedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     lastModifiedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     deletedAt: {
@@ -66,11 +66,13 @@ Pattern.init({
 });
 
 (Pattern as any).associate = (models: any) => {
-    Pattern.belongsToMany(models.Product, {
-        through: "product_patterns",
-        foreignKey: "patternId",
-        otherKey: "productId",
-        as: "products"
+    Pattern.belongsTo(models.User, {
+        foreignKey: "uploadedBy",
+        as: "uploader"
+    });
+    Pattern.belongsTo(models.User, {
+        foreignKey: "lastModifiedBy",
+        as: "modifier"
     });
 };
 

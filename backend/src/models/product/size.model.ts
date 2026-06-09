@@ -7,8 +7,8 @@ class Size extends Model {
     public sizeSlug!: string;
     public sizeValue!: string;
 
-    public uploadedBy!: number;
-    public lastModifiedBy!: number;
+    public uploadedBy!: string;
+    public lastModifiedBy!: string;
     public deletedAt!: Date;
 }
 
@@ -32,11 +32,11 @@ Size.init({
     },
 
     uploadedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     lastModifiedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     deletedAt: {
@@ -51,11 +51,13 @@ Size.init({
 });
 
 (Size as any).associate = (models: any) => {
-    Size.belongsToMany(models.Product, {
-        through: "product_sizes",
-        foreignKey: "sizeId",
-        otherKey: "productId",
-        as: "products"
+    Size.belongsTo(models.User, {
+        foreignKey: "uploadedBy",
+        as: "uploader"
+    });
+    Size.belongsTo(models.User, {
+        foreignKey: "lastModifiedBy",
+        as: "modifier"
     });
 };
 

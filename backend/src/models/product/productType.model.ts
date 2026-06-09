@@ -11,8 +11,8 @@ class ProductType extends Model {
     public metaDescription!: string;
     public metaKeywords!: string;
 
-    public uploadedBy!: number;
-    public lastModifiedBy!: number;
+    public uploadedBy!: string;
+    public lastModifiedBy!: string;
     public deletedAt!: Date;
 }
 
@@ -47,11 +47,11 @@ ProductType.init({
         allowNull: false
     },
     uploadedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     lastModifiedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     deletedAt: {
@@ -63,6 +63,17 @@ ProductType.init({
     tableName: "productTypes",
     timestamps: true,
     paranoid: true
-})
+});
+
+(ProductType as any).associate = (models: any) => {
+    ProductType.belongsTo(models.User, {
+        foreignKey: "uploadedBy",
+        as: "uploader"
+    });
+    ProductType.belongsTo(models.User, {
+        foreignKey: "lastModifiedBy",
+        as: "modifier"
+    });
+};
 
 export default ProductType;

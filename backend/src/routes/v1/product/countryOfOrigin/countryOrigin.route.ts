@@ -15,10 +15,10 @@ import {
 
 const countryOriginRouter = Router();
 
-countryOriginRouter.post("/", validate(createCountryOriginValidation), createCountryOrigin);
-countryOriginRouter.put("/:id", validate(updateCountryOriginValidation), updateCountryOrigin);
-countryOriginRouter.delete("/:id", validate(uuidValidation), deleteCountryOrigin);
-countryOriginRouter.get("/:id", validate(uuidValidation), getCountryOriginById);
-countryOriginRouter.get("/", getCountryOrigins);
+countryOriginRouter.post("/addCountry", validate(createCountryOriginValidation), createCountryOrigin);
+countryOriginRouter.put("/updateCountry/:id", validate(updateCountryOriginValidation), updateCountryOrigin);
+countryOriginRouter.delete("/deleteCountry/:id", validate(uuidValidation), deleteCountryOrigin);
+countryOriginRouter.get("/getCountryById/:id", validate(uuidValidation), getCountryOriginById);
+countryOriginRouter.get("/getCountries", getCountryOrigins);
 
 export default countryOriginRouter;

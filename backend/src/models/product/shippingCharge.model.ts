@@ -11,8 +11,8 @@ class ShippingCharge extends Model {
     public shippingWeightSlabTo!: number;
     public shippingStatus!: boolean;
 
-    public uploadedBy!: number;
-    public lastModifiedBy!: number;
+    public uploadedBy!: string;
+    public lastModifiedBy!: string;
     public deletedAt!: Date;
 }
 
@@ -54,11 +54,11 @@ ShippingCharge.init({
     },
 
     uploadedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     lastModifiedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     deletedAt: {
@@ -71,5 +71,16 @@ ShippingCharge.init({
     timestamps: true,
     paranoid: true
 });
+
+(ShippingCharge as any).associate = (models: any) => {
+    ShippingCharge.belongsTo(models.User, {
+        foreignKey: "uploadedBy",
+        as: "uploader"
+    });
+    ShippingCharge.belongsTo(models.User, {
+        foreignKey: "lastModifiedBy",
+        as: "modifier"
+    });
+};
 
 export default ShippingCharge;

@@ -11,8 +11,8 @@ class CountryOfOrigin extends Model {
     public metaDescription!: string;
     public metaKeywords!: string;
 
-    public uploadedBy!: number;
-    public lastModifiedBy!: number;
+    public uploadedBy!: string;
+    public lastModifiedBy!: string;
     public deletedAt!: Date;
 }
 
@@ -47,11 +47,11 @@ CountryOfOrigin.init({
         allowNull: false
     },
     uploadedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     lastModifiedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     deletedAt: {
@@ -64,5 +64,16 @@ CountryOfOrigin.init({
     timestamps: true,
     paranoid: true
 });
+
+(CountryOfOrigin as any).associate = (models: any) => {
+    CountryOfOrigin.belongsTo(models.User, {
+        foreignKey: "uploadedBy",
+        as: "uploader"
+    });
+    CountryOfOrigin.belongsTo(models.User, {
+        foreignKey: "lastModifiedBy",
+        as: "modifier"
+    });
+};
 
 export default CountryOfOrigin;

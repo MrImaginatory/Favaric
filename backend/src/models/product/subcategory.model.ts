@@ -17,8 +17,8 @@ class SubCategory extends Model {
     public metaDescription!: string;
     public metaKeywords!: string;
 
-    public uploadedBy!: number;
-    public lastModifiedBy!: number;
+    public uploadedBy!: string;
+    public lastModifiedBy!: string;
     public deletedAt!: Date;
 }
 
@@ -69,11 +69,11 @@ SubCategory.init({
         allowNull: false
     },
     uploadedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     lastModifiedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     deletedAt: {
@@ -88,9 +88,13 @@ SubCategory.init({
 });
 
 (SubCategory as any).associate = (models: any) => {
-    SubCategory.belongsTo(models.Category, {
-        foreignKey: "categoryId",
-        as: "category"
+    SubCategory.belongsTo(models.User, {
+        foreignKey: "uploadedBy",
+        as: "uploader"
+    });
+    SubCategory.belongsTo(models.User, {
+        foreignKey: "lastModifiedBy",
+        as: "modifier"
     });
 };
 

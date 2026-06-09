@@ -9,8 +9,8 @@ class Length extends Model {
     public lengthValue!: number;
     public lengthUnit!: string;
 
-    public uploadedBy!: number;
-    public lastModifiedBy!: number;
+    public uploadedBy!: string;
+    public lastModifiedBy!: string;
     public deletedAt!: Date;
 }
 
@@ -40,11 +40,11 @@ Length.init({
     },
 
     uploadedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     lastModifiedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     deletedAt: {
@@ -57,5 +57,16 @@ Length.init({
     timestamps: true,
     paranoid: true
 });
+
+(Length as any).associate = (models: any) => {
+    Length.belongsTo(models.User, {
+        foreignKey: "uploadedBy",
+        as: "uploader"
+    });
+    Length.belongsTo(models.User, {
+        foreignKey: "lastModifiedBy",
+        as: "modifier"
+    });
+};
 
 export default Length;

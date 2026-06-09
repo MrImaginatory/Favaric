@@ -8,8 +8,8 @@ class Weight extends Model {
     public weightValue!: number;
     public weightUnit!: string;
 
-    public uploadedBy!: number;
-    public lastModifiedBy!: number;
+    public uploadedBy!: string;
+    public lastModifiedBy!: string;
     public deletedAt!: Date;
 }
 
@@ -39,11 +39,11 @@ Weight.init({
     },
 
     uploadedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     lastModifiedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     deletedAt: {
@@ -55,6 +55,17 @@ Weight.init({
     tableName: "weights",
     timestamps: true,
     paranoid: true
-})
+});
+
+(Weight as any).associate = (models: any) => {
+    Weight.belongsTo(models.User, {
+        foreignKey: "uploadedBy",
+        as: "uploader"
+    });
+    Weight.belongsTo(models.User, {
+        foreignKey: "lastModifiedBy",
+        as: "modifier"
+    });
+};
 
 export default Weight;

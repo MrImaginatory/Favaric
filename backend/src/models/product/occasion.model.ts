@@ -11,8 +11,8 @@ class Occasion extends Model {
     public metaDescription!: string;
     public metaKeywords!: string;
 
-    public uploadedBy!: number;
-    public lastModifiedBy!: number;
+    public uploadedBy!: string;
+    public lastModifiedBy!: string;
     public deletedAt!: Date;
 }
 
@@ -47,11 +47,11 @@ Occasion.init({
         allowNull: false
     },
     uploadedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     lastModifiedBy: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     deletedAt: {
@@ -66,11 +66,14 @@ Occasion.init({
 });
 
 (Occasion as any).associate = (models: any) => {
-    Occasion.belongsToMany(models.Product, {
-        through: "product_occasions",
-        foreignKey: "occasionId",
-        otherKey: "productId",
-        as: "products"
+
+    Occasion.belongsTo(models.User, {
+        foreignKey: "uploadedBy",
+        as: "uploader"
+    });
+    Occasion.belongsTo(models.User, {
+        foreignKey: "lastModifiedBy",
+        as: "modifier"
     });
 };
 

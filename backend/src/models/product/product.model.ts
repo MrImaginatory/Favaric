@@ -55,11 +55,11 @@ class Product extends Model {
     public metaDescription!: string;
     public metaKeywords!: string;
 
-    public uploadedBy!: number;
-    public lastModifiedBy!: number;
+    public uploadedBy!: string;
+    public lastModifiedBy!: string;
 
     public isCatalog!: boolean;
-    public catalogId!: number;
+    public catalogId!: string;
 
     public isPinned!: boolean;
     public pinPosition!: number;
@@ -67,7 +67,7 @@ class Product extends Model {
     public productType!: string;
     public quantityPerUnit!: string;
 
-    public shippingCharge!: number;
+    public shippingCharge!: string;
 
     public productStitched!: boolean;
 
@@ -171,19 +171,19 @@ Product.init({
         allowNull: false
     },
     fabric: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false
     },
     occasion: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false
     },
     pattern: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false
     },
     length: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false
     },
     transparency: {
@@ -191,27 +191,23 @@ Product.init({
         allowNull: false
     },
     countryOfOrigin: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false
     },
     color: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false
     },
     size: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false
     },
     weight: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    volume: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false
     },
     dimensions: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false
     },
     isFeatured: {
@@ -246,16 +242,8 @@ Product.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    uploadedBy: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    lastModifiedBy: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
     productType: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false
     },
     quantityPerUnit: {
@@ -263,7 +251,7 @@ Product.init({
         allowNull: false
     },
     shippingCharge: {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.UUID,
         allowNull: false
     },
     productStitched: {
@@ -276,6 +264,14 @@ Product.init({
     },
     otherDetails: {
         type: DataTypes.TEXT,
+        allowNull: false
+    },
+    uploadedBy: {
+        type: DataTypes.UUID,
+        allowNull: false
+    },
+    lastModifiedBy: {
+        type: DataTypes.UUID,
         allowNull: false
     },
     deletedAt: {
