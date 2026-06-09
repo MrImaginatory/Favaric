@@ -12,25 +12,25 @@ import slugGenerator from "../../../utils/slug.util.js";
 import { generateMetaTitle, generateMetaDescription, generateMetaKeywords } from "../../../utils/metaData.util.js";
 
 const createCountryOrigin = asyncHandler(async (req: Request, res: Response) => {
-    const { countryName, countryDescription } = req.body;
+    const { countryOfOriginName, countryOfOriginDescription } = req.body;
 
-    const countrySlug = slugGenerator(countryName);
-    const metaTitle = generateMetaTitle(countryName);
-    const metaDescription = generateMetaDescription(countryDescription);
-    const metaKeywords = generateMetaKeywords([countryName]);
+    const countrySlug = slugGenerator(countryOfOriginName);
+    const metaTitle = generateMetaTitle(countryOfOriginName);
+    const metaDescription = generateMetaDescription(countryOfOriginDescription);
+    const metaKeywords = generateMetaKeywords([countryOfOriginName]);
 
     const uploadedBy = req.session?.userId;
     const lastModifiedBy = req.session?.userId;
 
-    const isExist = await checkRecordExists(CountryOfOrigin, { where: { countryName, deletedAt: null } });
+    const isExist = await checkRecordExists(CountryOfOrigin, { where: { countryOfOriginName, deletedAt: null } });
     if (isExist) {
         throw new AppError(`Country ${StatusMessages.ALREADY_EXISTS}`, 409);
     }
 
     const newCountry = await createRecord(CountryOfOrigin, {
-        countryName,
-        countrySlug,
-        countryDescription,
+        countryOfOriginName,
+        countryOfOriginSlug: countrySlug,
+        countryOfOriginDescription,
         metaTitle,
         metaDescription,
         metaKeywords,
@@ -43,12 +43,12 @@ const createCountryOrigin = asyncHandler(async (req: Request, res: Response) => 
 
 const updateCountryOrigin = asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id as string;
-    const { countryName, countryDescription } = req.body;
+    const { countryOfOriginName, countryOfOriginDescription } = req.body;
 
-    const countrySlug = slugGenerator(countryName);
-    const metaTitle = generateMetaTitle(countryName);
-    const metaDescription = generateMetaDescription(countryDescription);
-    const metaKeywords = generateMetaKeywords([countryName]);
+    const countrySlug = slugGenerator(countryOfOriginName);
+    const metaTitle = generateMetaTitle(countryOfOriginName);
+    const metaDescription = generateMetaDescription(countryOfOriginDescription);
+    const metaKeywords = generateMetaKeywords([countryOfOriginName]);
 
     const lastModifiedBy = req.session?.userId;
 
@@ -59,7 +59,7 @@ const updateCountryOrigin = asyncHandler(async (req: Request, res: Response) => 
 
     const isExist = await checkRecordExists(CountryOfOrigin, {
         where: {
-            countryName,
+            countryOfOriginName,
             countryOfOriginId: { [Op.ne]: id },
             deletedAt: null
         }
@@ -69,9 +69,9 @@ const updateCountryOrigin = asyncHandler(async (req: Request, res: Response) => 
     }
 
     await updateRecord(CountryOfOrigin, {
-        countryName,
-        countrySlug,
-        countryDescription,
+        countryOfOriginName,
+        countryOfOriginSlug: countrySlug,
+        countryOfOriginDescription,
         metaTitle,
         metaDescription,
         metaKeywords,

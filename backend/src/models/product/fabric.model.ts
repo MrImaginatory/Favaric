@@ -1,4 +1,4 @@
-import { DataTypes, Model } from "@sequelize/core";
+import { DataTypes, sql, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
 class Fabric extends Model {
@@ -19,7 +19,7 @@ class Fabric extends Model {
 Fabric.init({
     fabricId: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: sql.uuidV4,
         primaryKey: true
     },
     fabricName: {

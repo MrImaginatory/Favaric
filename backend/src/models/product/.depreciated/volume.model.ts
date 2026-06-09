@@ -1,4 +1,4 @@
-import { DataTypes, Model } from "@sequelize/core";
+import { DataTypes, sql, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
 class Volume extends Model {
@@ -15,7 +15,7 @@ class Volume extends Model {
 Volume.init({
     volumeId: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: sql.uuidV4,
         primaryKey: true
     },
     volumeName: {

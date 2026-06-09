@@ -1,4 +1,4 @@
-import { DataTypes, Model } from "@sequelize/core";
+import { DataTypes, sql, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
 class Weight extends Model {
@@ -16,7 +16,7 @@ class Weight extends Model {
 Weight.init({
     weightId: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: sql.uuidV4,
         primaryKey: true
     },
     weightName: {

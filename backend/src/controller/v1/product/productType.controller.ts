@@ -20,7 +20,7 @@ const createProductType = asyncHandler(async (req: Request, res: Response) => {
     const productTypeSlug = slugGenerator(productTypeName);
     const metaTitle = generateMetaTitle(productTypeName);
     const metaDescription = generateMetaDescription(productTypeName);
-    const metaKeywords = generateMetaKeywords(productTypeName);
+    const metaKeywords = generateMetaKeywords([productTypeName]);
 
     const isExist = await checkRecordExists(ProductType, { where: { productTypeName, productTypeSlug, deletedAt: null } });
     if (isExist) {
@@ -70,7 +70,7 @@ const updateProductType = asyncHandler(async (req: Request, res: Response) => {
     let productTypeSlug = slugGenerator(productTypeName ?? productType.productTypeName);
     let metaTitle = generateMetaTitle(productTypeName ?? productType.productTypeName);
     let metaDescription = generateMetaDescription(productTypeName ?? productType.productTypeName);
-    let metaKeywords = generateMetaKeywords(productTypeName ?? productType.productTypeName);
+    let metaKeywords = generateMetaKeywords([productTypeName ?? productType.productTypeName]);
 
     const updatedProductType = await updateRecord(ProductType, {
         where: {

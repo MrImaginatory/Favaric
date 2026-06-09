@@ -1,4 +1,4 @@
-import { DataTypes, Model } from "@sequelize/core";
+import { DataTypes, sql, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
 class Category extends Model {
@@ -23,7 +23,7 @@ class Category extends Model {
 Category.init({
     categoryId: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: sql.uuidV4,
         primaryKey: true
     },
     categoryName: {

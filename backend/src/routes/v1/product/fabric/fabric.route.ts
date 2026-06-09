@@ -6,10 +6,10 @@ import { createFabricValidation, updateFabricValidation } from "../../../../vali
 
 const fabricRouter = Router();
 
-fabricRouter.post("/", validate(createFabricValidation), createFabric);
-fabricRouter.put("/:id", validate(updateFabricValidation), updateFabric);
-fabricRouter.delete("/:id", validate(uuidValidation), deleteFabric);
-fabricRouter.get("/:id", validate(uuidValidation), getFabricById);
-fabricRouter.get("/", getAllFabrics);
+fabricRouter.post("/addFabric", validate(createFabricValidation), createFabric);
+fabricRouter.put("/updateFabric/:id", validate(updateFabricValidation), updateFabric);
+fabricRouter.delete("/deleteFabric/:id", validate(uuidValidation), deleteFabric);
+fabricRouter.get("/getFabric/:id", validate(uuidValidation), getFabricById);
+fabricRouter.get("/getAllFabrics", getAllFabrics);
 
 export default fabricRouter;

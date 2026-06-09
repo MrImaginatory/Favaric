@@ -19,7 +19,7 @@ const createOccasion = asyncHandler(async (req: Request, res: Response) => {
     const occasionSlug = slugGenerator(occasionName);
     const metaTitle = generateMetaTitle(occasionName);
     const metaDescription = generateMetaDescription(occasionName);
-    const metaKeywords = generateMetaKeywords(occasionName);
+    const metaKeywords = generateMetaKeywords([occasionName]);
 
     const isExist = await checkRecordExists(Occasion, { where: { occasionName, occasionSlug, deletedAt: null } });
     if (isExist) {
@@ -69,7 +69,7 @@ const updateOccasion = asyncHandler(async (req: Request, res: Response) => {
     let occasionSlug = slugGenerator(occasionName ?? occasion.occasionName);
     let metaTitle = generateMetaTitle(occasionName ?? occasion.occasionName);
     let metaDescription = generateMetaDescription(occasionName ?? occasion.occasionName);
-    let metaKeywords = generateMetaKeywords(occasionName ?? occasion.occasionName);
+    let metaKeywords = generateMetaKeywords([occasionName ?? occasion.occasionName]);
 
     const updatedOccasion = await updateRecord(Occasion, {
         where: {

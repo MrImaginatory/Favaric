@@ -1,0 +1,2404 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Ecommerce Routes",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "summary": "Signup Endpoint",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": "{\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"userName\": \"{{$randomUserName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"testUser@123\",\r\n    \"countryCode\": {{countryCode}},\r\n    \"mobile\": \"{{mobile}}\"\r\n}"
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "userName": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "userName",
+                        "email"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "User registered successfully.",
+                  "data": {
+                    "userName": "Freddie_Simonis43",
+                    "email": "Dennis.Schamberger@gmail.com"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Login Endpoint",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              },
+              "example": {
+                "email": "mariam92@yahoo.com",
+                "password": "testUser@123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "userName": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "accessToken": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "userName",
+                        "email",
+                        "accessToken"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "User logged in successfully.",
+                  "data": {
+                    "userName": "Freddie_Simonis43",
+                    "email": "Dennis.Schamberger@gmail.com",
+                    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODMxYWM3LThlNmQtNDBjMy05ODk1LTZkMzVmNWQ0NjgwMiIsImlhdCI6MTc4MDQ3MzE2MiwiZXhwIjoxNzgwNDc0MDYyfQ.wT7wH05Azbj7l2ezhc3AlD2M9UPN94lvvx2gNDn-8UE"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/product/brands/addBrand": {
+      "post": {
+        "summary": "Add Brand",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "brandName": {
+                    "type": "string"
+                  },
+                  "brandDescription": {
+                    "type": "string"
+                  },
+                  "brandLogo": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "brandName",
+                  "brandDescription",
+                  "brandLogo"
+                ]
+              },
+              "example": {
+                "brandName": "Nike",
+                "brandDescription": "This is Nike Brand",
+                "brandLogo": "{{$randomImageUrl}}"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "brandId": {
+                          "type": "string"
+                        },
+                        "brandName": {
+                          "type": "string"
+                        },
+                        "brandSlug": {
+                          "type": "string"
+                        },
+                        "brandDescription": {
+                          "type": "string"
+                        },
+                        "brandLogo": {
+                          "type": "string"
+                        },
+                        "metaTitle": {
+                          "type": "string"
+                        },
+                        "metaDescription": {
+                          "type": "string"
+                        },
+                        "metaKeywords": {
+                          "type": "string"
+                        },
+                        "uploadedBy": {
+                          "type": "string"
+                        },
+                        "lastModifiedBy": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "deletedAt": {
+                          "type": "null"
+                        }
+                      },
+                      "required": [
+                        "brandId",
+                        "brandName",
+                        "brandSlug",
+                        "brandDescription",
+                        "brandLogo",
+                        "metaTitle",
+                        "metaDescription",
+                        "metaKeywords",
+                        "uploadedBy",
+                        "lastModifiedBy",
+                        "updatedAt",
+                        "createdAt",
+                        "deletedAt"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Brand Record created successfully.",
+                  "data": {
+                    "brandId": "f398a502-472d-4ea5-9b55-884ebcbcc47e",
+                    "brandName": "Nike",
+                    "brandSlug": "nike",
+                    "brandDescription": "This is Nike Brand",
+                    "brandLogo": "http://placeimg.com/640/480",
+                    "metaTitle": "Nike | Favric",
+                    "metaDescription": "This is Nike Brand | Favric",
+                    "metaKeywords": "Nike | Favric",
+                    "uploadedBy": "c3f4a78b-7fde-493a-847f-498c13a1d958",
+                    "lastModifiedBy": "c3f4a78b-7fde-493a-847f-498c13a1d958",
+                    "updatedAt": "2026-06-09T06:56:45.806Z",
+                    "createdAt": "2026-06-09T06:56:45.806Z",
+                    "deletedAt": null
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/brands/getBrands": {
+      "get": {
+        "summary": "Get brands",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "brandName": {
+                    "type": "string"
+                  },
+                  "brandDescription": {
+                    "type": "string"
+                  },
+                  "brandLogo": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "brandName",
+                  "brandDescription",
+                  "brandLogo"
+                ]
+              },
+              "example": {
+                "brandName": "Nike",
+                "brandDescription": "This is Nike Brand",
+                "brandLogo": "{{$randomImageUrl}}"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "brandId": {
+                            "type": "string"
+                          },
+                          "brandName": {
+                            "type": "string"
+                          },
+                          "brandSlug": {
+                            "type": "string"
+                          },
+                          "brandDescription": {
+                            "type": "string"
+                          },
+                          "brandLogo": {
+                            "type": "string"
+                          },
+                          "metaTitle": {
+                            "type": "string"
+                          },
+                          "metaDescription": {
+                            "type": "string"
+                          },
+                          "metaKeywords": {
+                            "type": "string"
+                          },
+                          "uploadedBy": {
+                            "type": "string"
+                          },
+                          "lastModifiedBy": {
+                            "type": "string"
+                          },
+                          "deletedAt": {
+                            "type": "null"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          },
+                          "uploader": {
+                            "type": "object",
+                            "properties": {
+                              "userName": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "userName"
+                            ]
+                          },
+                          "modifier": {
+                            "type": "object",
+                            "properties": {
+                              "userName": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "userName"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": [
+                    {
+                      "brandId": "f398a502-472d-4ea5-9b55-884ebcbcc47e",
+                      "brandName": "Nike",
+                      "brandSlug": "nike",
+                      "brandDescription": "This is Nike Brand",
+                      "brandLogo": "http://placeimg.com/640/480",
+                      "metaTitle": "Nike | Favric",
+                      "metaDescription": "This is Nike Brand | Favric",
+                      "metaKeywords": "Nike | Favric",
+                      "uploadedBy": "c3f4a78b-7fde-493a-847f-498c13a1d958",
+                      "lastModifiedBy": "c3f4a78b-7fde-493a-847f-498c13a1d958",
+                      "deletedAt": null,
+                      "createdAt": "2026-06-09T06:56:45.806Z",
+                      "updatedAt": "2026-06-09T06:56:45.806Z",
+                      "uploader": {
+                        "userName": "minnie.kutch"
+                      },
+                      "modifier": {
+                        "userName": "minnie.kutch"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/brands/getBrand/{id}": {
+      "get": {
+        "summary": "Get Brand By Id",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "f398a502-472d-4ea5-9b55-884ebcbcc47e",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "brandId": {
+                          "type": "string"
+                        },
+                        "brandName": {
+                          "type": "string"
+                        },
+                        "brandSlug": {
+                          "type": "string"
+                        },
+                        "brandDescription": {
+                          "type": "string"
+                        },
+                        "brandLogo": {
+                          "type": "string"
+                        },
+                        "metaTitle": {
+                          "type": "string"
+                        },
+                        "metaDescription": {
+                          "type": "string"
+                        },
+                        "metaKeywords": {
+                          "type": "string"
+                        },
+                        "uploadedBy": {
+                          "type": "string"
+                        },
+                        "lastModifiedBy": {
+                          "type": "string"
+                        },
+                        "deletedAt": {
+                          "type": "null"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "uploader": {
+                          "type": "object",
+                          "properties": {
+                            "userName": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "userName"
+                          ]
+                        },
+                        "modifier": {
+                          "type": "object",
+                          "properties": {
+                            "userName": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "userName"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "brandId",
+                        "brandName",
+                        "brandSlug",
+                        "brandDescription",
+                        "brandLogo",
+                        "metaTitle",
+                        "metaDescription",
+                        "metaKeywords",
+                        "uploadedBy",
+                        "lastModifiedBy",
+                        "deletedAt",
+                        "createdAt",
+                        "updatedAt",
+                        "uploader",
+                        "modifier"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "brandId": "f398a502-472d-4ea5-9b55-884ebcbcc47e",
+                    "brandName": "Nike",
+                    "brandSlug": "nike",
+                    "brandDescription": "This is Nike Brand",
+                    "brandLogo": "http://placeimg.com/640/480",
+                    "metaTitle": "Nike | Favric",
+                    "metaDescription": "This is Nike Brand | Favric",
+                    "metaKeywords": "Nike | Favric",
+                    "uploadedBy": "c3f4a78b-7fde-493a-847f-498c13a1d958",
+                    "lastModifiedBy": "c3f4a78b-7fde-493a-847f-498c13a1d958",
+                    "deletedAt": null,
+                    "createdAt": "2026-06-09T06:56:45.806Z",
+                    "updatedAt": "2026-06-09T06:56:45.806Z",
+                    "uploader": {
+                      "userName": "minnie.kutch"
+                    },
+                    "modifier": {
+                      "userName": "minnie.kutch"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/brands/updateBrand/{id}": {
+      "patch": {
+        "summary": "Update Brand",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "f398a502-472d-4ea5-9b55-884ebcbcc47e",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "brandName": {
+                    "type": "string"
+                  },
+                  "brandDescription": {
+                    "type": "string"
+                  },
+                  "brandLogo": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "brandName",
+                  "brandDescription",
+                  "brandLogo"
+                ]
+              },
+              "example": {
+                "brandName": "Nike",
+                "brandDescription": "This is Nike Brand Description",
+                "brandLogo": "{{$randomImageUrl}}"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Brand Record updated successfully."
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/brands/deleteBrand/{id}": {
+      "delete": {
+        "summary": "Delete Brand",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "f398a502-472d-4ea5-9b55-884ebcbcc47e",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "brandName": {
+                    "type": "string"
+                  },
+                  "brandDescription": {
+                    "type": "string"
+                  },
+                  "brandLogo": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "brandName",
+                  "brandDescription",
+                  "brandLogo"
+                ]
+              },
+              "example": {
+                "brandName": "Nike",
+                "brandDescription": "This is Nike Brand Description",
+                "brandLogo": "{{$randomImageUrl}}"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully."
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/colors/addColor": {
+      "post": {
+        "summary": "Add Color Endpoint",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "colorName": {
+                    "type": "string"
+                  },
+                  "colorCode": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "colorName",
+                  "colorCode"
+                ]
+              },
+              "example": {
+                "colorName": "{{$randomColor}}",
+                "colorCode": "{{$randomHexColor}}"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "colorId": {
+                          "type": "string"
+                        },
+                        "colorName": {
+                          "type": "string"
+                        },
+                        "colorSlug": {
+                          "type": "string"
+                        },
+                        "colorCode": {
+                          "type": "string"
+                        },
+                        "uploadedBy": {
+                          "type": "string"
+                        },
+                        "lastModifiedBy": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "deletedAt": {
+                          "type": "null"
+                        }
+                      },
+                      "required": [
+                        "colorId",
+                        "colorName",
+                        "colorSlug",
+                        "colorCode",
+                        "uploadedBy",
+                        "lastModifiedBy",
+                        "updatedAt",
+                        "createdAt",
+                        "deletedAt"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "colorId": "3efd9474-5b18-486e-8905-dd2769598511",
+                    "colorName": "black",
+                    "colorSlug": "black",
+                    "colorCode": "#624465",
+                    "uploadedBy": "24129aed-2b2e-4a9f-aca2-89f7c3e1b142",
+                    "lastModifiedBy": "24129aed-2b2e-4a9f-aca2-89f7c3e1b142",
+                    "updatedAt": "2026-06-03T12:14:02.590Z",
+                    "createdAt": "2026-06-03T12:14:02.590Z",
+                    "deletedAt": null
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/colors/updateColor/{id}": {
+      "patch": {
+        "summary": "Update Color Endpoint",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Color Id ",
+            "required": true,
+            "example": "3efd9474-5b18-486e-8905-dd2769598511",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "colorName": {
+                    "type": "string"
+                  },
+                  "colorCode": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "colorName",
+                  "colorCode"
+                ]
+              },
+              "example": {
+                "colorName": "{{$randomColor}}",
+                "colorCode": "{{$randomHexColor}}"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully."
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/colors/getColors": {
+      "get": {
+        "summary": "Get All Colors Endpoint",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "colorName": {
+                    "type": "string"
+                  },
+                  "colorCode": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "colorName",
+                  "colorCode"
+                ]
+              },
+              "example": {
+                "colorName": "{{$randomColor}}",
+                "colorCode": "{{$randomHexColor}}"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "colorId": {
+                            "type": "string"
+                          },
+                          "colorName": {
+                            "type": "string"
+                          },
+                          "colorSlug": {
+                            "type": "string"
+                          },
+                          "colorCode": {
+                            "type": "string"
+                          },
+                          "uploadedBy": {
+                            "type": "string"
+                          },
+                          "lastModifiedBy": {
+                            "type": "string"
+                          },
+                          "deletedAt": {
+                            "type": "null"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": [
+                    {
+                      "colorId": "3efd9474-5b18-486e-8905-dd2769598511",
+                      "colorName": "white",
+                      "colorSlug": "black",
+                      "colorCode": "#247a53",
+                      "uploadedBy": "24129aed-2b2e-4a9f-aca2-89f7c3e1b142",
+                      "lastModifiedBy": "24129aed-2b2e-4a9f-aca2-89f7c3e1b142",
+                      "deletedAt": null,
+                      "createdAt": "2026-06-03T12:14:02.590Z",
+                      "updatedAt": "2026-06-03T12:14:26.322Z"
+                    }
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/colors/getcolor/{id}": {
+      "get": {
+        "summary": "Get Color by Id Endpoint",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Color Id ",
+            "required": true,
+            "example": "068dbb7d-ad18-4371-973f-71580d2a890e",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "colorName": {
+                    "type": "string"
+                  },
+                  "colorCode": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "colorName",
+                  "colorCode"
+                ]
+              },
+              "example": {
+                "colorName": "{{$randomColor}}",
+                "colorCode": "{{$randomHexColor}}"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "colorId": {
+                          "type": "string"
+                        },
+                        "colorName": {
+                          "type": "string"
+                        },
+                        "colorSlug": {
+                          "type": "string"
+                        },
+                        "colorCode": {
+                          "type": "string"
+                        },
+                        "uploadedBy": {
+                          "type": "string"
+                        },
+                        "lastModifiedBy": {
+                          "type": "string"
+                        },
+                        "deletedAt": {
+                          "type": "null"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "colorId",
+                        "colorName",
+                        "colorSlug",
+                        "colorCode",
+                        "uploadedBy",
+                        "lastModifiedBy",
+                        "deletedAt",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "colorId": "3efd9474-5b18-486e-8905-dd2769598511",
+                    "colorName": "white",
+                    "colorSlug": "black",
+                    "colorCode": "#247a53",
+                    "uploadedBy": "24129aed-2b2e-4a9f-aca2-89f7c3e1b142",
+                    "lastModifiedBy": "24129aed-2b2e-4a9f-aca2-89f7c3e1b142",
+                    "deletedAt": null,
+                    "createdAt": "2026-06-03T12:14:02.590Z",
+                    "updatedAt": "2026-06-03T12:14:26.322Z"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/colors/deleteColor/{id}": {
+      "delete": {
+        "summary": "Delete Color Endpoint",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Color Id ",
+            "required": true,
+            "example": "3efd9474-5b18-486e-8905-dd2769598511",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "colorName": {
+                    "type": "string"
+                  },
+                  "colorCode": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "colorName",
+                  "colorCode"
+                ]
+              },
+              "example": {
+                "colorName": "{{$randomColor}}",
+                "colorCode": "{{$randomHexColor}}"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully."
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/countries/addCountry": {
+      "post": {
+        "summary": "Add Country",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "countryOfOriginName": {
+                    "type": "string"
+                  },
+                  "countryOfOriginDescription": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "countryOfOriginName",
+                  "countryOfOriginDescription"
+                ]
+              },
+              "example": {
+                "countryOfOriginName": "{{$randomCountry}}",
+                "countryOfOriginDescription": "This is the description for the {{$randomCountry}}"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "countryOfOriginId": {
+                          "type": "string"
+                        },
+                        "countryOfOriginName": {
+                          "type": "string"
+                        },
+                        "countryOfOriginSlug": {
+                          "type": "string"
+                        },
+                        "countryOfOriginDescription": {
+                          "type": "string"
+                        },
+                        "metaTitle": {
+                          "type": "string"
+                        },
+                        "metaDescription": {
+                          "type": "string"
+                        },
+                        "metaKeywords": {
+                          "type": "string"
+                        },
+                        "uploadedBy": {
+                          "type": "string"
+                        },
+                        "lastModifiedBy": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "deletedAt": {
+                          "type": "null"
+                        }
+                      },
+                      "required": [
+                        "countryOfOriginId",
+                        "countryOfOriginName",
+                        "countryOfOriginSlug",
+                        "countryOfOriginDescription",
+                        "metaTitle",
+                        "metaDescription",
+                        "metaKeywords",
+                        "uploadedBy",
+                        "lastModifiedBy",
+                        "updatedAt",
+                        "createdAt",
+                        "deletedAt"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Country Record created successfully.",
+                  "data": {
+                    "countryOfOriginId": "dcfbe596-804d-425f-9ff4-ff34ad27e8fe",
+                    "countryOfOriginName": "Czech Republic",
+                    "countryOfOriginSlug": "czech_republic",
+                    "countryOfOriginDescription": "This is the description for the Georgia",
+                    "metaTitle": "Czech Republic | Favric",
+                    "metaDescription": "This is the description for the Georgia | Favric",
+                    "metaKeywords": "Czech Republic | Favric",
+                    "uploadedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                    "lastModifiedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                    "updatedAt": "2026-06-09T09:19:44.040Z",
+                    "createdAt": "2026-06-09T09:19:44.040Z",
+                    "deletedAt": null
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/countries/getCountries": {
+      "get": {
+        "summary": "Get All Countries",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "brandName": {
+                    "type": "string"
+                  },
+                  "brandDescription": {
+                    "type": "string"
+                  },
+                  "brandLogo": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "brandName",
+                  "brandDescription",
+                  "brandLogo"
+                ]
+              },
+              "example": {
+                "brandName": "Nike",
+                "brandDescription": "This is Nike Brand Description",
+                "brandLogo": "{{$randomImageUrl}}"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": []
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/countries/updateCountry/{id}": {
+      "put": {
+        "summary": "Update Country",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "dcfbe596-804d-425f-9ff4-ff34ad27e8fe",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "countryOfOriginName": {
+                    "type": "string"
+                  },
+                  "countryOfOriginDescription": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "countryOfOriginName",
+                  "countryOfOriginDescription"
+                ]
+              },
+              "example": {
+                "countryOfOriginName": "{{$randomCountry}}",
+                "countryOfOriginDescription": "This is the description for the {{$randomCountry}}. updated"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Country Record updated successfully."
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/countries/getCountryById/{id}": {
+      "get": {
+        "summary": "Get Country By Id",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "dcfbe596-804d-425f-9ff4-ff34ad27e8fe",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "countryOfOriginName": {
+                    "type": "string"
+                  },
+                  "countryOfOriginDescription": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "countryOfOriginName",
+                  "countryOfOriginDescription"
+                ]
+              },
+              "example": {
+                "countryOfOriginName": "{{$randomCountry}}",
+                "countryOfOriginDescription": "This is the description for the {{$randomCountry}}. updated"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "countryOfOriginId": {
+                          "type": "string"
+                        },
+                        "countryOfOriginName": {
+                          "type": "string"
+                        },
+                        "countryOfOriginSlug": {
+                          "type": "string"
+                        },
+                        "countryOfOriginDescription": {
+                          "type": "string"
+                        },
+                        "metaTitle": {
+                          "type": "string"
+                        },
+                        "metaDescription": {
+                          "type": "string"
+                        },
+                        "metaKeywords": {
+                          "type": "string"
+                        },
+                        "uploadedBy": {
+                          "type": "string"
+                        },
+                        "lastModifiedBy": {
+                          "type": "string"
+                        },
+                        "deletedAt": {
+                          "type": "null"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "uploader": {
+                          "type": "object",
+                          "properties": {
+                            "userName": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "userName"
+                          ]
+                        },
+                        "modifier": {
+                          "type": "object",
+                          "properties": {
+                            "userName": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "userName"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "countryOfOriginId",
+                        "countryOfOriginName",
+                        "countryOfOriginSlug",
+                        "countryOfOriginDescription",
+                        "metaTitle",
+                        "metaDescription",
+                        "metaKeywords",
+                        "uploadedBy",
+                        "lastModifiedBy",
+                        "deletedAt",
+                        "createdAt",
+                        "updatedAt",
+                        "uploader",
+                        "modifier"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "countryOfOriginId": "dcfbe596-804d-425f-9ff4-ff34ad27e8fe",
+                    "countryOfOriginName": "Romania",
+                    "countryOfOriginSlug": "romania",
+                    "countryOfOriginDescription": "This is the description for the Niger. updated",
+                    "metaTitle": "Romania | Favric",
+                    "metaDescription": "This is the description for the Niger. updated | Favric",
+                    "metaKeywords": "Romania | Favric",
+                    "uploadedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                    "lastModifiedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                    "deletedAt": null,
+                    "createdAt": "2026-06-09T09:19:44.040Z",
+                    "updatedAt": "2026-06-09T09:21:25.569Z",
+                    "uploader": {
+                      "userName": "melody47"
+                    },
+                    "modifier": {
+                      "userName": "melody47"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/countries/deleteCountry/{id}": {
+      "delete": {
+        "summary": "Delete Country",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "dcfbe596-804d-425f-9ff4-ff34ad27e8fe",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "countryOfOriginName": {
+                    "type": "string"
+                  },
+                  "countryOfOriginDescription": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "countryOfOriginName",
+                  "countryOfOriginDescription"
+                ]
+              },
+              "example": {
+                "countryOfOriginName": "{{$randomCountry}}",
+                "countryOfOriginDescription": "This is the description for the {{$randomCountry}}. updated"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully."
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/dimensions/create-dimension": {
+      "post": {
+        "summary": "Create Dimension",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": "{\r\n    \"dimensionName\":\"SampleDimension{{$number.int(min=1,max=1000)}}\", \r\n    \"dimensionDescription\":\"This is an Sample Dimension Description\", \r\n    \"dimensionLength\":{{$number.int(min=1,max=1000)}}, \r\n    \"dimensionBreadth\":{{$number.int(min=1,max=1000)}}, \r\n    \"dimensionHeight\":{{$number.int(min=1,max=1000)}}\r\n}"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/dimensions/update-dimension/{id}": {
+      "put": {
+        "summary": "Update Dimension",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "530f7922-4c36-42c8-b25d-368f081bc043",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": "{\r\n    \"dimensionName\":\"SampleDimension{{$number.int(min=1,max=100)}}\", \r\n    \"dimensionDescription\":\"This is an Sample Dimension Description\", \r\n    \"dimensionLength\":{{$number.int(min=1,max=100)}}, \r\n    \"dimensionBreadth\":{{$number.int(min=1,max=100)}}, \r\n    \"dimensionHeight\":{{$number.int(min=1,max=100)}}\r\n}"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/dimensions/get-all-dimensions": {
+      "get": {
+        "summary": "Get All DImensions",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/dimensions/get-dimension/{id}": {
+      "get": {
+        "summary": "Get Dimension By Id",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "530f7922-4c36-42c8-b25d-368f081bc043",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/dimensions/delete-dimension/{id}": {
+      "delete": {
+        "summary": "New Request",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "530f7922-4c36-42c8-b25d-368f081bc043",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/fabrics/addFabric": {
+      "post": {
+        "summary": "Add Fabric",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "fabricName": "Fabric_{{$number.int(min=1,max=1000)}}",
+                "fabricDescription": "this is the description for the Fabric"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Fabric Record created successfully.",
+                  "data": {
+                    "fabricId": "87c44a01-407b-4041-b8a8-f77d2835ca41",
+                    "fabricName": "Fabric_426",
+                    "fabricSlug": "fabric_426",
+                    "fabricDescription": "this is the description for the Fabric",
+                    "metaTitle": "Fabric_426 | Favric",
+                    "metaDescription": "this is the description for the Fabric | Favric",
+                    "metaKeywords": "Fabric_426 | Favric",
+                    "uploadedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                    "lastModifiedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                    "updatedAt": "2026-06-09T12:52:52.588Z",
+                    "createdAt": "2026-06-09T12:52:52.588Z",
+                    "deletedAt": null
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/fabrics/updateFabric/{id}": {
+      "put": {
+        "summary": "Update Fabric",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "ffa1bc4e-6b42-42e8-aeaa-2096127336df",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "fabricName": "Fabric_{{$number.int(min=1,max=1000)}}",
+                "fabricDescription": "this is the description for the Fabric"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Fabric Record updated successfully."
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/fabrics/getFabric/{id}": {
+      "get": {
+        "summary": "Get Fabric By Id",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "ffa1bc4e-6b42-42e8-aeaa-2096127336df",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "fabricId": "ffa1bc4e-6b42-42e8-aeaa-2096127336df",
+                    "fabricName": "Fabric_762",
+                    "fabricSlug": "fabric_762",
+                    "fabricDescription": "this is the description for the Fabric",
+                    "metaTitle": "Fabric_762 | Favric",
+                    "metaDescription": "this is the description for the Fabric | Favric",
+                    "metaKeywords": "Fabric_762 | Favric",
+                    "uploadedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                    "lastModifiedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                    "deletedAt": null,
+                    "createdAt": "2026-06-09T12:55:11.771Z",
+                    "updatedAt": "2026-06-09T12:56:22.062Z",
+                    "uploader": {
+                      "userName": "melody47"
+                    },
+                    "modifier": {
+                      "userName": "melody47"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/fabrics/getAllFabrics": {
+      "get": {
+        "summary": "Get All Fabrics",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": [
+                    {
+                      "fabricId": "87c44a01-407b-4041-b8a8-f77d2835ca41",
+                      "fabricName": "Fabric_426",
+                      "fabricSlug": "fabric_426",
+                      "fabricDescription": "this is the description for the Fabric",
+                      "metaTitle": "Fabric_426 | Favric",
+                      "metaDescription": "this is the description for the Fabric | Favric",
+                      "metaKeywords": "Fabric_426 | Favric",
+                      "uploadedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                      "lastModifiedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                      "deletedAt": null,
+                      "createdAt": "2026-06-09T12:52:52.588Z",
+                      "updatedAt": "2026-06-09T12:52:52.588Z",
+                      "uploader": {
+                        "userName": "melody47"
+                      },
+                      "modifier": {
+                        "userName": "melody47"
+                      }
+                    },
+                    {
+                      "fabricId": "ffa1bc4e-6b42-42e8-aeaa-2096127336df",
+                      "fabricName": "Fabric_762",
+                      "fabricSlug": "fabric_762",
+                      "fabricDescription": "this is the description for the Fabric",
+                      "metaTitle": "Fabric_762 | Favric",
+                      "metaDescription": "this is the description for the Fabric | Favric",
+                      "metaKeywords": "Fabric_762 | Favric",
+                      "uploadedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                      "lastModifiedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                      "deletedAt": null,
+                      "createdAt": "2026-06-09T12:55:11.771Z",
+                      "updatedAt": "2026-06-09T12:56:22.062Z",
+                      "uploader": {
+                        "userName": "melody47"
+                      },
+                      "modifier": {
+                        "userName": "melody47"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/fabrics/deleteFabric/{id}": {
+      "delete": {
+        "summary": "Delete Fabric",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "87c44a01-407b-4041-b8a8-f77d2835ca41",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully."
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "responses": {},
+    "securitySchemes": {
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001/api/v1",
+      "description": "Develop Env"
+    }
+  ],
+  "security": []
+}

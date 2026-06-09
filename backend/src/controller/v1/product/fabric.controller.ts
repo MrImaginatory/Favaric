@@ -24,7 +24,7 @@ const createFabric = asyncHandler(async (req: Request, res: Response) => {
 
     const metaTitle = generateMetaTitle(fabricName);
     const metaDescription = generateMetaDescription(fabricDescription);
-    const metaKeywords = generateMetaKeywords(fabricName);
+    const metaKeywords = generateMetaKeywords([fabricName]);
 
     const newFabric = await createRecord(Fabric, {
         fabricName,
@@ -62,7 +62,7 @@ const updateFabric = asyncHandler(async (req: Request, res: Response) => {
 
     const metaTitle = generateMetaTitle(fabricName);
     const metaDescription = generateMetaDescription(fabricDescription);
-    const metaKeywords = generateMetaKeywords(fabricName);
+    const metaKeywords = generateMetaKeywords([fabricName]);
 
     await updateRecord(Fabric, {
         fabricName,

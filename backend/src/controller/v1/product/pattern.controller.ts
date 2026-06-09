@@ -20,7 +20,7 @@ const createPattern = asyncHandler(async (req: Request, res: Response) => {
     const patternSlug = slugGenerator(patternName);
     const metaTitle = generateMetaTitle(patternName);
     const metaDescription = generateMetaDescription(patternName);
-    const metaKeywords = generateMetaKeywords(patternName);
+    const metaKeywords = generateMetaKeywords([patternName]);
 
     const isExist = await checkRecordExists(Pattern, { where: { patternName, patternSlug, deletedAt: null } });
     if (isExist) {
@@ -70,7 +70,7 @@ const updatePattern = asyncHandler(async (req: Request, res: Response) => {
     let patternSlug = slugGenerator(patternName ?? pattern.patternName);
     let metaTitle = generateMetaTitle(patternName ?? pattern.patternName);
     let metaDescription = generateMetaDescription(patternName ?? pattern.patternName);
-    let metaKeywords = generateMetaKeywords(patternName ?? pattern.patternName);
+    let metaKeywords = generateMetaKeywords([patternName ?? pattern.patternName]);
 
     const updatedPattern = await updateRecord(Pattern, {
         where: {

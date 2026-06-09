@@ -6,10 +6,10 @@ import { createDimensionValidation, updateDimensionValidation } from "../../../.
 
 const dimensionRouter = Router();
 
-dimensionRouter.post("/", validate(createDimensionValidation), createDimension);
-dimensionRouter.put("/:id", validate(updateDimensionValidation), updateDimension);
-dimensionRouter.delete("/:id", validate(uuidValidation), deleteDimension);
-dimensionRouter.get("/:id", validate(uuidValidation), getDimensionById);
-dimensionRouter.get("/", getAllDimensions);
+dimensionRouter.post("/create-dimension", validate(createDimensionValidation), createDimension);
+dimensionRouter.put("/update-dimension/:id", validate(updateDimensionValidation), updateDimension);
+dimensionRouter.delete("/delete-dimension/:id", validate(uuidValidation), deleteDimension);
+dimensionRouter.get("/get-dimension/:id", validate(uuidValidation), getDimensionById);
+dimensionRouter.get("/get-all-dimensions", getAllDimensions);
 
 export default dimensionRouter;
