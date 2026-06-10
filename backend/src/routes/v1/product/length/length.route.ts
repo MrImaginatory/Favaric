@@ -6,10 +6,10 @@ import { createLengthValidation, updateLengthValidation } from "../../../../vali
 
 const lengthRouter = Router();
 
-lengthRouter.post("/", validate(createLengthValidation), createLength);
-lengthRouter.put("/:id", validate(updateLengthValidation), updateLength);
-lengthRouter.delete("/:id", validate(uuidValidation), deleteLength);
-lengthRouter.get("/:id", validate(uuidValidation), getLengthById);
-lengthRouter.get("/", getLengths);
+lengthRouter.post("/addLength", validate(createLengthValidation), createLength);
+lengthRouter.put("/updateLength/:id", validate(updateLengthValidation), updateLength);
+lengthRouter.delete("/deleteLength/:id", validate(uuidValidation), deleteLength);
+lengthRouter.get("/getLength/:id", validate(uuidValidation), getLengthById);
+lengthRouter.get("/getAllLengths", getLengths);
 
 export default lengthRouter;

@@ -6,10 +6,10 @@ import { createShippingChargeValidation, updateShippingChargeValidation } from "
 
 const shippingChargeRouter = Router();
 
-shippingChargeRouter.post("/", validate(createShippingChargeValidation), createShippingCharge);
-shippingChargeRouter.put("/:id", validate(updateShippingChargeValidation), updateShippingCharge);
-shippingChargeRouter.get("/", getAllShippingCharges);
-shippingChargeRouter.get("/:id", validate(uuidValidation), getShippingChargeById);
-shippingChargeRouter.delete("/:id", validate(uuidValidation), deleteShippingCharge);
+shippingChargeRouter.post("/addShippingCharge", validate(createShippingChargeValidation), createShippingCharge);
+shippingChargeRouter.put("/updateShippingCharge/:id", validate(updateShippingChargeValidation), updateShippingCharge);
+shippingChargeRouter.get("/getShippingCharge/:id", validate(uuidValidation), getShippingChargeById);
+shippingChargeRouter.get("/getAllShippingCharges", getAllShippingCharges);
+shippingChargeRouter.delete("/deleteShippingCharge/:id", validate(uuidValidation), deleteShippingCharge);
 
 export default shippingChargeRouter;

@@ -6,10 +6,10 @@ import { createPatternValidation, updatePatternValidation } from "../../../../va
 
 const patternRouter = Router();
 
-patternRouter.post("/", validate(createPatternValidation), createPattern);
-patternRouter.put("/:id", validate(updatePatternValidation), updatePattern);
-patternRouter.delete("/:id", validate(uuidValidation), deletePattern);
-patternRouter.get("/:id", validate(uuidValidation), getPatternById);
-patternRouter.get("/", getPatterns);
+patternRouter.post("/addPattern", validate(createPatternValidation), createPattern);
+patternRouter.put("/updatePattern/:id", validate(updatePatternValidation), updatePattern);
+patternRouter.delete("/deletePattern/:id", validate(uuidValidation), deletePattern);
+patternRouter.get("/getPattern/:id", validate(uuidValidation), getPatternById);
+patternRouter.get("/getAllPatterns", getPatterns);
 
 export default patternRouter;

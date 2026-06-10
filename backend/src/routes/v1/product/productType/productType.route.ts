@@ -6,10 +6,10 @@ import { createProductTypeValidation, updateProductTypeValidation } from "../../
 
 const productTypeRouter = Router();
 
-productTypeRouter.post("/", validate(createProductTypeValidation), createProductType);
-productTypeRouter.put("/:id", validate(updateProductTypeValidation), updateProductType);
-productTypeRouter.get("/", getAllProductTypes);
-productTypeRouter.get("/:id", validate(uuidValidation), getProductTypeById);
-productTypeRouter.delete("/:id", validate(uuidValidation), deleteProductType);
+productTypeRouter.post("/addProductType", validate(createProductTypeValidation), createProductType);
+productTypeRouter.put("/updateProductType/:id", validate(updateProductTypeValidation), updateProductType);
+productTypeRouter.get("/getProductType/:id", validate(uuidValidation), getProductTypeById);
+productTypeRouter.get("/getAllProductTypes", getAllProductTypes);
+productTypeRouter.delete("/deleteProductType/:id", validate(uuidValidation), deleteProductType);
 
 export default productTypeRouter;

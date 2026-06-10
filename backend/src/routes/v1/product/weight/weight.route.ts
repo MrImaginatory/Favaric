@@ -6,10 +6,10 @@ import { createWeightValidation, updateWeightValidation } from "../../../../vali
 
 const weightRouter = Router();
 
-weightRouter.post("/", validate(createWeightValidation), createWeight);
-weightRouter.put("/:id", validate(updateWeightValidation), updateWeight);
-weightRouter.get("/", getAllWeights);
-weightRouter.get("/:id", validate(uuidValidation), getWeightById);
-weightRouter.delete("/:id", validate(uuidValidation), deleteWeight);
+weightRouter.post("/addWeight", validate(createWeightValidation), createWeight);
+weightRouter.put("/updateWeight/:id", validate(updateWeightValidation), updateWeight);
+weightRouter.get("/getWeight/:id", validate(uuidValidation), getWeightById);
+weightRouter.get("/getAllWeights", getAllWeights);
+weightRouter.delete("/deleteWeight/:id", validate(uuidValidation), deleteWeight);
 
 export default weightRouter;

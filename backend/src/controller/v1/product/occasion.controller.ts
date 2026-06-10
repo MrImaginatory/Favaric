@@ -47,10 +47,11 @@ const updateOccasion = asyncHandler(async (req: Request, res: Response) => {
 
     const occasion = await getRecord(Occasion, {
         where: {
-            id,
+            occasionId: id,
             deletedAt: null
         }
-    })
+    });
+
     if (!occasion) {
         throw new AppError(`Occasion ${StatusMessages.NOT_FOUND}`, 404);
     }
@@ -58,7 +59,7 @@ const updateOccasion = asyncHandler(async (req: Request, res: Response) => {
     const isExist = await checkRecordExists(Occasion, {
         where: {
             occasionName,
-            id: { [Op.ne]: id },
+            occasionId: { [Op.ne]: id },
             deletedAt: null
         }
     });
@@ -72,11 +73,6 @@ const updateOccasion = asyncHandler(async (req: Request, res: Response) => {
     let metaKeywords = generateMetaKeywords([occasionName ?? occasion.occasionName]);
 
     const updatedOccasion = await updateRecord(Occasion, {
-        where: {
-            id,
-            deletedAt: null
-        }
-    }, {
         occasionName,
         occasionSlug,
         occasionDescription,
@@ -84,6 +80,11 @@ const updateOccasion = asyncHandler(async (req: Request, res: Response) => {
         metaDescription,
         metaKeywords,
         lastModifiedBy
+    }, {
+        where: {
+            occasionId: id,
+            deletedAt: null
+        }
     });
 
     sendResponse(res, 200, `Occasion ${StatusMessages.UPDATED}`, updatedOccasion);
@@ -96,13 +97,13 @@ const getOccasions = getAllRecordsController(Occasion, {
     ]
 })
 
-const getOccasionById = getRecordByIdController(Occasion, "id", "Occasion", {
+const getOccasionById = getRecordByIdController(Occasion, "occasionId", "Occasion", {
     include: [
         { model: User, as: "uploader", attributes: ["userName"] },
         { model: User, as: "modifier", attributes: ["userName"] }
     ]
 })
 
-const deleteOccasion = deleteRecordController(Occasion, "id", "Occasion")
+const deleteOccasion = deleteRecordController(Occasion, "occasionId", "Occasion")
 
 export { createOccasion, updateOccasion, getOccasions, getOccasionById, deleteOccasion }

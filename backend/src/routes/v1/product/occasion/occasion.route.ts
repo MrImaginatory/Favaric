@@ -6,10 +6,10 @@ import { createOccasionValidation, updateOccasionValidation } from "../../../../
 
 const occasionRouter = Router();
 
-occasionRouter.post("/", validate(createOccasionValidation), createOccasion);
-occasionRouter.put("/:id", validate(updateOccasionValidation), updateOccasion);
-occasionRouter.delete("/:id", validate(uuidValidation), deleteOccasion);
-occasionRouter.get("/:id", validate(uuidValidation), getOccasionById);
-occasionRouter.get("/", getOccasions);
+occasionRouter.post("/addOccasion", validate(createOccasionValidation), createOccasion);
+occasionRouter.put("/updateOccasion/:id", validate(updateOccasionValidation), updateOccasion);
+occasionRouter.delete("/deleteOccasion/:id", validate(uuidValidation), deleteOccasion);
+occasionRouter.get("/getOccasion/:id", validate(uuidValidation), getOccasionById);
+occasionRouter.get("/getAllOccasions", getOccasions);
 
 export default occasionRouter;

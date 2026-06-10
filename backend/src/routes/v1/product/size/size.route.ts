@@ -6,10 +6,10 @@ import { createSizeValidation, updateSizeValidation } from "../../../../validati
 
 const sizeRouter = Router();
 
-sizeRouter.post("/", validate(createSizeValidation), createSize);
-sizeRouter.put("/:id", validate(updateSizeValidation), updateSize);
-sizeRouter.get("/", getAllSizes);
-sizeRouter.get("/:id", validate(uuidValidation), getSizeById);
-sizeRouter.delete("/:id", validate(uuidValidation), deleteSize);
+sizeRouter.post("/addSize", validate(createSizeValidation), createSize);
+sizeRouter.put("/updateSize/:id", validate(updateSizeValidation), updateSize);
+sizeRouter.get("/getSize/:id", validate(uuidValidation), getSizeById);
+sizeRouter.get("/getAllSizes", getAllSizes);
+sizeRouter.delete("/deleteSize/:id", validate(uuidValidation), deleteSize);
 
 export default sizeRouter;
