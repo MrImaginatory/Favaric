@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Ecommerce Routes",
+    "title": "Favric",
     "description": "",
     "version": "1.0.0"
   },
@@ -1893,7 +1893,7 @@
         ]
       }
     },
-    "/product/dimensions/create-dimension": {
+    "/product/dimensions/addDimension": {
       "post": {
         "summary": "Create Dimension",
         "deprecated": false,
@@ -1932,7 +1932,7 @@
         ]
       }
     },
-    "/product/dimensions/update-dimension/{id}": {
+    "/product/dimensions/updateDimension/{id}": {
       "put": {
         "summary": "Update Dimension",
         "deprecated": false,
@@ -1982,7 +1982,7 @@
         ]
       }
     },
-    "/product/dimensions/get-all-dimensions": {
+    "/product/dimensions/getAllDimensions": {
       "get": {
         "summary": "Get All DImensions",
         "deprecated": false,
@@ -2010,7 +2010,7 @@
         ]
       }
     },
-    "/product/dimensions/get-dimension/{id}": {
+    "/product/dimensions/getDimension/{id}": {
       "get": {
         "summary": "Get Dimension By Id",
         "deprecated": false,
@@ -2049,9 +2049,9 @@
         ]
       }
     },
-    "/product/dimensions/delete-dimension/{id}": {
+    "/product/dimensions/deleteDimension/{id}": {
       "delete": {
-        "summary": "New Request",
+        "summary": "Delete Dimension",
         "deprecated": false,
         "description": "",
         "tags": [],
@@ -2382,6 +2382,486 @@
           }
         ]
       }
+    },
+    "/product/lengths/addLength": {
+      "post": {
+        "summary": "Add Length",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": "{\r\n    \"lengthName\":\"Length{{$number.int(min=1,max=100)}}\",\r\n    \"lengthDescription\":\"THis is and Description for the Length Length{{$number.int(min=1,max=100)}}\",\r\n    \"lengthValue\":{{$number.int(min=1,max=100)}}\r\n}"
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Length Record created successfully.",
+                  "data": {
+                    "lengthId": "183b6fc3-3e27-4440-affe-652d36edb8c4",
+                    "lengthUnit": "cm",
+                    "lengthName": "Length55",
+                    "lengthSlug": "length55",
+                    "lengthValue": 17,
+                    "uploadedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                    "lastModifiedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                    "updatedAt": "2026-06-10T09:25:57.450Z",
+                    "createdAt": "2026-06-10T09:25:57.450Z",
+                    "deletedAt": null
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/lengths/getAllLengths": {
+      "get": {
+        "summary": "Get all Length",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": [
+                    {
+                      "lengthId": "183b6fc3-3e27-4440-affe-652d36edb8c4",
+                      "lengthName": "Length55",
+                      "lengthSlug": "length55",
+                      "lengthValue": 17,
+                      "lengthUnit": "cm",
+                      "uploadedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                      "lastModifiedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                      "deletedAt": null,
+                      "createdAt": "2026-06-10T09:25:57.450Z",
+                      "updatedAt": "2026-06-10T09:25:57.450Z",
+                      "uploader": {
+                        "userName": "melody47"
+                      },
+                      "modifier": {
+                        "userName": "melody47"
+                      }
+                    },
+                    {
+                      "lengthId": "147d2aec-9978-4e4e-988c-8c106ed471df",
+                      "lengthName": "Length58",
+                      "lengthSlug": "length58",
+                      "lengthValue": 27,
+                      "lengthUnit": "cm",
+                      "uploadedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                      "lastModifiedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                      "deletedAt": null,
+                      "createdAt": "2026-06-10T09:26:12.950Z",
+                      "updatedAt": "2026-06-10T09:26:12.950Z",
+                      "uploader": {
+                        "userName": "melody47"
+                      },
+                      "modifier": {
+                        "userName": "melody47"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/lengths/updateLength/{id}": {
+      "put": {
+        "summary": "Update Length",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "183b6fc3-3e27-4440-affe-652d36edb8c4",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": "{\r\n    \"lengthName\":\"Length{{$number.int(min=1,max=100)}}\",\r\n    \"lengthDescription\":\"THis is and Description for the Length Length{{$number.int(min=1,max=100)}}\",\r\n    \"lengthValue\":{{$number.int(min=1,max=100)}}\r\n}"
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/lengths/getLength/{id}": {
+      "get": {
+        "summary": "Get Length by Id",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "183b6fc3-3e27-4440-affe-652d36edb8c4",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/lengths/deleteLength/{id}": {
+      "delete": {
+        "summary": "Delete Length",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "183b6fc3-3e27-4440-affe-652d36edb8c4",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/occasions/addOccasion": {
+      "post": {
+        "summary": "Add Occassion",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "occasionName": "Sample Occassion {{$number.int(min=1,max=100)}}",
+                "occasionDescription": "Sample Occassion {{$number.int(min=1,max=100)}} Description"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /api/v1/product/lengths/addOccasion</pre>\n</body>\n</html>\n"
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/occasions/updateOccasion/{id}": {
+      "put": {
+        "summary": "Update Occassion",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "e796dc5c-a0f3-47c4-9c6f-fee1878d01e1",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "occasionName": "Sample Occassion {{$number.int(min=1,max=100)}}",
+                "occasionDescription": "Sample Occassion {{$number.int(min=1,max=100)}} Description"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/occasions/getAllOccasions": {
+      "get": {
+        "summary": "Get All Occassions",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": [
+                    {
+                      "occasionId": "e796dc5c-a0f3-47c4-9c6f-fee1878d01e1",
+                      "occasionName": "Sample Occassion 67",
+                      "occasionSlug": "sample_occassion_67",
+                      "occasionDescription": "Sample Occassion 3 Description",
+                      "metaTitle": "Sample Occassion 67 | Favric",
+                      "metaDescription": "Sample Occassion 67 | Favric",
+                      "metaKeywords": "Sample Occassion 67 | Favric",
+                      "uploadedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                      "lastModifiedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                      "deletedAt": null,
+                      "createdAt": "2026-06-10T09:41:03.224Z",
+                      "updatedAt": "2026-06-10T09:48:15.714Z",
+                      "uploader": {
+                        "userName": "melody47"
+                      },
+                      "modifier": {
+                        "userName": "melody47"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/occasions/getOccasion/{id}": {
+      "get": {
+        "summary": "Get Occassion By Id",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "e796dc5c-a0f3-47c4-9c6f-fee1878d01e1",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /api/v1/product/occasions/getOccassion/e796dc5c-a0f3-47c4-9c6f-fee1878d01e1</pre>\n</body>\n</html>\n"
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/occasions/deleteOccasion/{id}": {
+      "delete": {
+        "summary": "Delete Occasion",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "e796dc5c-a0f3-47c4-9c6f-fee1878d01e1",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -2398,6 +2878,14 @@
     {
       "url": "http://localhost:3001/api/v1",
       "description": "Develop Env"
+    },
+    {
+      "url": "https://test.your-api-server.com",
+      "description": "Testing Env"
+    },
+    {
+      "url": "https://prod.your-api-server.com",
+      "description": "Prod Env"
     }
   ],
   "security": []
