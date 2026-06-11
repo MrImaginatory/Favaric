@@ -27,8 +27,8 @@ productRouter.use("/fabrics", fabricRouter);
 productRouter.use("/lengths", lengthRouter);
 productRouter.use("/occasions", occasionRouter);
 productRouter.use("/patterns", patternRouter);
-productRouter.use("/product-types", productTypeRouter);
-productRouter.use("/shipping-charges", shippingChargeRouter);
+productRouter.use("/productTypes", productTypeRouter);
+productRouter.use("/shippingCharges", shippingChargeRouter);
 productRouter.use("/sizes", sizeRouter);
 productRouter.use("/weights", weightRouter);
 

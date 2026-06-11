@@ -40,7 +40,7 @@ const updateWeight = asyncHandler(async (req: Request, res: Response) => {
 
     const weight = await getRecord(Weight, {
         where: {
-            id,
+            weightId: id,
             deletedAt: null
         }
     })
@@ -51,7 +51,7 @@ const updateWeight = asyncHandler(async (req: Request, res: Response) => {
     const isExist = await checkRecordExists(Weight, {
         where: {
             weightName,
-            id: {
+            weightId: {
                 [Op.ne]: id
             },
             deletedAt: null
@@ -64,15 +64,15 @@ const updateWeight = asyncHandler(async (req: Request, res: Response) => {
     let weightSlug = slugGenerator(weightName ?? weight.weightName);
 
     const updatedWeight = await updateRecord(Weight, {
-        where: {
-            id,
-            deletedAt: null
-        }
-    }, {
         weightName,
         weightSlug,
         weightValue,
         lastModifiedBy
+    }, {
+        where: {
+            weightId: id,
+            deletedAt: null
+        }
     });
 
     sendResponse(res, 200, `Weight ${StatusMessages.UPDATED}`, updatedWeight);
@@ -85,13 +85,13 @@ const getAllWeights = getAllRecordsController(Weight, {
     ]
 })
 
-const getWeightById = getRecordByIdController(Weight, "id", "Weight", {
+const getWeightById = getRecordByIdController(Weight, "weightId", "Weight", {
     include: [
         { model: User, as: "uploader", attributes: ["userName"] },
         { model: User, as: "modifier", attributes: ["userName"] }
     ]
 })
 
-const deleteWeight = deleteRecordController(Weight, "id", "Weight")
+const deleteWeight = deleteRecordController(Weight, "weightId", "Weight")
 
 export { createWeight, updateWeight, getAllWeights, getWeightById, deleteWeight }

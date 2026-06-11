@@ -2862,6 +2862,1195 @@
           }
         ]
       }
+    },
+    "/product/patterns/addPattern": {
+      "post": {
+        "summary": "Add Pattern",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "patternName": "Pattern_{{$number.int(min=1,max=100)}}",
+                "patternDescription": "THis is an pattern description for Pattern_{{$number.int(min=1,max=100)}}"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/patterns/updatePattern/{id}": {
+      "put": {
+        "summary": "Update Pattern",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "c02bbbbb-0bdd-4b65-8dcb-0129e5e10874",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "patternName": "Pattern_{{$number.int(min=1,max=100)}}",
+                "patternDescription": "THis is an pattern description for Pattern_{{$number.int(min=1,max=100)}}"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/patterns/getAllPatterns": {
+      "get": {
+        "summary": "Get All Patterns",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /api/v1/product./patterns/getAllPatterns</pre>\n</body>\n</html>\n"
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/patterns/getPattern/{id}": {
+      "get": {
+        "summary": "Get PatternById",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "c02bbbbb-0bdd-4b65-8dcb-0129e5e10874",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "patternId": "c02bbbbb-0bdd-4b65-8dcb-0129e5e10874",
+                    "patternName": "Pattern_38",
+                    "patternSlug": "pattern_38",
+                    "patternDescription": "THis is an pattern description for Pattern_84",
+                    "metaTitle": "Pattern_38 | Favric",
+                    "metaDescription": "Pattern_38 | Favric",
+                    "metaKeywords": "Pattern_38 | Favric",
+                    "uploadedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                    "lastModifiedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                    "deletedAt": null,
+                    "createdAt": "2026-06-11T04:20:12.660Z",
+                    "updatedAt": "2026-06-11T04:27:08.799Z",
+                    "uploader": {
+                      "userName": "melody47"
+                    },
+                    "modifier": {
+                      "userName": "melody47"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/patterns/deletePattern/{id}": {
+      "delete": {
+        "summary": "Delete pattern",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "c02bbbbb-0bdd-4b65-8dcb-0129e5e10874",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/productTypes/addProductType": {
+      "post": {
+        "summary": "Add ProductType",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": "{\r\n    \"productTypeName\":\"Featured Product_new\",\r\n    \"productTypeDescription\":\"This is an sample description for product type\",\r\n}"
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/productTypes/updateProductType/{id}": {
+      "put": {
+        "summary": "Update ProductType",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "30b3e334-254a-4b3d-96a5-b0e2e3aa8fd2",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": "{\r\n    \"productTypeName\":\"Featured Product\",\r\n    \"productTypeDescription\":\"This is an sample description for product type\",\r\n}"
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/productTypes/getProductType/{id}": {
+      "get": {
+        "summary": "Get ProductType By Id",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "30b3e334-254a-4b3d-96a5-b0e2e3aa8fd2",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "productTypeId": "30b3e334-254a-4b3d-96a5-b0e2e3aa8fd2",
+                    "productTypeName": "Featured Product",
+                    "productTypeSlug": "featured_product",
+                    "productTypeDescription": "This is an sample description for product type",
+                    "metaTitle": "Featured Product | Favric",
+                    "metaDescription": "Featured Product | Favric",
+                    "metaKeywords": "Featured Product | Favric",
+                    "uploadedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                    "lastModifiedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                    "deletedAt": null,
+                    "createdAt": "2026-06-11T04:34:42.137Z",
+                    "updatedAt": "2026-06-11T04:37:40.159Z",
+                    "uploader": {
+                      "userName": "melody47"
+                    },
+                    "modifier": {
+                      "userName": "melody47"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/productTypes/getAllProductTypes": {
+      "get": {
+        "summary": "Get All ProductTypes",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /api/v1/product/productType/getAllProductTypes</pre>\n</body>\n</html>\n"
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/productTypes/deleteProductType/{id}": {
+      "delete": {
+        "summary": "Delete ProductType",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "5ad4bdc7-c355-4a26-993f-844077e8bccb",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/shippingCharges/addShippingCharge": {
+      "post": {
+        "summary": "Add Shipping Charge",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "shippingBaseCountry": "India",
+                "shippingPrice": 100,
+                "isFreeShipping": false,
+                "shippingMinimumOrderAmount": 1000,
+                "shippingWeightSlabFrom": 1,
+                "shippingWeightSlabTo": 5,
+                "shippingStatus": "active",
+                "shippingChargeCurrency": "INR"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/shippingCharges/updateShippingCharge/{id}": {
+      "put": {
+        "summary": "Update Shipping Charge",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "60ba9a46-77f7-47be-a9c8-19ce30c2760f",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "shippingBaseCountry": "United States",
+                "shippingPrice": 100,
+                "isFreeShipping": false,
+                "shippingMinimumOrderAmount": 1000,
+                "shippingWeightSlabFrom": 1,
+                "shippingWeightSlabTo": 5,
+                "shippingStatus": "active",
+                "shippingChargeCurrency": "USD"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/shippingCharges/getAllShippingCharges": {
+      "get": {
+        "summary": "Get All Shipping Charges",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": [
+                    {
+                      "shippingChargeId": "60ba9a46-77f7-47be-a9c8-19ce30c2760f",
+                      "shippingBaseCountry": "United States",
+                      "shippingPrice": "100.00",
+                      "isFreeShipping": false,
+                      "shippingMinimumOrderAmount": "1000.00",
+                      "shippingWeightSlabFrom": "1.00",
+                      "shippingWeightSlabTo": "5.00",
+                      "shippingStatus": "active",
+                      "shippingChargeCurrency": "USD",
+                      "uploadedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                      "lastModifiedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                      "deletedAt": null,
+                      "createdAt": "2026-06-11T05:28:53.937Z",
+                      "updatedAt": "2026-06-11T05:32:11.914Z",
+                      "uploader": {
+                        "userName": "melody47"
+                      },
+                      "modifier": {
+                        "userName": "melody47"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/shippingCharges/getShippingCharge/{id}": {
+      "get": {
+        "summary": "Get Shipping Charge By Id",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "60ba9a46-77f7-47be-a9c8-19ce30c2760f",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "shippingChargeId": "60ba9a46-77f7-47be-a9c8-19ce30c2760f",
+                    "shippingBaseCountry": "United States",
+                    "shippingPrice": "100.00",
+                    "isFreeShipping": false,
+                    "shippingMinimumOrderAmount": "1000.00",
+                    "shippingWeightSlabFrom": "1.00",
+                    "shippingWeightSlabTo": "5.00",
+                    "shippingStatus": "active",
+                    "shippingChargeCurrency": "USD",
+                    "uploadedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                    "lastModifiedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                    "deletedAt": null,
+                    "createdAt": "2026-06-11T05:28:53.937Z",
+                    "updatedAt": "2026-06-11T05:32:11.914Z",
+                    "uploader": {
+                      "userName": "melody47"
+                    },
+                    "modifier": {
+                      "userName": "melody47"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/shippingCharges/deleteShippingCharge/{id}": {
+      "delete": {
+        "summary": "Delete Shipping Charge",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "60ba9a46-77f7-47be-a9c8-19ce30c2760f",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/sizes/addSize": {
+      "post": {
+        "summary": "Add Size",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "sizeName": "Small",
+                "sizeValue": "S"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/sizes/updateSize/{id}": {
+      "put": {
+        "summary": "Update Size",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "b80e194f-0b5c-4d25-af34-0feafcd13d8d",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "sizeName": "Medium",
+                "sizeValue": "M"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Size Record updated successfully.",
+                  "data": [
+                    1
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/sizes/getAllSizes": {
+      "get": {
+        "summary": "Get All Sizes",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": [
+                    {
+                      "sizeId": "b80e194f-0b5c-4d25-af34-0feafcd13d8d",
+                      "sizeName": "Medium",
+                      "sizeSlug": "medium",
+                      "sizeValue": "M",
+                      "uploadedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                      "lastModifiedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                      "deletedAt": null,
+                      "createdAt": "2026-06-11T05:37:23.966Z",
+                      "updatedAt": "2026-06-11T05:38:51.077Z",
+                      "uploader": {
+                        "userName": "melody47"
+                      },
+                      "modifier": {
+                        "userName": "melody47"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/sizes/getSize/{id}": {
+      "get": {
+        "summary": "Get Size by Id",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "b80e194f-0b5c-4d25-af34-0feafcd13d8d",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /api/v1/products/sizes/getSize/b80e194f-0b5c-4d25-af34-0feafcd13d8d</pre>\n</body>\n</html>\n"
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/sizes/deleteSize/{id}": {
+      "delete": {
+        "summary": "Delete Size",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "b80e194f-0b5c-4d25-af34-0feafcd13d8d",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/weights/addWeight": {
+      "post": {
+        "summary": "Add Weight",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "weightName": "One Kg",
+                "weightValue": "1"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/weights/updateWeight/{id}": {
+      "put": {
+        "summary": "Update Weight",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "ab119c07-37b3-4bcc-823d-adc9a9802f37",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "weightName": "One Kg",
+                "weightValue": "1000"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/weights/getAllWeights": {
+      "get": {
+        "summary": "Get All Weights",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": [
+                    {
+                      "weightId": "ab119c07-37b3-4bcc-823d-adc9a9802f37",
+                      "weightName": "One Kg",
+                      "weightSlug": "one_kg",
+                      "weightValue": 1000,
+                      "weightUnit": "grams",
+                      "uploadedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                      "lastModifiedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                      "deletedAt": null,
+                      "createdAt": "2026-06-11T05:43:13.292Z",
+                      "updatedAt": "2026-06-11T05:44:25.242Z",
+                      "uploader": {
+                        "userName": "melody47"
+                      },
+                      "modifier": {
+                        "userName": "melody47"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/weights/getWeight/{id}": {
+      "get": {
+        "summary": "Get Weight by Id",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "ab119c07-37b3-4bcc-823d-adc9a9802f37",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "weightId": "ab119c07-37b3-4bcc-823d-adc9a9802f37",
+                    "weightName": "One Kg",
+                    "weightSlug": "one_kg",
+                    "weightValue": 1000,
+                    "weightUnit": "grams",
+                    "uploadedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                    "lastModifiedBy": "45926932-e68d-430d-87db-acd83e6f7671",
+                    "deletedAt": null,
+                    "createdAt": "2026-06-11T05:43:13.292Z",
+                    "updatedAt": "2026-06-11T05:44:25.242Z",
+                    "uploader": {
+                      "userName": "melody47"
+                    },
+                    "modifier": {
+                      "userName": "melody47"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/weights/deleteWeight/{id}": {
+      "delete": {
+        "summary": "Delete Weight",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "ab119c07-37b3-4bcc-823d-adc9a9802f37",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
     }
   },
   "components": {

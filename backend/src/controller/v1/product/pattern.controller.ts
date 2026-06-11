@@ -48,7 +48,7 @@ const updatePattern = asyncHandler(async (req: Request, res: Response) => {
 
     const pattern = await getRecord(Pattern, {
         where: {
-            id,
+            patternId: id,
             deletedAt: null
         }
     })
@@ -59,7 +59,7 @@ const updatePattern = asyncHandler(async (req: Request, res: Response) => {
     const isExist = await checkRecordExists(Pattern, {
         where: {
             patternName,
-            id: { [Op.ne]: id },
+            patternId: { [Op.ne]: id },
             deletedAt: null
         }
     });
@@ -73,11 +73,6 @@ const updatePattern = asyncHandler(async (req: Request, res: Response) => {
     let metaKeywords = generateMetaKeywords([patternName ?? pattern.patternName]);
 
     const updatedPattern = await updateRecord(Pattern, {
-        where: {
-            id,
-            deletedAt: null
-        }
-    }, {
         patternName,
         patternSlug,
         patternDescription,
@@ -85,6 +80,11 @@ const updatePattern = asyncHandler(async (req: Request, res: Response) => {
         metaDescription,
         metaKeywords,
         lastModifiedBy
+    }, {
+        where: {
+            patternId: id,
+            deletedAt: null
+        }
     });
 
     sendResponse(res, 200, `Pattern ${StatusMessages.UPDATED}`, updatedPattern);
@@ -97,13 +97,13 @@ const getPatterns = getAllRecordsController(Pattern, {
     ]
 })
 
-const getPatternById = getRecordByIdController(Pattern, "id", "Pattern", {
+const getPatternById = getRecordByIdController(Pattern, "patternId", "Pattern", {
     include: [
         { model: User, as: "uploader", attributes: ["userName"] },
         { model: User, as: "modifier", attributes: ["userName"] }
     ]
 })
 
-const deletePattern = deleteRecordController(Pattern, "id", "Pattern")
+const deletePattern = deleteRecordController(Pattern, "patternId", "Pattern")
 
 export { createPattern, updatePattern, getPatterns, getPatternById, deletePattern }

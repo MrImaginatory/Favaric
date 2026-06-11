@@ -7,9 +7,10 @@ const createShippingChargeValidation = z.object({
         shippingPrice: z.number().min(1, "Shipping price is required").max(100000000, "Shipping price cannot exceed 100000 characters"),
         isFreeShipping: z.boolean().optional(),
         shippingMinimumOrderAmount: z.number().min(1, "Shipping minimum order amount is required").max(100000000, "Shipping minimum order amount cannot exceed 100000 characters").optional(),
-        shippingWeightSlabFrom: z.number().min(1, "Shipping weight slab from is required").max(100000000, "Shipping weight slab from cannot exceed 100000 characters"),
+        shippingWeightSlabFrom: z.number().min(0.1, "Shipping weight slab from is required").max(100000000, "Shipping weight slab from cannot exceed 100000 characters"),
         shippingWeightSlabTo: z.number().min(1, "Shipping weight slab to is required").max(1000000, "Shipping weight slab to cannot exceed 100000 characters"),
-        shippingStatus: z.enum(["ACTIVE", "INACTIVE"]),
+        shippingStatus: z.enum(["active", "inactive"]),
+        shippingChargeCurrency: z.string().min(1, "Shipping charge currency is required").max(3, "Shipping charge currency cannot exceed 3 characters"),
     })
 })
 
@@ -22,9 +23,10 @@ const updateShippingChargeValidation = z.object({
         shippingPrice: z.number().min(1, "Shipping price is required").max(100000000, "Shipping price cannot exceed 100000 characters").optional(),
         isFreeShipping: z.boolean().optional(),
         shippingMinimumOrderAmount: z.number().min(1, "Shipping minimum order amount is required").max(100000000, "Shipping minimum order amount cannot exceed 100000 characters").optional(),
-        shippingWeightSlabFrom: z.number().min(1, "Shipping weight slab from is required").max(10000000, "Shipping weight slab from cannot exceed 100000 characters").optional(),
+        shippingWeightSlabFrom: z.number().min(0.1, "Shipping weight slab from is required").max(10000000, "Shipping weight slab from cannot exceed 100000 characters").optional(),
         shippingWeightSlabTo: z.number().min(1, "Shipping weight slab to is required").max(1000000, "Shipping weight slab to cannot exceed 100000 characters").optional(),
-        shippingStatus: z.enum(["ACTIVE", "INACTIVE"]).optional(),
+        shippingStatus: z.enum(["active", "inactive"]).optional(),
+        shippingChargeCurrency: z.string().min(1, "Shipping charge currency is required").max(3, "Shipping charge currency cannot exceed 3 characters").optional(),
     })
 })
 

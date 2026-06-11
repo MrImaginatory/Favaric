@@ -9,7 +9,7 @@ import { getRecord, getAllRecords, deleteRecord } from "../../services/base.serv
 
 export const getRecordByIdController = <T extends Model>(
     model: ModelStatic<T>,
-    primaryKeyField: string,
+    primaryKeyField: keyof T,
     entityName: string = "Record",
     queryOptions: any = {}
 ) => asyncHandler(async (req: Request, res: Response) => {
@@ -36,7 +36,7 @@ export const getAllRecordsController = <T extends Model>(
 
 export const deleteRecordController = <T extends Model>(
     model: ModelStatic<T>,
-    primaryKeyField: string,
+    primaryKeyField: keyof T,
     entityName: string = "Record"
 ) => asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id as string;
@@ -46,7 +46,7 @@ export const deleteRecordController = <T extends Model>(
         throw new AppError(`${entityName} not found`, 404);
     }
 
-    await deleteRecord(model, primaryKeyField, id);
+    await deleteRecord(model, primaryKeyField as string, id);
 
     sendResponse(res, 200, StatusMessages.SUCCESS, null);
 });

@@ -1,32 +1,32 @@
-import type { ModelStatic } from "@sequelize/core";
+import type { ModelStatic, CreationAttributes, Attributes, FindOptions, UpdateOptions } from "@sequelize/core";
 import { Model } from "@sequelize/core";
 
 
 export const createRecord = async <T extends Model>(
     model: ModelStatic<T>,
-    data: any
+    data: CreationAttributes<T>
 ): Promise<T> => {
     return await model.create(data);
 };
 
 export const getAllRecords = async <T extends Model>(
     model: ModelStatic<T>,
-    queryOptions: any = {}
+    queryOptions: FindOptions<Attributes<T>> = {}
 ): Promise<T[]> => {
     return await model.findAll(queryOptions);
 };
 
 export const getRecord = async <T extends Model>(
     model: ModelStatic<T>,
-    queryOptions: any = {}
+    queryOptions: FindOptions<Attributes<T>> = {}
 ): Promise<T | null> => {
     return await model.findOne(queryOptions);
 };
 
 export const updateRecord = async <T extends Model>(
     model: ModelStatic<T>,
-    data: any,
-    queryOptions: any
+    data: Partial<T> | any, // Can use UpdateOptions later if needed
+    queryOptions: UpdateOptions<Attributes<T>>
 ): Promise<any> => {
     // Remove any undefined properties so we only update the provided fields
     const cleanData = Object.fromEntries(

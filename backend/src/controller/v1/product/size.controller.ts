@@ -40,7 +40,7 @@ const updateSize = asyncHandler(async (req: Request, res: Response) => {
 
     const size = await getRecord(Size, {
         where: {
-            id,
+            sizeId: id,
             deletedAt: null
         }
     })
@@ -51,7 +51,7 @@ const updateSize = asyncHandler(async (req: Request, res: Response) => {
     const isExist = await checkRecordExists(Size, {
         where: {
             sizeName,
-            id: {
+            sizeId: {
                 [Op.ne]: id
             },
             deletedAt: null
@@ -64,15 +64,15 @@ const updateSize = asyncHandler(async (req: Request, res: Response) => {
     let sizeSlug = slugGenerator(sizeName ?? size.sizeName);
 
     const updatedSize = await updateRecord(Size, {
-        where: {
-            id,
-            deletedAt: null
-        }
-    }, {
         sizeName,
         sizeSlug,
         sizeValue,
         lastModifiedBy
+    }, {
+        where: {
+            sizeId: id,
+            deletedAt: null
+        }
     });
 
     sendResponse(res, 200, `Size ${StatusMessages.UPDATED}`, updatedSize);
@@ -83,11 +83,11 @@ const getAllSizes = getAllRecordsController(Size, {
         { model: User, as: "modifier", attributes: ["userName"] }
     ]
 })
-const getSizeById = getRecordByIdController(Size, "id", "Size", {
+const getSizeById = getRecordByIdController(Size, "sizeId", "Size", {
     include: [
         { model: User, as: "uploader", attributes: ["userName"] },
         { model: User, as: "modifier", attributes: ["userName"] }
     ]
 })
-const deleteSize = deleteRecordController(Size, "id", "Size")
+const deleteSize = deleteRecordController(Size, "sizeId", "Size")
 export { createSize, updateSize, getAllSizes, getSizeById, deleteSize }

@@ -48,7 +48,7 @@ const updateProductType = asyncHandler(async (req: Request, res: Response) => {
 
     const productType = await getRecord(ProductType, {
         where: {
-            id,
+            productTypeId: id,
             deletedAt: null
         }
     })
@@ -59,7 +59,7 @@ const updateProductType = asyncHandler(async (req: Request, res: Response) => {
     const isExist = await checkRecordExists(ProductType, {
         where: {
             productTypeName,
-            id: { [Op.ne]: id },
+            productTypeId: { [Op.ne]: id },
             deletedAt: null
         }
     });
@@ -73,11 +73,6 @@ const updateProductType = asyncHandler(async (req: Request, res: Response) => {
     let metaKeywords = generateMetaKeywords([productTypeName ?? productType.productTypeName]);
 
     const updatedProductType = await updateRecord(ProductType, {
-        where: {
-            id,
-            deletedAt: null
-        }
-    }, {
         productTypeName,
         productTypeSlug,
         productTypeDescription,
@@ -85,6 +80,11 @@ const updateProductType = asyncHandler(async (req: Request, res: Response) => {
         metaDescription,
         metaKeywords,
         lastModifiedBy
+    }, {
+        where: {
+            productTypeId: id,
+            deletedAt: null
+        }
     });
 
     sendResponse(res, 200, `ProductType ${StatusMessages.UPDATED}`, updatedProductType);
@@ -97,13 +97,13 @@ const getAllProductTypes = getAllRecordsController(ProductType, {
     ]
 })
 
-const getProductTypeById = getRecordByIdController(ProductType, "id", "ProductType", {
+const getProductTypeById = getRecordByIdController(ProductType, "productTypeId", "ProductType", {
     include: [
         { model: User, as: "uploader", attributes: ["userName"] },
         { model: User, as: "modifier", attributes: ["userName"] }
     ]
 })
 
-const deleteProductType = deleteRecordController(ProductType, "id", "ProductType")
+const deleteProductType = deleteRecordController(ProductType, "productTypeId", "ProductType")
 
 export { createProductType, updateProductType, getAllProductTypes, getProductTypeById, deleteProductType }

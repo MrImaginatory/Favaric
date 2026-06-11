@@ -10,6 +10,7 @@ class ShippingCharge extends Model {
     public shippingWeightSlabFrom!: number;
     public shippingWeightSlabTo!: number;
     public shippingStatus!: boolean;
+    public shippingChargeCurrency!: string;
 
     public uploadedBy!: string;
     public lastModifiedBy!: string;
@@ -49,8 +50,15 @@ ShippingCharge.init({
         comment: "in grams"
     },
     shippingStatus: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false
+        type: DataTypes.ENUM('active', 'inactive'),
+        allowNull: false,
+        defaultValue: "active"
+    },
+    shippingChargeCurrency: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "INR",
+        comment: "ISO 4217 currency code"
     },
 
     uploadedBy: {

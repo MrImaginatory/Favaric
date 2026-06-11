@@ -11,7 +11,10 @@ import { Op } from "@sequelize/core";
 
 
 const createShippingCharge = asyncHandler(async (req: Request, res: Response) => {
-    const { shippingBaseCountry, shippingPrice, isFreeShipping, shippingMinimumOrderAmount, shippingWeightSlabFrom, shippingWeightSlabTo, shippingStatus } = req.body;
+    const { shippingBaseCountry, shippingPrice,
+        isFreeShipping, shippingMinimumOrderAmount,
+        shippingWeightSlabFrom, shippingWeightSlabTo,
+        shippingStatus, shippingChargeCurrency } = req.body;
 
     const uploadedBy = req.session?.userId;
     const lastModifiedBy = req.session?.userId;
@@ -30,6 +33,7 @@ const createShippingCharge = asyncHandler(async (req: Request, res: Response) =>
         shippingWeightSlabFrom,
         shippingWeightSlabTo,
         shippingStatus,
+        shippingChargeCurrency,
         uploadedBy,
         lastModifiedBy
     });
@@ -39,12 +43,16 @@ const createShippingCharge = asyncHandler(async (req: Request, res: Response) =>
 
 const updateShippingCharge = asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id;
-    const { shippingBaseCountry, shippingPrice, isFreeShipping, shippingMinimumOrderAmount, shippingWeightSlabFrom, shippingWeightSlabTo, shippingStatus } = req.body;
+    const { shippingBaseCountry, shippingPrice,
+        isFreeShipping, shippingMinimumOrderAmount,
+        shippingWeightSlabFrom, shippingWeightSlabTo,
+        shippingStatus, shippingChargeCurrency } = req.body;
+
     const lastModifiedBy = req.session?.userId;
 
     const shippingCharge = await getRecord(ShippingCharge, {
         where: {
-            id,
+            shippingChargeId: id,
             deletedAt: null
         }
     })
@@ -55,7 +63,7 @@ const updateShippingCharge = asyncHandler(async (req: Request, res: Response) =>
     const isExist = await checkRecordExists(ShippingCharge, {
         where: {
             shippingBaseCountry,
-            id: { [Op.ne]: id },
+            shippingChargeId: { [Op.ne]: id },
             deletedAt: null
         }
     });
@@ -64,11 +72,6 @@ const updateShippingCharge = asyncHandler(async (req: Request, res: Response) =>
     }
 
     const updatedShippingCharge = await updateRecord(ShippingCharge, {
-        where: {
-            id,
-            deletedAt: null
-        }
-    }, {
         shippingBaseCountry,
         shippingPrice,
         isFreeShipping,
@@ -76,7 +79,13 @@ const updateShippingCharge = asyncHandler(async (req: Request, res: Response) =>
         shippingWeightSlabFrom,
         shippingWeightSlabTo,
         shippingStatus,
+        shippingChargeCurrency,
         lastModifiedBy
+    }, {
+        where: {
+            shippingChargeId: id,
+            deletedAt: null
+        }
     });
 
     sendResponse(res, 200, `ShippingCharge ${StatusMessages.UPDATED}`, updatedShippingCharge);
@@ -89,13 +98,13 @@ const getAllShippingCharges = getAllRecordsController(ShippingCharge, {
     ]
 })
 
-const getShippingChargeById = getRecordByIdController(ShippingCharge, "id", "ShippingCharge", {
+const getShippingChargeById = getRecordByIdController(ShippingCharge, "shippingChargeId", "ShippingCharge", {
     include: [
         { model: User, as: "uploader", attributes: ["userName"] },
         { model: User, as: "modifier", attributes: ["userName"] }
     ]
 })
 
-const deleteShippingCharge = deleteRecordController(ShippingCharge, "id", "ShippingCharge")
+const deleteShippingCharge = deleteRecordController(ShippingCharge, "shippingChargeId", "ShippingCharge")
 
 export { createShippingCharge, updateShippingCharge, getAllShippingCharges, getShippingChargeById, deleteShippingCharge }
