@@ -15,7 +15,6 @@ class Product extends Model {
     public gstPercentage!: number;
 
     public category!: string;
-    public subCategory!: string;
 
     public brand!: string;
 
@@ -42,7 +41,6 @@ class Product extends Model {
     public color!: string;
     public size!: string;
     public weight!: string;
-    public volume!: string;
     public dimensions!: string;
 
     public isFeatured!: boolean;
@@ -117,10 +115,6 @@ Product.init({
         allowNull: false
     },
     category: {
-        type: DataTypes.UUID,
-        allowNull: false
-    },
-    subCategory: {
         type: DataTypes.UUID,
         allowNull: false
     },
@@ -290,44 +284,65 @@ Product.init({
         foreignKey: "category",
         as: "categoryDetails"
     });
-    Product.belongsTo(models.SubCategory, {
-        foreignKey: "subCategory",
-        as: "subcategoryDetails"
-    });
     Product.belongsTo(models.Brand, {
         foreignKey: "brand",
         as: "brandDetails"
     });
-
-    Product.belongsToMany(models.Color, {
-        through: "product_colors",
-        foreignKey: "productId",
-        otherKey: "colorId",
-        as: "colors"
+    Product.belongsTo(models.Fabric, {
+        foreignKey: "fabric",
+        as: "fabricDetails"
     });
-    Product.belongsToMany(models.Size, {
-        through: "product_sizes",
-        foreignKey: "productId",
-        otherKey: "sizeId",
-        as: "sizes"
+    Product.belongsTo(models.Occasion, {
+        foreignKey: "occasion",
+        as: "occasionDetails"
     });
-    Product.belongsToMany(models.Pattern, {
-        through: "product_patterns",
-        foreignKey: "productId",
-        otherKey: "patternId",
-        as: "patterns"
+    Product.belongsTo(models.Pattern, {
+        foreignKey: "pattern",
+        as: "patternDetails"
     });
-    Product.belongsToMany(models.Occasion, {
-        through: "product_occasions",
-        foreignKey: "productId",
-        otherKey: "occasionId",
-        as: "occasions"
+    Product.belongsTo(models.Length, {
+        foreignKey: "length",
+        as: "lengthDetails"
     });
-    Product.belongsToMany(models.Fabric, {
-        through: "product_fabrics",
-        foreignKey: "productId",
-        otherKey: "fabricId",
-        as: "fabrics"
+    Product.belongsTo(models.CountryOfOrigin, {
+        foreignKey: "countryOfOrigin",
+        as: "countryOfOriginDetails"
+    });
+    Product.belongsTo(models.Color, {
+        foreignKey: "color",
+        as: "colorDetails"
+    });
+    Product.belongsTo(models.Size, {
+        foreignKey: "size",
+        as: "sizeDetails"
+    });
+    Product.belongsTo(models.Weight, {
+        foreignKey: "weight",
+        as: "weightDetails"
+    });
+    Product.belongsTo(models.Dimension, {
+        foreignKey: "dimensions",
+        as: "dimensionDetails"
+    });
+    Product.belongsTo(models.ProductType, {
+        foreignKey: "productType",
+        as: "productTypeDetails"
+    });
+    Product.belongsTo(models.Catalog, {
+        foreignKey: "catalogId",
+        as: "catalogDetails"
+    });
+    Product.belongsTo(models.ShippingCharge, {
+        foreignKey: "shippingCharge",
+        as: "shippingChargeDetails"
+    });
+    Product.belongsTo(models.User, {
+        foreignKey: "uploadedBy",
+        as: "uploader"
+    });
+    Product.belongsTo(models.User, {
+        foreignKey: "lastModifiedBy",
+        as: "modifier"
     });
 };
 

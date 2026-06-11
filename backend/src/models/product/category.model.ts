@@ -82,6 +82,10 @@ Category.init({
 });
 
 (Category as any).associate = (models: any) => {
+    Category.hasMany(models.SubCategory, {
+        foreignKey: "categoryId",
+        as: "subcategories"
+    });
     Category.belongsTo(models.User, {
         foreignKey: "uploadedBy",
         as: "uploader"

@@ -1,17 +1,13 @@
 import { DataTypes, sql, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
-class SubCategory extends Model {
-    public subCategoryId!: string;
-    public subcategoryName!: string;
-    public subcategorySlug!: string;
-    public subcategoryDescription!: string;
-    public subcategoryImage!: string;
-
-    public categoryId!: string;
-
-    public isFeatured!: boolean;
-    public isPopular!: boolean;
+class Catalog extends Model {
+    public catalogId!: string;
+    public catalogName!: string;
+    public catalogSlug!: string;
+    public catalogDescription!: string;
+    public catalogImage!: string;
+    public catalogSubImages!: string;
 
     public metaTitle!: string;
     public metaDescription!: string;
@@ -22,38 +18,30 @@ class SubCategory extends Model {
     public deletedAt!: Date;
 }
 
-SubCategory.init({
-    subCategoryId: {
+Catalog.init({
+    catalogId: {
         type: DataTypes.UUID,
         defaultValue: sql.uuidV4,
         primaryKey: true
     },
-    subcategoryName: {
+    catalogName: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    subcategorySlug: {
+    catalogSlug: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    subcategoryDescription: {
+    catalogDescription: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    image: {
+    catalogImage: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    categoryId: {
-        type: DataTypes.UUID,
-        allowNull: false
-    },
-    isFeatured: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false
-    },
-    isPopular: {
-        type: DataTypes.BOOLEAN,
+    catalogSubImages: {
+        type: DataTypes.JSON,
         allowNull: false
     },
     metaTitle: {
@@ -82,24 +70,24 @@ SubCategory.init({
     }
 }, {
     sequelize,
-    tableName: "subcategories",
+    tableName: "catalogs",
     timestamps: true,
     paranoid: true
 });
 
-(SubCategory as any).associate = (models: any) => {
-    SubCategory.belongsTo(models.Category, {
-        foreignKey: "categoryId",
-        as: "category"
-    });
-    SubCategory.belongsTo(models.User, {
+(Catalog as any).associate = (models: any) => {
+    Catalog.belongsTo(models.User, {
         foreignKey: "uploadedBy",
         as: "uploader"
     });
-    SubCategory.belongsTo(models.User, {
+    Catalog.belongsTo(models.User, {
         foreignKey: "lastModifiedBy",
         as: "modifier"
     });
+    Catalog.hasMany(models.Product, {
+        foreignKey: "catalogId",
+        as: "products"
+    });
 };
 
-export default SubCategory;
+export default Catalog;

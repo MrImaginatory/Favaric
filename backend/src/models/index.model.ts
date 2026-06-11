@@ -19,6 +19,7 @@ import ShippingCharge from "./product/shippingCharge.model.js"
 import Size from "./product/size.model.js"
 import SubCategory from "./product/subcategory.model.js"
 import Weight from "./product/weight.model.js"
+import Catalog from "./product/catalog.model.js"
 
 /*Depreciated Models*/
 // import Volume from "./product/volume.model.js"
@@ -46,7 +47,8 @@ const models = {
     Weight,
     Dimension,
     Length,
-    CountryOfOrigin
+    CountryOfOrigin,
+    Catalog
 
     /*Depreciated Models*/
     // Volume,
