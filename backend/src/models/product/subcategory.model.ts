@@ -40,7 +40,7 @@ SubCategory.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    image: {
+    subcategoryImage: {
         type: DataTypes.STRING,
         allowNull: false
     },
