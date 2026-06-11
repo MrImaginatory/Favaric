@@ -14,6 +14,9 @@ import productTypeRouter from "./productType/productType.route.js";
 import shippingChargeRouter from "./shippingCharge/shippingCharge.route.js";
 import sizeRouter from "./size/size.route.js";
 import weightRouter from "./weight/weight.route.js";
+import catalogRouter from "./catalog/catalog.route.js";
+import categoryRouter from "./category/category.route.js";
+import subcategoryRouter from "./subcategory/subcategory.route.js";
 
 const productRouter = Router();
 
@@ -31,5 +34,8 @@ productRouter.use("/productTypes", productTypeRouter);
 productRouter.use("/shippingCharges", shippingChargeRouter);
 productRouter.use("/sizes", sizeRouter);
 productRouter.use("/weights", weightRouter);
+productRouter.use("/catalogs", catalogRouter);
+productRouter.use("/categories", categoryRouter);
+productRouter.use("/subcategories", subcategoryRouter);
 
 export default productRouter;
