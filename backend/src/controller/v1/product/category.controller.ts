@@ -29,7 +29,7 @@ const createCategory = asyncHandler(async (req: Request, res: Response) => {
     const categoryMetaDescription = metaDescription ? metaDescription : generateMetaDescription(categoryDescription || categoryName);
     const categoryMetaKeywords = metaKeywords ? metaKeywords : generateMetaKeywords(categoryName);
 
-    const categoryExists = await checkRecordExists(Category, { categoryName, deletedAt: null });
+    const categoryExists = await checkRecordExists(Category, { where: { categoryName, deletedAt: null } });
 
     if (categoryExists) {
         throw new AppError(`Category ${StatusMessages.ALREADY_EXISTS}`, 409);

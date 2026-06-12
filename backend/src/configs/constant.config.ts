@@ -36,7 +36,9 @@ const config = {
 
     JWT: {
         SECRET: getEnv("JWT_SECRET", true),
+        TOKEN_EXPIRY: getEnv("JWT_TOKEN_EXPIRY", true),
         REFRESH_SECRET: getEnv("JWT_REFRESH_SECRET", true),
+        REFRESH_EXPIRY: getEnv("JWT_REFRESH_EXPIRY", true)
     },
     REDIS: {
         HOST: getEnv("REDIS_HOST", true),

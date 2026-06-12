@@ -14,16 +14,16 @@ import { renameDeletedFile } from "../../../utils/file.util.js";
 
 const createSubCategory = asyncHandler(async (req: Request, res: Response) => {
     const userId = req.session.userId;
-    const { 
-        subcategoryName, 
-        subcategoryDescription, 
+    const {
+        subcategoryName,
+        subcategoryDescription,
         subcategoryImage,
         categoryId,
-        isFeatured, 
-        isPopular, 
-        metaTitle, 
-        metaDescription, 
-        metaKeywords 
+        isFeatured,
+        isPopular,
+        metaTitle,
+        metaDescription,
+        metaKeywords
     } = req.body;
 
     const subcategorySlug = slugGenerator(subcategoryName);
@@ -31,12 +31,12 @@ const createSubCategory = asyncHandler(async (req: Request, res: Response) => {
     const subcategoryMetaDescription = metaDescription ? metaDescription : generateMetaDescription(subcategoryDescription || subcategoryName);
     const subcategoryMetaKeywords = metaKeywords ? metaKeywords : generateMetaKeywords(subcategoryName);
 
-    const categoryExists = await checkRecordExists(Category, { categoryId, deletedAt: null });
+    const categoryExists = await checkRecordExists(Category, { where: { categoryId, deletedAt: null } });
     if (!categoryExists) {
         throw new AppError(`Category ${StatusMessages.NOT_FOUND}`, 404);
     }
 
-    const subcategoryExists = await checkRecordExists(SubCategory, { subcategoryName, deletedAt: null });
+    const subcategoryExists = await checkRecordExists(SubCategory, { where: { subcategoryName, deletedAt: null } });
 
     if (subcategoryExists) {
         throw new AppError(`SubCategory ${StatusMessages.ALREADY_EXISTS}`, 409);
@@ -47,8 +47,8 @@ const createSubCategory = asyncHandler(async (req: Request, res: Response) => {
         subcategoryDescription,
         subcategoryImage,
         categoryId,
-        isFeatured: isFeatured ?? false,
-        isPopular: isPopular ?? false,
+        isFeatured: Boolean(isFeatured),
+        isPopular: Boolean(isPopular),
         subcategorySlug,
         uploadedBy: userId,
         lastModifiedBy: userId,
@@ -78,16 +78,16 @@ const getSubCategoryById = getRecordByIdController(SubCategory, "subCategoryId",
 
 const updateSubCategory = asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id as string;
-    const { 
-        subcategoryName, 
-        subcategoryDescription, 
+    const {
+        subcategoryName,
+        subcategoryDescription,
         subcategoryImage,
         categoryId,
-        isFeatured, 
-        isPopular, 
-        metaTitle, 
-        metaDescription, 
-        metaKeywords 
+        isFeatured,
+        isPopular,
+        metaTitle,
+        metaDescription,
+        metaKeywords
     } = req.body;
     const userId = req.session.userId;
 
@@ -105,7 +105,7 @@ const updateSubCategory = asyncHandler(async (req: Request, res: Response) => {
     }
 
     if (categoryId && categoryId !== currentSubCategory.categoryId) {
-        const categoryExists = await checkRecordExists(Category, { categoryId, deletedAt: null });
+        const categoryExists = await checkRecordExists(Category, { where: { categoryId, deletedAt: null } });
         if (!categoryExists) {
             throw new AppError(`Category ${StatusMessages.NOT_FOUND}`, 404);
         }
@@ -134,8 +134,8 @@ const updateSubCategory = asyncHandler(async (req: Request, res: Response) => {
         subcategoryDescription,
         subcategoryImage,
         categoryId,
-        isFeatured,
-        isPopular,
+        isFeatured: Boolean(isFeatured),
+        isPopular: Boolean(isPopular),
         subcategorySlug,
         lastModifiedBy: userId,
         metaTitle: subcategoryMetaTitle,

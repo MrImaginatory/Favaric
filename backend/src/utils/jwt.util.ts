@@ -6,13 +6,13 @@ class JWTUtil {
 
     public static generateAccessToken(payload: object): string {
         return jwt.sign(payload, config.JWT.SECRET, {
-            expiresIn: "15m",
+            expiresIn: config.JWT.TOKEN_EXPIRY as any,
         });
     }
 
     public static generateRefreshToken(payload: object): string {
         return jwt.sign(payload, config.JWT.REFRESH_SECRET, {
-            expiresIn: "7d",
+            expiresIn: config.JWT.REFRESH_EXPIRY as any,
         });
     }
 

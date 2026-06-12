@@ -22,7 +22,7 @@ const createCatalog = asyncHandler(async (req: Request, res: Response) => {
     const catalogMetaDescription = metaDescription ? metaDescription : generateMetaDescription(catalogDescription);
     const catalogMetaKeywords = metaKeywords ? metaKeywords : generateMetaKeywords(catalogName);
 
-    const catalogExists = await checkRecordExists(Catalog, { catalogName, deletedAt: null });
+    const catalogExists = await checkRecordExists(Catalog, { where: { catalogName, deletedAt: null } });
 
     if (catalogExists) {
         throw new AppError(`Catalog ${StatusMessages.ALREADY_EXISTS}`, 409);
