@@ -13,15 +13,15 @@ import { renameDeletedFile } from "../../../utils/file.util.js";
 
 const createCategory = asyncHandler(async (req: Request, res: Response) => {
     const userId = req.session.userId;
-    const { 
-        categoryName, 
-        categoryDescription, 
-        categoryImage, 
-        isFeatured, 
-        isPopular, 
-        metaTitle, 
-        metaDescription, 
-        metaKeywords 
+    const {
+        categoryName,
+        categoryDescription,
+        categoryImage,
+        isFeatured,
+        isPopular,
+        metaTitle,
+        metaDescription,
+        metaKeywords
     } = req.body;
 
     const categorySlug = slugGenerator(categoryName);
@@ -39,8 +39,8 @@ const createCategory = asyncHandler(async (req: Request, res: Response) => {
         categoryName,
         categoryDescription,
         categoryImage,
-        isFeatured: isFeatured ?? false,
-        isPopular: isPopular ?? false,
+        isFeatured: Boolean(isFeatured),
+        isPopular: Boolean(isPopular),
         categorySlug,
         uploadedBy: userId,
         lastModifiedBy: userId,
@@ -68,15 +68,15 @@ const getCategoryById = getRecordByIdController(Category, "categoryId", "Categor
 
 const updateCategory = asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id as string;
-    const { 
-        categoryName, 
-        categoryDescription, 
-        categoryImage, 
-        isFeatured, 
-        isPopular, 
-        metaTitle, 
-        metaDescription, 
-        metaKeywords 
+    const {
+        categoryName,
+        categoryDescription,
+        categoryImage,
+        isFeatured,
+        isPopular,
+        metaTitle,
+        metaDescription,
+        metaKeywords
     } = req.body;
     const userId = req.session.userId;
 
@@ -115,8 +115,8 @@ const updateCategory = asyncHandler(async (req: Request, res: Response) => {
         categoryName,
         categoryDescription,
         categoryImage,
-        isFeatured,
-        isPopular,
+        isFeatured: Boolean(isFeatured),
+        isPopular: Boolean(isPopular),
         categorySlug,
         lastModifiedBy: userId,
         metaTitle: categoryMetaTitle,
