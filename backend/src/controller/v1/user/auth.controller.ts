@@ -7,9 +7,11 @@ import AppError from "../../../utils/appError.util.js";
 import User from "../../../models/users/user.model.js";
 import UserSession from "../../../models/users/userSession.model.js";
 import bcrypt from "bcryptjs"
+import crypto from "crypto";
 import JWTUtil from "../../../utils/jwt.util.js";
 import redis from "../../../utils/redis.util.js";
 import logger from "../../../utils/logger.util.js";
+import UserSecurity from "../../../models/users/userSecurity.model.js";
 
 const signupController = asyncHandler(async (req: Request, res: Response) => {
     const { firstName, lastName, userName, email, password, countryCode, mobile } = req.body
@@ -32,17 +34,33 @@ const signupController = asyncHandler(async (req: Request, res: Response) => {
         }
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const customSalt = crypto.randomBytes(16).toString("hex");
+    const pepper = crypto.randomBytes(32).toString("hex");
+    const hashedPassword = await bcrypt.hash(password + pepper + customSalt, 10);
 
-    const user = await User.create({
-        firstName: firstName,
-        lastName: lastName,
-        userName: userName,
-        email: email,
-        password: hashedPassword,
-        countryCode: countryCode,
-        mobile: mobile,
-    })
+    let user;
+    try {
+        user = await User.create({
+            firstName: firstName,
+            lastName: lastName,
+            userName: userName,
+            email: email,
+            password: hashedPassword,
+            countryCode: countryCode,
+            mobile: mobile,
+        });
+
+        await UserSecurity.create({
+            userId: user.userId,
+            customSalt,
+            pepper
+        });
+    } catch (error) {
+        if (user) {
+            await user.destroy();
+        }
+        throw error;
+    }
 
     return sendResponse(res, 201, StatusMessages.USER_CREATED, {
         userName: user.userName,
@@ -63,7 +81,14 @@ const loginController = asyncHandler(async (req: any, res: Response) => {
         throw new AppError(StatusMessages.USER_NOT_FOUND, 404)
     }
 
-    if (!bcrypt.compareSync(reqBody.password, user.password)) {
+    const userSecurity: any = await UserSecurity.findByPk(user.userId);
+    if (!userSecurity) {
+        throw new AppError("Security credentials not found. Please contact support or sign up again.", 401);
+    }
+
+    const isValidPassword = await bcrypt.compare(reqBody.password + userSecurity.pepper + userSecurity.customSalt, user.password);
+
+    if (!isValidPassword) {
         throw new AppError(StatusMessages.AUTH_FAILED, 401)
     }
 

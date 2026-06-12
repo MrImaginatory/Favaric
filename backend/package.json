@@ -28,6 +28,7 @@
     "@types/morgan": "^1.9.10",
     "@types/multer": "^2.1.0",
     "@types/node": "^25.7.0",
+    "@types/nodemailer": "^8.0.0",
     "@types/request-ip": "^0.0.41",
     "@types/slug": "^5.0.9",
     "@types/useragent": "^2.3.4",
@@ -41,6 +42,7 @@
   "dependencies": {
     "@sequelize/core": "7.0.0-alpha.48",
     "@sequelize/postgres": "7.0.0-alpha.48",
+    "@sequelize/sqlite3": "7.0.0-alpha.48",
     "bcryptjs": "^3.0.3",
     "connect-redis": "^9.0.0",
     "cookie-parser": "^1.4.7",
@@ -51,9 +53,11 @@
     "ioredis": "^5.10.1",
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.1.1",
+    "nodemailer": "^8.0.10",
     "redis": "^5.12.1",
     "request-ip": "^3.3.0",
     "slug": "^11.0.1",
+    "sqlite3": "^6.0.1",
     "useragent": "^2.3.0",
     "zod": "^4.4.3"
   }

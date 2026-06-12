@@ -11,6 +11,7 @@ import redis from "./utils/redis.util.js";
 
 //databases
 import sequelize, { connectDB } from "./database/database.js";
+import { connectSQLite } from "./database/sqlite.js";
 import "./models/index.model.js";
 
 //utils
@@ -22,6 +23,7 @@ import { sessionMetadataMiddleware } from "./middleware/sessionMetadata.middlewa
 //routes
 import healthRouter from "./routes/health.route.js";
 import authRouter from "./routes/v1/auth/auth.route.js";
+import userRouter from "./routes/v1/user/user.route.js";
 import statusRouter from "./routes/status.route.js";
 import productRouter from "./routes/v1/product/product.route.js";
 
@@ -64,6 +66,7 @@ app.use(express.json({
 
 app.use("/api/v1/health", healthRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/user", userRouter);
 app.use("/api/v1/product", productRouter);
 
 app.use(statusRouter);
@@ -73,6 +76,7 @@ app.use(globalErrorHandler);
 const connectWithDatabase = async () => {
     try {
         await connectDB();
+        await connectSQLite();
         await sequelize.sync({
             alter: Boolean(config.DB.FORCE_ALTER_TABLE === "true"),
             force: Boolean(config.DB.FORCE_DROP_TABLE === "true")

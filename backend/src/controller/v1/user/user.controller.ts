@@ -6,6 +6,7 @@ import AppError from "../../../utils/appError.util.js";
 import User from "../../../models/users/user.model.js";
 import { generateNumericOTP } from "../../../utils/token.util.js";
 import bcrypt from "bcryptjs";
+import UserSecurity from "../../../models/users/userSecurity.model.js";
 
 const getUserProfile = asyncHandler(async (req: Request, res: Response) => {
     const userId = req.session?.userId;
@@ -28,7 +29,7 @@ const updateProfile = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const resetPassword = asyncHandler(async (req: Request, res: Response) => {
-    const { userId, code } = req.body;
+    const { userId, code, password } = req.body;
     const user = await User.findByPk(userId);
     if (!user) {
         throw new AppError("User not found", 404);
@@ -36,56 +37,47 @@ const resetPassword = asyncHandler(async (req: Request, res: Response) => {
     if (user.resetPasswordToken !== code) {
         throw new AppError("Invalid or expired code", 400);
     }
-    user.password = req.body.password;
+
+    const userSecurity: any = await UserSecurity.findByPk(userId);
+    if (!userSecurity) {
+        throw new AppError("Security credentials not found", 401);
+    }
+
+    user.password = await bcrypt.hash(password + userSecurity.pepper + userSecurity.customSalt, 10);
     user.resetPasswordToken = generateNumericOTP(6);
     user.resetPasswordExpires = new Date(Date.now() + 15 * 60 * 1000);
 
     await user.save();
 
     return sendResponse(res, 200, StatusMessages.SUCCESS, { message: "Password reset successfully" });
-
 });
 
-const updateForgottenPassword = asyncHandler(async (req: Request, res: Response) => {
-    const { userId, code } = req.body;
-    const user = await User.findByPk(userId);
-    if (!user) {
-        throw new AppError("User not found", 404);
-    }
-    if (user.resetPasswordToken !== code) {
-        throw new AppError("Invalid or expired code", 400);
-    }
-    user.password = req.body.password;
-    user.resetPasswordToken = generateNumericOTP(6);
-    user.resetPasswordExpires = new Date(Date.now() + 15 * 60 * 1000);
-
-    await user.save();
-
-    return sendResponse(res, 200, StatusMessages.SUCCESS, { message: "Password reset successfully" });
-
-});
+const updateForgottenPassword = resetPassword; // Refactored duplicate logic into a reference
 
 const updatePassword = asyncHandler(async (req: Request, res: Response) => {
     const userId = req.session?.userId;
-
-    const { password } = req.body;
+    const { oldPassword, newPassword } = req.body;
 
     const user = await User.findByPk(userId);
-
     if (!user) {
         throw new AppError("User not found", 404);
     }
 
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    const userSecurity: any = await UserSecurity.findByPk(userId);
+    if (!userSecurity) {
+        throw new AppError("Security credentials not found", 401);
+    }
+
+    const isPasswordMatch = await bcrypt.compare(oldPassword + userSecurity.pepper + userSecurity.customSalt, user.password);
 
     if (!isPasswordMatch) {
-        throw new AppError("Password does not match", 400);
+        throw new AppError("Old password does not match", 400);
     }
-    user.password = password;
+
+    user.password = await bcrypt.hash(newPassword + userSecurity.pepper + userSecurity.customSalt, 10);
     await user.save();
 
     return sendResponse(res, 200, StatusMessages.SUCCESS, { message: "Password updated successfully" });
-
 });
 
 export default {

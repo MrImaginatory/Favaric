@@ -41,7 +41,8 @@ export const updateProfileSchema = z.object({
 
 export const updatePasswordSchema = z.object({
     body: z.object({
-        password: z.string().min(6, "Password must be at least 6 characters").max(255, "Password cannot exceed 255 characters"),
+        oldPassword: z.string().min(6, "Password must be at least 6 characters").max(255, "Password cannot exceed 255 characters"),
+        newPassword: z.string().min(6, "Password must be at least 6 characters").max(255, "Password cannot exceed 255 characters"),
     }),
 });
 
@@ -51,10 +52,19 @@ export const forgotPasswordSchema = z.object({
     }),
 });
 
+export const resetPasswordSchema = z.object({
+    body: z.object({
+        userId: z.string().uuid("Invalid user ID"),
+        code: z.string().min(1, "Code is required"),
+        password: z.string().min(6, "Password must be at least 6 characters").max(255, "Password cannot exceed 255 characters"),
+    }),
+});
+
 export default {
     signupSchema,
     loginSchema,
     updateProfileSchema,
     updatePasswordSchema,
-    forgotPasswordSchema
+    forgotPasswordSchema,
+    resetPasswordSchema
 };

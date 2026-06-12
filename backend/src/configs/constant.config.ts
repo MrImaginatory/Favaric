@@ -47,6 +47,16 @@ const config = {
     },
     SESSION: {
         SECRET: getEnv("SESSION_SECRET", true),
+    },
+    SMTP: {
+        HOST: getEnv("SMTP_HOST", true),
+        PORT: getEnv("SMTP_PORT", true),
+        USER: getEnv("SMTP_USER", true),
+        PASS: getEnv("SMTP_PASS", true),
+        FROM: getEnv("SMTP_FROM", true),
+    },
+    SECURITY: {
+        SQLITE_ENCRYPTION_KEY: getEnv("SQLITE_ENCRYPTION_KEY", true),
     }
 }
 
