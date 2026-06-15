@@ -10,13 +10,23 @@ import {
 import { protect } from "../../../middleware/auth.middleware.js";
 import upload from "../../../middleware/multer.middleware.js";
 
+import addressRouter from "./address/address.route.js";
+import cartRouter from "./cart/cart.route.js";
+import wishlistRouter from "./wishlist/wishlist.route.js";
+import authRouter from "./auth/auth.route.js";
+
 const userRouter = Router();
 
+//other user Routers
+userRouter.use("/auth", authRouter);
+userRouter.use("/address", addressRouter);
+userRouter.use("/cart", cartRouter);
+userRouter.use("/wishlist", wishlistRouter);
+
+//user Routes
 userRouter.get("/profile", protect, userController.getUserProfile);
 userRouter.put("/updateProfile", protect, upload("user/profile").single("profilePicture"), validate(updateProfileSchema), userController.updateProfile);
-
 userRouter.post("/updatePassword", protect, validate(updatePasswordSchema), userController.updatePassword);
-
 userRouter.post("/forgotPassword", validate(forgotPasswordSchema), userController.forgotPassword);
 userRouter.post("/resetPassword", validate(resetPasswordSchema), userController.resetPassword);
 userRouter.post("/updateForgottenPassword", validate(resetPasswordSchema), userController.updateForgottenPassword);

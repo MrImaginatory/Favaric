@@ -48,14 +48,29 @@ const getAddresses = asyncHandler(async (req: Request, res: Response) => {
     return sendResponse(res, 200, StatusMessages.SUCCESS, addresses);
 });
 
+const getAddressById = asyncHandler(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const userId = req.session?.userId;
+
+    const address = await Address.findOne({
+        where: { addressId: id, userId }
+    });
+
+    if (!address) {
+        throw new AppError("Address not found", 404);
+    }
+
+    return sendResponse(res, 200, StatusMessages.SUCCESS, address);
+});
+
 const updateAddress = asyncHandler(async (req: Request, res: Response) => {
-    const { addressId } = req.params;
+    const { id } = req.params;
     const userId = req.session?.userId;
 
     const { addressLine1, addressLine2, city, state, postalCode, country } = req.body;
 
     const findAddress = await Address.findOne({
-        where: { addressId: addressId, userId }
+        where: { addressId: id, userId }
     });
 
     if (!findAddress) {
@@ -75,11 +90,11 @@ const updateAddress = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const deleteAddress = asyncHandler(async (req: Request, res: Response) => {
-    const { addressId } = req.params;
+    const { id } = req.params;
     const userId = req.session?.userId;
 
     const address = await Address.findOne({
-        where: { addressId: addressId, userId }
+        where: { addressId: id, userId }
     });
 
     if (!address) {
@@ -92,15 +107,13 @@ const deleteAddress = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const toggleDefaultAddress = asyncHandler(async (req: Request, res: Response) => {
-    const { addressId } = req.params;
+    const { id } = req.params;
     const userId = req.session?.userId;
 
-    // First, unset all as default
     await Address.update({ isDefault: false }, { where: { userId } });
 
-    // Then set the specific one as default
     const address = await Address.findOne({
-        where: { addressId: addressId, userId }
+        where: { addressId: id, userId }
     });
 
     if (!address) {
@@ -115,6 +128,7 @@ const toggleDefaultAddress = asyncHandler(async (req: Request, res: Response) =>
 export default {
     addAddress,
     getAddresses,
+    getAddressById,
     updateAddress,
     deleteAddress,
     toggleDefaultAddress

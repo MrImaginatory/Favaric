@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { protect } from "../../../middleware/auth.middleware.js";
-import { validate } from "../../../middleware/validate.middleware.js";
-import cartController from "../../../controller/v1/user/cart.controller.js";
-import { addToCartSchema } from "../../../validations/user/cart.validation.js";
+import { protect } from "../../../../middleware/auth.middleware.js";
+import { validate } from "../../../../middleware/validate.middleware.js";
+import cartController from "../../../../controller/v1/user/cart.controller.js";
+import { addToCartSchema } from "../../../../validations/user/cart.validation.js";
 
 const cartRouter = Router();
 

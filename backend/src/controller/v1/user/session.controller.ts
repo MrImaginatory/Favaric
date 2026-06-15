@@ -7,7 +7,7 @@ import StatusMessages from "../../../configs/message.config.js";
 import AppError from "../../../utils/appError.util.js";
 
 const getActiveSessions = asyncHandler(async (req: any, res: Response) => {
-    const userId = req.user?.id; // Assuming user info is in req.user from auth middleware
+    const userId = req.user?.userId; // Assuming user info is in req.user from auth middleware
     
     const sessions = await UserSession.findAll({
         where: { userId },
@@ -19,7 +19,7 @@ const getActiveSessions = asyncHandler(async (req: any, res: Response) => {
 
 const terminateSession = asyncHandler(async (req: any, res: Response) => {
     const { sessionId } = req.params;
-    const userId = req.user?.id;
+    const userId = req.user?.userId;
 
     const session = await UserSession.findOne({
         where: { sessionId, userId }
