@@ -28,7 +28,6 @@ class Product extends Model {
 
     public designCode!: string;
     public sku!: string;
-    public barcode!: string;
     public hsn!: string;
 
     public fabric!: string;
@@ -49,13 +48,6 @@ class Product extends Model {
     public isDiscounted!: boolean;
     public isAvailable!: boolean;
 
-    public metaTitle!: string;
-    public metaDescription!: string;
-    public metaKeywords!: string;
-
-    public uploadedBy!: string;
-    public lastModifiedBy!: string;
-
     public isCatalog!: boolean;
     public catalogId!: string;
 
@@ -71,6 +63,13 @@ class Product extends Model {
 
     public moq!: number;
     public otherDetails!: string;
+
+    public metaTitle!: string;
+    public metaDescription!: string;
+    public metaKeywords!: string;
+
+    public uploadedBy!: string;
+    public lastModifiedBy!: string;
 
     public deletedAt!: Date;
 }
@@ -156,10 +155,6 @@ Product.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    barcode: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
     hsn: {
         type: DataTypes.STRING,
         allowNull: false
@@ -224,17 +219,13 @@ Product.init({
         type: DataTypes.BOOLEAN,
         allowNull: false
     },
-    metaTitle: {
-        type: DataTypes.STRING,
+    isCatalog: {
+        type: DataTypes.BOOLEAN,
         allowNull: false
     },
-    metaDescription: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    metaKeywords: {
-        type: DataTypes.STRING,
-        allowNull: false
+    catalogId: {
+        type: DataTypes.UUID,
+        allowNull: true
     },
     productType: {
         type: DataTypes.UUID,
@@ -258,6 +249,18 @@ Product.init({
     },
     otherDetails: {
         type: DataTypes.TEXT,
+        allowNull: false
+    },
+    metaTitle: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    metaDescription: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    metaKeywords: {
+        type: DataTypes.STRING,
         allowNull: false
     },
     uploadedBy: {

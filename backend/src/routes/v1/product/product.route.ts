@@ -17,6 +17,7 @@ import weightRouter from "./weight/weight.route.js";
 import catalogRouter from "./catalog/catalog.route.js";
 import categoryRouter from "./category/category.route.js";
 import subcategoryRouter from "./subcategory/subcategory.route.js";
+import productEntityRouter from "./product/product.route.js";
 
 const productRouter = Router();
 
@@ -37,5 +38,6 @@ productRouter.use("/weights", weightRouter);
 productRouter.use("/catalogs", catalogRouter);
 productRouter.use("/categories", categoryRouter);
 productRouter.use("/subcategories", subcategoryRouter);
+productRouter.use("/products", productEntityRouter);
 
 export default productRouter;
