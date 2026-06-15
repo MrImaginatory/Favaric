@@ -8,6 +8,7 @@ class UserSession extends Model {
     public ipAddress!: string;
     public location!: string;
     public os!: string;
+    public refreshToken!: string;
     public userAgent!: string;
     public expiresAt!: Date;
 }
@@ -35,6 +36,10 @@ UserSession.init({
     },
     os: {
         type: DataTypes.STRING,
+        allowNull: true,
+    },
+    refreshToken: {
+        type: DataTypes.TEXT,
         allowNull: true,
     },
     userAgent: {

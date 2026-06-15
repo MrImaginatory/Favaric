@@ -9,6 +9,7 @@ const authRouter = Router();
 
 authRouter.post("/signup", validate(signupSchema), authController.signupController);
 authRouter.post("/login", validate(loginSchema), authController.loginController);
+authRouter.post("/refresh", authController.refreshTokenController);
 
 // Session management
 authRouter.get("/sessions", protect, sessionController.getActiveSessions);

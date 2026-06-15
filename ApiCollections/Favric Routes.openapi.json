@@ -7,7 +7,151 @@
   },
   "tags": [],
   "paths": {
-    "/auth/signup": {
+    "/user/auth/sessions": {
+      "get": {
+        "summary": "getSessions",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": [
+                    {
+                      "sessionId": "7euS5UJU0YmdE2yorTh1-0wypEKV7Rsh",
+                      "userId": "8390a364-903e-4f01-909c-f36c10c09d79",
+                      "userName": "test.user",
+                      "ipAddress": "::1",
+                      "location": "Unknown",
+                      "os": "Other 0.0.0",
+                      "userAgent": "Apidog/1.0.0 (https://apidog.com)",
+                      "expiresAt": "2026-06-22T10:33:25.050Z",
+                      "createdAt": "2026-06-15T10:33:25.052Z",
+                      "updatedAt": "2026-06-15T10:33:25.052Z"
+                    },
+                    {
+                      "sessionId": "TvABo1X-A3VRGvkBFfCAT08rnovppMgl",
+                      "userId": "8390a364-903e-4f01-909c-f36c10c09d79",
+                      "userName": "test.user",
+                      "ipAddress": "::1",
+                      "location": "Unknown",
+                      "os": "Other 0.0.0",
+                      "userAgent": "Apidog/1.0.0 (https://apidog.com)",
+                      "expiresAt": "2026-06-22T07:25:45.949Z",
+                      "createdAt": "2026-06-15T06:41:40.137Z",
+                      "updatedAt": "2026-06-15T07:25:45.950Z"
+                    },
+                    {
+                      "sessionId": "rNyvmPLMS2SNnRz-aE9zoiPBtU10v8zl",
+                      "userId": "8390a364-903e-4f01-909c-f36c10c09d79",
+                      "userName": "lizeth85",
+                      "ipAddress": "::1",
+                      "location": "Unknown",
+                      "os": "Other 0.0.0",
+                      "userAgent": "Apidog/1.0.0 (https://apidog.com)",
+                      "expiresAt": "2026-06-19T07:58:07.027Z",
+                      "createdAt": "2026-06-12T06:43:21.276Z",
+                      "updatedAt": "2026-06-12T07:58:07.032Z"
+                    }
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/user/auth/sessions/{sessionId}": {
+      "delete": {
+        "summary": "Session Termination",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "TvABo1X-A3VRGvkBFfCAT08rnovppMgl",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "message": "Session terminated"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/user/auth/refresh": {
+      "post": {
+        "summary": "Refresh Token",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/user/auth/signup": {
       "post": {
         "summary": "Signup Endpoint",
         "deprecated": false,
@@ -81,7 +225,7 @@
         ]
       }
     },
-    "/auth/login": {
+    "/user/auth/login": {
       "post": {
         "summary": "Login Endpoint",
         "deprecated": false,
@@ -439,6 +583,57 @@
                 "schema": {
                   "type": "object",
                   "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/user/resetPassword": {
+      "post": {
+        "summary": "resetPassword",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "userId": "8390a364-903e-4f01-909c-f36c10c09d79",
+                "code": "TkkqGF",
+                "password": "test@user.password"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": false,
+                  "message": "Invalid or expired code",
+                  "data": {
+                    "stack": "Error: Invalid or expired code\n    at <anonymous> (E:\\PrabhatTasks\\test\\EcommerceStore\\backend\\src\\controller\\v1\\user\\user.controller.ts:91:15)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)"
+                  }
                 }
               }
             },
@@ -4845,6 +5040,270 @@
             "description": "",
             "required": true,
             "example": "ab119c07-37b3-4bcc-823d-adc9a9802f37",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/user/address/addAddress": {
+      "post": {
+        "summary": "Add Address",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "addressLine1": "{{$location.streetAddress}}",
+                "addressLine2": "{{$location.secondaryAddress}}",
+                "city": "{{$location.city}}",
+                "state": "{{$location.state}}",
+                "postalCode": "{{$location.zipCode(format='######')}}",
+                "country": "{{$location.country}}"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/user/address/updateAddress/{id}": {
+      "put": {
+        "summary": "Update Addresss",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "c6042118-31b1-401f-a213-061a620f3086",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "addressLine1": "{{$location.streetAddress}}",
+                "addressLine2": "{{$location.secondaryAddress}}",
+                "city": "{{$location.city}}",
+                "state": "{{$location.state}}",
+                "postalCode": "{{$location.zipCode(format='######')}}",
+                "country": "{{$location.country}}"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/user/address/getAddresses": {
+      "get": {
+        "summary": "Get All Address",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/user/address/getAddress/{id}": {
+      "get": {
+        "summary": "Get Address By Id",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "adc3a0f9-4966-4cac-9503-1fc1c5e17d16",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "addressId": "adc3a0f9-4966-4cac-9503-1fc1c5e17d16",
+                    "userId": "8390a364-903e-4f01-909c-f36c10c09d79",
+                    "addressLine1": "89506 S Main",
+                    "addressLine2": "Apt. 340",
+                    "city": "Port Norbertostead",
+                    "state": "Illinois",
+                    "postalCode": "956824",
+                    "country": "Italy",
+                    "isDefault": false,
+                    "createdAt": "2026-06-15T11:34:25.876Z",
+                    "updatedAt": "2026-06-15T11:34:25.876Z"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/user/address/toggleDefaultAddress/{id}": {
+      "put": {
+        "summary": "Toggle Default Address",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "adc3a0f9-4966-4cac-9503-1fc1c5e17d16",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/user/address/deleteAddress/{id}": {
+      "delete": {
+        "summary": "Delete Address",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "adc3a0f9-4966-4cac-9503-1fc1c5e17d16",
             "schema": {
               "type": "string"
             }

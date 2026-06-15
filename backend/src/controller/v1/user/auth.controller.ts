@@ -12,6 +12,7 @@ import JWTUtil from "../../../utils/jwt.util.js";
 import redis from "../../../utils/redis.util.js";
 import logger from "../../../utils/logger.util.js";
 import UserSecurity from "../../../models/users/userSecurity.model.js";
+import config from "../../../configs/constant.config.js";
 
 const signupController = asyncHandler(async (req: Request, res: Response) => {
     const { firstName, lastName, userName, email, password, countryCode, mobile } = req.body
@@ -95,11 +96,16 @@ const loginController = asyncHandler(async (req: any, res: Response) => {
     // Capture Session Metadata
     const metadata = req.sessionMetadata;
 
+    const sessionId = req.sessionID;
+
+    // Generate Tokens
+    const accessToken = JWTUtil.generateAccessToken({ id: user.userId, sessionId });
+    const refreshToken = JWTUtil.generateRefreshToken({ id: user.userId, sessionId });
+
     // Save to Express Session to trigger Redis storage
     req.session.userId = user.userId;
     req.session.userName = user.userName;
-
-    const sessionId = req.sessionID;
+    req.session.refreshToken = refreshToken;
 
     // Store in Postgres
     await UserSession.upsert({
@@ -111,6 +117,7 @@ const loginController = asyncHandler(async (req: any, res: Response) => {
         os: metadata.os,
         userAgent: metadata.userAgent,
         expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Match cookie maxAge
+        refreshToken: refreshToken,
     });
 
     // Redis "100" logic check (as per user request)
@@ -119,9 +126,7 @@ const loginController = asyncHandler(async (req: any, res: Response) => {
         logger.log("⚠️ Redis session limit (100) reached. Ensuring all sessions are backed up in Postgres.");
     }
 
-    // Generate Tokens
-    const accessToken = JWTUtil.generateAccessToken({ id: user.userId });
-    const refreshToken = JWTUtil.generateRefreshToken({ id: user.userId });
+    // Tokens are already generated above
 
     // Set Refresh Token in Cookie
     res.cookie("refreshToken", refreshToken, {
@@ -139,7 +144,59 @@ const loginController = asyncHandler(async (req: any, res: Response) => {
     });
 })
 
+const refreshTokenController = asyncHandler(async (req: any, res: Response) => {
+    const refreshToken = req.cookies?.refreshToken;
+
+    if (!refreshToken) {
+        throw new AppError("No refresh token provided. Please login.", 401);
+    }
+
+    let decoded: any;
+    try {
+        decoded = JWTUtil.verifyToken(refreshToken, config.JWT.REFRESH_SECRET);
+    } catch (error) {
+        throw new AppError("Invalid or expired refresh token. Please login again.", 401);
+    }
+
+    // Check Postgres for session and reuse detection
+    const sessionInDb = await UserSession.findOne({ where: { sessionId: decoded.sessionId } });
+
+    if (!sessionInDb) {
+        throw new AppError("Session not found. Please login again.", 401);
+    }
+
+    if (sessionInDb.refreshToken !== refreshToken) {
+        // Token reuse detected!
+        await sessionInDb.destroy();
+        await redis.del(`sess:${decoded.sessionId}`);
+        res.clearCookie("refreshToken");
+        throw new AppError("Invalid refresh token. Security alert: Session terminated.", 401);
+    }
+
+    // Generate new tokens
+    const accessToken = JWTUtil.generateAccessToken({ id: decoded.id, sessionId: decoded.sessionId });
+    const newRefreshToken = JWTUtil.generateRefreshToken({ id: decoded.id, sessionId: decoded.sessionId });
+
+    // Update DB
+    sessionInDb.refreshToken = newRefreshToken;
+    await sessionInDb.save();
+
+    // Set new refresh token in cookie
+    res.cookie("refreshToken", newRefreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    return sendResponse(res, 200, StatusMessages.SUCCESS, {
+        accessToken,
+        refreshToken: newRefreshToken
+    });
+});
+
 export default {
     signupController,
-    loginController
+    loginController,
+    refreshTokenController
 }
