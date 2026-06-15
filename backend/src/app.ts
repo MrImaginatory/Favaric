@@ -16,6 +16,8 @@ import "./models/index.model.js";
 
 //utils
 import logger from "./utils/logger.util.js"
+import requestLogger from "./middleware/requestLogger.middleware.js";
+
 
 //middleware
 import { sessionMetadataMiddleware } from "./middleware/sessionMetadata.middleware.js";
@@ -54,6 +56,7 @@ app.use(session({
     }
 }));
 
+app.use(requestLogger);
 app.use(sessionMetadataMiddleware);
 
 app.use(express.urlencoded({ extended: true }));
