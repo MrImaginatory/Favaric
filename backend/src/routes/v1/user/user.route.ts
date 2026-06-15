@@ -1,25 +1,24 @@
 import { Router } from "express";
 import userController from "../../../controller/v1/user/user.controller.js";
 import { validate } from "../../../middleware/validate.middleware.js";
-import { 
-    updateProfileSchema, 
-    updatePasswordSchema, 
-    resetPasswordSchema 
+import {
+    updateProfileSchema,
+    updatePasswordSchema,
+    resetPasswordSchema,
+    forgotPasswordSchema
 } from "../../../validations/user/auth.validation.js";
 import { protect } from "../../../middleware/auth.middleware.js";
+import upload from "../../../middleware/multer.middleware.js";
 
 const userRouter = Router();
 
-// Profile Management
 userRouter.get("/profile", protect, userController.getUserProfile);
-userRouter.put("/profile", protect, validate(updateProfileSchema), userController.updateProfile);
+userRouter.put("/updateProfile", protect, upload("user/profile").single("profilePicture"), validate(updateProfileSchema), userController.updateProfile);
 
-// Password Management (Authenticated)
-userRouter.post("/update-password", protect, validate(updatePasswordSchema), userController.updatePassword);
+userRouter.post("/updatePassword", protect, validate(updatePasswordSchema), userController.updatePassword);
 
-// Password Reset (Public)
-userRouter.post("/reset-password", validate(resetPasswordSchema), userController.resetPassword);
-// updateForgottenPassword uses the exact same underlying controller logic and validation schema
-userRouter.post("/update-forgotten-password", validate(resetPasswordSchema), userController.updateForgottenPassword);
+userRouter.post("/forgotPassword", validate(forgotPasswordSchema), userController.forgotPassword);
+userRouter.post("/resetPassword", validate(resetPasswordSchema), userController.resetPassword);
+userRouter.post("/updateForgottenPassword", validate(resetPasswordSchema), userController.updateForgottenPassword);
 
 export default userRouter;

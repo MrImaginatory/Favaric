@@ -9,11 +9,15 @@ import AppError from "../utils/appError.util.js";
 export const validate = (schema: ZodSchema) => {
     return (req: Request, _res: Response, next: NextFunction) => {
         try {
-            schema.parse({
-                body: req.body,
-                query: req.query,
-                params: req.params,
-            });
+            const parsedData = schema.parse({
+                body: req.body ?? {},
+                query: req.query ?? {},
+                params: req.params ?? {},
+            }) as any;
+            if (parsedData.body) req.body = parsedData.body;
+            if (parsedData.query) Object.assign(req.query, parsedData.query);
+            if (parsedData.params) Object.assign(req.params, parsedData.params);
+            
             next();
         } catch (error) {
             if (error instanceof ZodError) {
@@ -21,7 +25,7 @@ export const validate = (schema: ZodSchema) => {
                 const message = error.issues
                     .map((issue) => issue.message)
                     .join(", ");
-                
+
                 return next(new AppError(message, 400));
             }
             next(error);

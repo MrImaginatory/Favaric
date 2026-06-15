@@ -74,7 +74,11 @@
             "headers": {}
           }
         },
-        "security": []
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/auth/login": {
@@ -103,7 +107,7 @@
                 ]
               },
               "example": {
-                "email": "mariam92@yahoo.com",
+                "email": "test@user.com",
                 "password": "testUser@123"
               }
             }
@@ -163,7 +167,289 @@
             "headers": {}
           }
         },
-        "security": []
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/user/profile": {
+      "get": {
+        "summary": "Get user Profile",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/user/updateProfile": {
+      "put": {
+        "summary": "Update User",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "example": "test",
+                    "type": "string"
+                  },
+                  "lastName": {
+                    "example": "user",
+                    "type": "string"
+                  },
+                  "userName": {
+                    "example": "test.user",
+                    "type": "string"
+                  },
+                  "email": {
+                    "example": "test@user.com",
+                    "type": "string"
+                  },
+                  "countryCode": {
+                    "example": "91",
+                    "type": "string"
+                  },
+                  "mobile": {
+                    "example": "1234512345",
+                    "type": "string"
+                  },
+                  "whatsAppNumberCountryCode": {
+                    "example": "91",
+                    "type": "string"
+                  },
+                  "whatsAppNumber": {
+                    "example": "1234512345",
+                    "type": "string"
+                  },
+                  "gender": {
+                    "example": "male",
+                    "type": "string"
+                  },
+                  "profilePicture": {
+                    "format": "binary",
+                    "type": "string",
+                    "example": "file://C:\\Users\\Admin\\Downloads\\6egfpcj5qcsg1.jpeg"
+                  },
+                  "country": {
+                    "example": "India",
+                    "type": "string"
+                  },
+                  "state": {
+                    "example": "Gujarat",
+                    "type": "string"
+                  },
+                  "city": {
+                    "example": "Surat",
+                    "type": "string"
+                  },
+                  "role": {
+                    "example": "Customer",
+                    "type": "string"
+                  },
+                  "isActive": {
+                    "type": "boolean",
+                    "example": "{{$datatype.boolean}}"
+                  }
+                }
+              },
+              "examples": {}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": false,
+                  "message": "Firstname must be a string, Lastname must be a string, Username must be a string, Email must be an email, Country code must be a number, Mobile number must be a string",
+                  "data": {
+                    "stack": "Error: Firstname must be a string, Lastname must be a string, Username must be a string, Email must be an email, Country code must be a number, Mobile number must be a string\n    at <anonymous> (E:\\PrabhatTasks\\test\\EcommerceStore\\backend\\src\\middleware\\validate.middleware.ts:25:29)\n    at Layer.handleRequest (E:\\PrabhatTasks\\test\\EcommerceStore\\backend\\node_modules\\.pnpm\\router@2.2.0\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (E:\\PrabhatTasks\\test\\EcommerceStore\\backend\\node_modules\\.pnpm\\router@2.2.0\\node_modules\\router\\lib\\route.js:157:13)\n    at <anonymous> (E:\\PrabhatTasks\\test\\EcommerceStore\\backend\\src\\middleware\\auth.middleware.ts:36:9)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/user/forgotPassword": {
+      "post": {
+        "summary": "ForgotPassword",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "email": "test@user.com"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "message": "OTP sent successfully to your email",
+                    "userId": "8390a364-903e-4f01-909c-f36c10c09d79"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/user/updateForgottenPassword": {
+      "post": {
+        "summary": "UpdateForgottenPassword",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "userId": "8390a364-903e-4f01-909c-f36c10c09d79",
+                "code": "vqPd07",
+                "password": "test@user.password"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "message": "Password reset successfully"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/user/updatePassword": {
+      "post": {
+        "summary": "Update Password",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "oldPassword": "test@user.password",
+                "newPassword": "testUser@123"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/product/brands/addBrand": {
@@ -798,6 +1084,254 @@
               }
             },
             "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/categories/addCategory": {
+      "post": {
+        "summary": "Create Category",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "categoryName": {
+                    "example": "Sample Category",
+                    "type": "string"
+                  },
+                  "categoryDescription": {
+                    "example": "{{$lorem.sentence(min=10,max=50)}}",
+                    "type": "string"
+                  },
+                  "categoryImage": {
+                    "format": "binary",
+                    "type": "string",
+                    "description": "group",
+                    "example": "file://C:\\Users\\Admin\\Downloads\\gulabo-mrudangi-asliwholesale-2011-4-2022-02-01_17_36_54.jpeg"
+                  },
+                  "isFeatured": {
+                    "type": "boolean",
+                    "example": "true"
+                  },
+                  "isPopular": {
+                    "type": "boolean",
+                    "example": "true"
+                  }
+                },
+                "required": [
+                  "categoryName"
+                ]
+              },
+              "examples": {}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/categories/updateCategory/{id}": {
+      "patch": {
+        "summary": "Update Category Copy",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "dc652b3c-9f44-4f2a-bf1e-f6a0defda966",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "categoryName": {
+                    "example": "Sample Category",
+                    "type": "string"
+                  },
+                  "categoryDescription": {
+                    "example": "{{$lorem.sentence(min=10,max=50)}}",
+                    "type": "string"
+                  },
+                  "categoryImage": {
+                    "format": "binary",
+                    "type": "string",
+                    "description": "group",
+                    "example": "file://C:\\Users\\Admin\\Downloads\\6egfpcj5qcsg1.jpeg"
+                  },
+                  "isFeatured": {
+                    "type": "boolean",
+                    "example": "false"
+                  },
+                  "isPopular": {
+                    "type": "boolean",
+                    "example": "true"
+                  }
+                },
+                "required": [
+                  "categoryName"
+                ]
+              },
+              "examples": {}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/categories/getCategories": {
+      "get": {
+        "summary": "Get All Categories",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /api/v1/product/categories/getAllCategories</pre>\n</body>\n</html>\n"
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/categories/getCategory/{id}": {
+      "get": {
+        "summary": "Get category By Id",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "dc652b3c-9f44-4f2a-bf1e-f6a0defda966",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/categories/deleteCategory/{id}": {
+      "delete": {
+        "summary": "Delete Category",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "dc652b3c-9f44-4f2a-bf1e-f6a0defda966",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3805,6 +4339,290 @@
         ]
       }
     },
+    "/product/subcategories/addSubCategory": {
+      "post": {
+        "summary": "Add Sub Category",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subcategoryName": {
+                    "example": "Sample Sub Category Demo",
+                    "type": "string"
+                  },
+                  "subcategoryDescription": {
+                    "example": "{{$lorem.sentence(min=3,max=10)}}",
+                    "type": "string"
+                  },
+                  "subcategoryImage": {
+                    "format": "binary",
+                    "type": "string",
+                    "example": "file://C:\\Users\\Admin\\Downloads\\gulabo-mrudangi-asliwholesale-2011-4-2022-02-01_17_36_54.jpeg"
+                  },
+                  "categoryId": {
+                    "example": "bb8c1a42-e16c-4d3e-bf44-f813df73ef99",
+                    "type": "string"
+                  },
+                  "isFeatured": {
+                    "type": "boolean",
+                    "example": "true"
+                  },
+                  "isPopular": {
+                    "type": "boolean",
+                    "example": "true"
+                  }
+                }
+              },
+              "examples": {}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /api/v1/product/subcategories/createSubCategory</pre>\n</body>\n</html>\n"
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/subcategories/updateSubCategory/{id}": {
+      "patch": {
+        "summary": "Update Sub Category",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "c7bcb0f6-d8a9-4492-b80b-ba1439efdbc6",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subcategoryName": {
+                    "example": "Sample Sub Category Update",
+                    "type": "string"
+                  },
+                  "subcategoryDescription": {
+                    "example": "{{$lorem.sentence(min=3,max=10)}}",
+                    "type": "string"
+                  },
+                  "subcategoryImage": {
+                    "format": "binary",
+                    "type": "string",
+                    "example": "file://C:\\Users\\Admin\\Downloads\\gulabo-mrudangi-asliwholesale-2011-4-2022-02-01_17_36_54.jpeg"
+                  },
+                  "categoryId": {
+                    "example": "bb8c1a42-e16c-4d3e-bf44-f813df73ef98",
+                    "type": "string"
+                  },
+                  "isFeatured": {
+                    "type": "boolean",
+                    "example": "true"
+                  },
+                  "isPopular": {
+                    "type": "boolean",
+                    "example": "true"
+                  }
+                }
+              },
+              "examples": {}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot POST /api/v1/product/subcategories/createSubCategory</pre>\n</body>\n</html>\n"
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/subcategories/getSubCategories": {
+      "get": {
+        "summary": "Get All SubCategories",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": [
+                    {
+                      "subCategoryId": "c7bcb0f6-d8a9-4492-b80b-ba1439efdbc6",
+                      "subcategoryName": "Sample Sub Category",
+                      "subcategorySlug": "sample_sub_category",
+                      "subcategoryDescription": "Sursum conforto desolo debilito vomica debitis.",
+                      "subcategoryImage": "uploads/subcategory/subcategoryImage-1781242615614-919306562.jpeg",
+                      "categoryId": "bb8c1a42-e16c-4d3e-bf44-f813df73ef98",
+                      "isFeatured": true,
+                      "isPopular": true,
+                      "metaTitle": "Sample Sub Category | Favric",
+                      "metaDescription": "Sursum conforto desolo debilito vomica debitis. | Favric",
+                      "metaKeywords": "Sample Sub Category | Favric",
+                      "uploadedBy": "d8497a1e-f942-4db1-b38c-7555730ad93e",
+                      "lastModifiedBy": "d8497a1e-f942-4db1-b38c-7555730ad93e",
+                      "deletedAt": null,
+                      "createdAt": "2026-06-12T05:36:55.645Z",
+                      "updatedAt": "2026-06-12T05:36:55.645Z",
+                      "category": {
+                        "categoryName": "Sample Category"
+                      },
+                      "uploader": {
+                        "userName": "caitlyn87"
+                      },
+                      "modifier": {
+                        "userName": "caitlyn87"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/subcategories/getSubCategory/{id}": {
+      "get": {
+        "summary": "Get Sub Category By Id",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "c7bcb0f6-d8a9-4492-b80b-ba1439efdbc6",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /api/v1/product/subcategories/getSubCatgory/c7bcb0f6-d8a9-4492-b80b-ba1439efdbc6</pre>\n</body>\n</html>\n"
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/subcategories/deleteSubCategory/{id}": {
+      "delete": {
+        "summary": "Delete Sub Category",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "c7bcb0f6-d8a9-4492-b80b-ba1439efdbc6",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/product/weights/addWeight": {
       "post": {
         "summary": "Add Weight",
@@ -4077,5 +4895,9 @@
       "description": "Prod Env"
     }
   ],
-  "security": []
+  "security": [
+    {
+      "bearer": []
+    }
+  ]
 }
