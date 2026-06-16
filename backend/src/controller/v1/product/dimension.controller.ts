@@ -5,7 +5,7 @@ import sendResponse from "../../../utils/responseHandler.util.js";
 import StatusMessages from "../../../configs/message.config.js";
 import Dimension from "../../../models/product/dimension.model.js";
 import User from "../../../models/users/user.model.js";
-import { createRecord, updateRecord, getRecord, checkRecordExists } from "../../../services/base.service.js";
+import { createRecord, updateRecord, checkRecordExists } from "../../../services/base.service.js";
 import { getRecordByIdController, getAllRecordsController, deleteRecordController } from "../base.controller.js";
 import slugGenerator from "../../../utils/slug.util.js";
 import { Op } from "@sequelize/core";

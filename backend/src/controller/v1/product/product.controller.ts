@@ -6,7 +6,7 @@ import StatusMessages from "../../../configs/message.config.js";
 import Product from "../../../models/product/product.model.js";
 import User from "../../../models/users/user.model.js";
 import { createRecord, updateRecord, getRecord, checkRecordExists, deleteRecord } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController, deleteRecordController } from "../base.controller.js";
+import { getRecordByIdController, getAllRecordsController } from "../base.controller.js";
 import { generateMetaTitle, generateMetaDescription, generateMetaKeywords } from "../../../utils/metaData.util.js"
 import slugGenerator from "../../../utils/slug.util.js";
 import { renameDeletedFile } from "../../../utils/file.util.js";

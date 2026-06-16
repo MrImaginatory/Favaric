@@ -1,5 +1,7 @@
 import type { ModelStatic, CreationAttributes, Attributes, FindOptions, UpdateOptions } from "@sequelize/core";
 import { Model } from "@sequelize/core";
+import sequelize from "../database/database.js";
+import AppError from "../utils/appError.util.js";
 
 
 export const createRecord = async <T extends Model>(
@@ -41,6 +43,30 @@ export const deleteRecord = async <T extends Model>(
     primaryKeyField: string,
     id: string
 ): Promise<number> => {
+    const models = sequelize.models;
+    const modelNames = models.getNames();
+
+    for (const modelName of modelNames) {
+        const referencingModel = models.get(modelName) as any;
+        const associations = referencingModel.associations;
+        
+        for (const assocName in associations) {
+            const assoc = associations[assocName];
+            
+            if (assoc.associationType === 'BelongsTo' && assoc.target === model) {
+                const foreignKey = assoc.foreignKey;
+                
+                const referencingRecord = await referencingModel.findOne({
+                    where: { [foreignKey]: id, deletedAt: null } as any
+                });
+                
+                if (referencingRecord) {
+                    throw new AppError(`Cannot delete ${model.name}. It is currently referenced by ${referencingModel.name}.`, 409);
+                }
+            }
+        }
+    }
+
     return await model.destroy({
         where: { [primaryKeyField]: id } as any
     });
