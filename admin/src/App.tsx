@@ -1,20 +1,37 @@
-import { Button } from "@/components/ui/button"
+import { Routes, Route, Navigate } from "react-router-dom"
+import { useAuth } from "@/contexts/AuthContext"
+import { ThemeToggle } from "@/components/ThemeToggle"
+import Login from "@/pages/auth/Login"
+import Signup from "@/pages/auth/Signup"
+
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const { isAuthenticated } = useAuth()
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />
+  }
+  return children
+}
 
 export function App() {
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
-      </div>
-    </div>
+    <>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/*"
+          element={
+            <ProtectedRoute>
+              <div className="flex min-h-screen flex-col items-center justify-center p-6">
+                <h1 className="text-3xl font-semibold tracking-tight">Admin Panel</h1>
+                <p className="mt-4 text-muted-foreground">Ready for development.</p>
+              </div>
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+      <ThemeToggle />
+    </>
   )
 }
 
