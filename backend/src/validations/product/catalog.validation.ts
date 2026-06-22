@@ -5,7 +5,7 @@ const createCatalogValidation = z.object({
     body: z.object({
         catalogName: z.string("Catalog Name is required").min(1, "Catalog Name is required").max(255, "Catalog Name cannot be more than 255 characters"),
         catalogDescription: z.string("Catalog Description is required").min(1, "Catalog Description is required").max(1000, "Catalog Description cannot be more than 1000 characters"),
-        catalogImage: z.string("Catalog Image is required").min(1, "Catalog Image is required").max(255, "Catalog Image cannot be more than 255 characters"),
+        catalogImage: z.string("Catalog Image is required").min(1, "Catalog Image is required").max(255, "Catalog Image cannot be more than 255 characters").optional(),
         catalogSubImages: z.any().optional(), // Can be stringified JSON or array depending on multer/body parsing
         metaTitle: z.string().min(1, "Meta Title is required").max(255, "Meta Title cannot be more than 255 characters").optional(),
         metaDescription: z.string().min(1, "Meta Description is required").max(1000, "Meta Description cannot be more than 1000 characters").optional(),

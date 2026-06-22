@@ -6,7 +6,7 @@ import StatusMessages from "../../../configs/message.config.js";
 import Catalog from "../../../models/product/catalog.model.js";
 import User from "../../../models/users/user.model.js";
 import { createRecord, updateRecord, getRecord, checkRecordExists, deleteRecord } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController } from "../base.controller.js";
+import { getRecordByIdController, getAllRecordsController, searchRecordsController } from "../base.controller.js";
 import { generateMetaTitle, generateMetaDescription, generateMetaKeywords } from "../../../utils/metaData.util.js"
 import slugGenerator from "../../../utils/slug.util.js";
 import { renameDeletedFile } from "../../../utils/file.util.js";
@@ -14,8 +14,12 @@ import logger from "../../../utils/logger.util.js";
 
 const createCatalog = asyncHandler(async (req: Request, res: Response) => {
 
-    const userId = req.session.userId;
+    const userId = (req as any).user?.userId;
     const { catalogName, catalogDescription, catalogImage, catalogSubImages, metaTitle, metaDescription, metaKeywords } = req.body;
+
+    if (!catalogImage) {
+        throw new AppError("Catalog Image is Required", 400);
+    }
 
     const catalogSlug = slugGenerator(catalogName);
     const catalogMetaTitle = metaTitle ? metaTitle : generateMetaTitle(catalogName);
@@ -48,12 +52,12 @@ const createCatalog = asyncHandler(async (req: Request, res: Response) => {
 const updateCatalog = asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id as string;
     const { catalogName, catalogDescription, catalogImage, catalogSubImages, metaTitle, metaDescription, metaKeywords } = req.body;
-    const userId = req.session.userId;
+    const userId = (req as any).user?.userId;
 
-    const catalogSlug = slugGenerator(catalogName);
-    const catalogMetaTitle = metaTitle ? metaTitle : generateMetaTitle(catalogName);
-    const catalogMetaDescription = metaDescription ? metaDescription : generateMetaDescription(catalogDescription);
-    const catalogMetaKeywords = metaKeywords ? metaKeywords : generateMetaKeywords(catalogName);
+    const catalogSlug = catalogName ? slugGenerator(catalogName) : undefined;
+    const catalogMetaTitle = metaTitle ? metaTitle : (catalogName ? generateMetaTitle(catalogName) : undefined);
+    const catalogMetaDescription = metaDescription ? metaDescription : (catalogDescription ? generateMetaDescription(catalogDescription) : undefined);
+    const catalogMetaKeywords = metaKeywords ? metaKeywords : (catalogName ? generateMetaKeywords(catalogName) : undefined);
 
     const currentCatalog: any = await getRecord(Catalog, {
         where: { catalogId: id, deletedAt: null }
@@ -103,17 +107,28 @@ const updateCatalog = asyncHandler(async (req: Request, res: Response) => {
         }
     }
 
-    const catalog = await updateRecord(Catalog, {
-        catalogName,
-        catalogDescription,
-        catalogImage,
-        catalogSubImages,
-        catalogSlug: catalogSlug,
-        lastModifiedBy: userId,
-        metaTitle: catalogMetaTitle,
-        metaDescription: catalogMetaDescription,
-        metaKeywords: catalogMetaKeywords
-    }, { where: { catalogId: id } });
+    const updateData: any = {
+        lastModifiedBy: userId
+    };
+
+    if (catalogName) {
+        updateData.catalogName = catalogName;
+        updateData.catalogSlug = catalogSlug;
+        updateData.metaTitle = catalogMetaTitle;
+        updateData.metaKeywords = catalogMetaKeywords;
+    }
+    if (catalogDescription) {
+        updateData.catalogDescription = catalogDescription;
+        updateData.metaDescription = catalogMetaDescription;
+    }
+    if (catalogImage) {
+        updateData.catalogImage = catalogImage;
+    }
+    if (catalogSubImages) {
+        updateData.catalogSubImages = catalogSubImages;
+    }
+
+    const catalog = await updateRecord(Catalog, updateData, { where: { catalogId: id } });
 
     return sendResponse(res, 200, `Catalog ${StatusMessages.UPDATED}`, catalog);
 });
@@ -165,10 +180,18 @@ const deleteCatalog = asyncHandler(async (req: Request, res: Response) => {
     sendResponse(res, 200, StatusMessages.SUCCESS, null);
 });
 
+const searchCatalog = searchRecordsController(Catalog, ["catalogName"], {
+    include: [
+        { model: User, as: "uploader", attributes: ["userName"] },
+        { model: User, as: "modifier", attributes: ["userName"] }
+    ]
+}, "catalog");
+
 export {
     createCatalog,
     updateCatalog,
     getAllCatalogs,
     getCatalogById,
-    deleteCatalog
+    deleteCatalog,
+    searchCatalog
 };

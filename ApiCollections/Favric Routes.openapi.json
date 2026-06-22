@@ -251,8 +251,8 @@
                 ]
               },
               "example": {
-                "email": "test@user.com",
-                "password": "testUser@123"
+                "email": "mr.imaginatory@gmail.com",
+                "password": "Test@123"
               }
             }
           }
@@ -346,7 +346,7 @@
       }
     },
     "/user/updateProfile": {
-      "put": {
+      "patch": {
         "summary": "Update User",
         "deprecated": false,
         "description": "",
@@ -421,7 +421,23 @@
                   }
                 }
               },
-              "examples": {}
+              "example": {
+                "firstName": "test",
+                "lastName": "user",
+                "userName": "test.user",
+                "email": "test@user.com",
+                "countryCode": "91",
+                "mobile": "1234512345",
+                "whatsAppNumberCountryCode": "91",
+                "whatsAppNumber": "1234512345",
+                "gender": "male",
+                "profilePicture": "file://C:\\Users\\Admin\\Downloads\\6egfpcj5qcsg1.jpeg",
+                "country": "India",
+                "state": "Gujarat",
+                "city": "Surat",
+                "role": "Customer",
+                "isActive": "{{$datatype.boolean}}"
+              }
             }
           },
           "required": true
@@ -656,30 +672,29 @@
         "parameters": [],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "brandName": {
+                    "example": "Adidas",
                     "type": "string"
                   },
                   "brandDescription": {
+                    "example": "Sample Desc",
                     "type": "string"
                   },
                   "brandLogo": {
-                    "type": "string"
+                    "format": "binary",
+                    "type": "string",
+                    "example": "file://C:\\Users\\Admin\\Downloads\\CottonPrintedDress.jpg"
                   }
-                },
-                "required": [
-                  "brandName",
-                  "brandDescription",
-                  "brandLogo"
-                ]
+                }
               },
               "example": {
-                "brandName": "Nike",
-                "brandDescription": "This is Nike Brand",
-                "brandLogo": "{{$randomImageUrl}}"
+                "brandName": "Adidas",
+                "brandDescription": "Sample Desc",
+                "brandLogo": "file://C:\\Users\\Admin\\Downloads\\CottonPrintedDress.jpg"
               }
             }
           }
@@ -1132,7 +1147,7 @@
             "in": "path",
             "description": "",
             "required": true,
-            "example": "f398a502-472d-4ea5-9b55-884ebcbcc47e",
+            "example": "40566507-738d-4f68-b881-e5aa7851d870",
             "schema": {
               "type": "string"
             }
@@ -1140,30 +1155,29 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "brandName": {
+                    "example": "Adidaas",
                     "type": "string"
                   },
                   "brandDescription": {
+                    "example": "Sample text",
                     "type": "string"
                   },
                   "brandLogo": {
-                    "type": "string"
+                    "format": "binary",
+                    "type": "string",
+                    "example": "file://C:\\Users\\Admin\\Downloads\\CottonPrintedDress.jpg"
                   }
-                },
-                "required": [
-                  "brandName",
-                  "brandDescription",
-                  "brandLogo"
-                ]
+                }
               },
               "example": {
-                "brandName": "Nike",
-                "brandDescription": "This is Nike Brand Description",
-                "brandLogo": "{{$randomImageUrl}}"
+                "brandName": "Adidaas",
+                "brandDescription": "Sample text",
+                "brandLogo": "file://C:\\Users\\Admin\\Downloads\\CottonPrintedDress.jpg"
               }
             }
           }
@@ -1328,7 +1342,13 @@
                   "categoryName"
                 ]
               },
-              "examples": {}
+              "example": {
+                "categoryName": "Sample Category",
+                "categoryDescription": "{{$lorem.sentence(min=10,max=50)}}",
+                "categoryImage": "file://C:\\Users\\Admin\\Downloads\\gulabo-mrudangi-asliwholesale-2011-4-2022-02-01_17_36_54.jpeg",
+                "isFeatured": "true",
+                "isPopular": "true"
+              }
             }
           },
           "required": true
@@ -1405,7 +1425,13 @@
                   "categoryName"
                 ]
               },
-              "examples": {}
+              "example": {
+                "categoryName": "Sample Category",
+                "categoryDescription": "{{$lorem.sentence(min=10,max=50)}}",
+                "categoryImage": "file://C:\\Users\\Admin\\Downloads\\6egfpcj5qcsg1.jpeg",
+                "isFeatured": "false",
+                "isPopular": "true"
+              }
             }
           },
           "required": true
@@ -2286,7 +2312,7 @@
       }
     },
     "/product/countries/updateCountry/{id}": {
-      "put": {
+      "patch": {
         "summary": "Update Country",
         "deprecated": false,
         "description": "",
@@ -2662,7 +2688,7 @@
       }
     },
     "/product/dimensions/updateDimension/{id}": {
-      "put": {
+      "patch": {
         "summary": "Update Dimension",
         "deprecated": false,
         "description": "",
@@ -2878,7 +2904,7 @@
       }
     },
     "/product/fabrics/updateFabric/{id}": {
-      "put": {
+      "patch": {
         "summary": "Update Fabric",
         "deprecated": false,
         "description": "",
@@ -2924,7 +2950,8 @@
                   "message": "Fabric Record updated successfully."
                 }
               }
-            }
+            },
+            "headers": {}
           }
         },
         "security": [
@@ -3237,7 +3264,7 @@
       }
     },
     "/product/lengths/updateLength/{id}": {
-      "put": {
+      "patch": {
         "summary": "Update Length",
         "deprecated": false,
         "description": "",
@@ -3276,7 +3303,8 @@
                   "properties": {}
                 }
               }
-            }
+            },
+            "headers": {}
           }
         },
         "security": [
@@ -3407,7 +3435,7 @@
       }
     },
     "/product/occasions/updateOccasion/{id}": {
-      "put": {
+      "patch": {
         "summary": "Update Occassion",
         "deprecated": false,
         "description": "",
@@ -3635,7 +3663,7 @@
       }
     },
     "/product/patterns/updatePattern/{id}": {
-      "put": {
+      "patch": {
         "summary": "Update Pattern",
         "deprecated": false,
         "description": "",
@@ -3859,7 +3887,7 @@
       }
     },
     "/product/productTypes/updateProductType/{id}": {
-      "put": {
+      "patch": {
         "summary": "Update ProductType",
         "deprecated": false,
         "description": "",
@@ -4088,7 +4116,7 @@
       }
     },
     "/product/shippingCharges/updateShippingCharge/{id}": {
-      "put": {
+      "patch": {
         "summary": "Update Shipping Charge",
         "deprecated": false,
         "description": "",
@@ -4136,7 +4164,8 @@
                   "properties": {}
                 }
               }
-            }
+            },
+            "headers": {}
           }
         },
         "security": [
@@ -4347,7 +4376,7 @@
       }
     },
     "/product/sizes/updateSize/{id}": {
-      "put": {
+      "patch": {
         "summary": "Update Size",
         "deprecated": false,
         "description": "",
@@ -4396,7 +4425,8 @@
                   ]
                 }
               }
-            }
+            },
+            "headers": {}
           }
         },
         "security": [
@@ -4574,7 +4604,14 @@
                   }
                 }
               },
-              "examples": {}
+              "example": {
+                "subcategoryName": "Sample Sub Category Demo",
+                "subcategoryDescription": "{{$lorem.sentence(min=3,max=10)}}",
+                "subcategoryImage": "file://C:\\Users\\Admin\\Downloads\\gulabo-mrudangi-asliwholesale-2011-4-2022-02-01_17_36_54.jpeg",
+                "categoryId": "bb8c1a42-e16c-4d3e-bf44-f813df73ef99",
+                "isFeatured": "true",
+                "isPopular": "true"
+              }
             }
           },
           "required": true
@@ -4652,7 +4689,14 @@
                   }
                 }
               },
-              "examples": {}
+              "example": {
+                "subcategoryName": "Sample Sub Category Update",
+                "subcategoryDescription": "{{$lorem.sentence(min=3,max=10)}}",
+                "subcategoryImage": "file://C:\\Users\\Admin\\Downloads\\gulabo-mrudangi-asliwholesale-2011-4-2022-02-01_17_36_54.jpeg",
+                "categoryId": "bb8c1a42-e16c-4d3e-bf44-f813df73ef98",
+                "isFeatured": "true",
+                "isPopular": "true"
+              }
             }
           },
           "required": true
@@ -4862,7 +4906,7 @@
       }
     },
     "/product/weights/updateWeight/{id}": {
-      "put": {
+      "patch": {
         "summary": "Update Weight",
         "deprecated": false,
         "description": "",

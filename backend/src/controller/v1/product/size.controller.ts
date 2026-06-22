@@ -6,14 +6,14 @@ import StatusMessages from "../../../configs/message.config.js";
 import Size from "../../../models/product/size.model.js";
 import User from "../../../models/users/user.model.js";
 import { createRecord, updateRecord, getRecord, checkRecordExists } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController, deleteRecordController } from "../base.controller.js";
+import { getRecordByIdController, getAllRecordsController, deleteRecordController, searchRecordsController } from "../base.controller.js";
 import slugGenerator from "../../../utils/slug.util.js";
 import { Op } from "@sequelize/core";
 
 const createSize = asyncHandler(async (req: Request, res: Response) => {
     const { sizeName, sizeValue } = req.body;
-    const uploadedBy = req.session?.userId;
-    const lastModifiedBy = req.session?.userId;
+    const uploadedBy = (req as any).user?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const sizeSlug = slugGenerator(sizeName);
 
@@ -36,7 +36,7 @@ const createSize = asyncHandler(async (req: Request, res: Response) => {
 const updateSize = asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id;
     const { sizeName, sizeValue } = req.body;
-    const lastModifiedBy = req.session?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const size = await getRecord(Size, {
         where: {
@@ -77,17 +77,28 @@ const updateSize = asyncHandler(async (req: Request, res: Response) => {
 
     sendResponse(res, 200, `Size ${StatusMessages.UPDATED}`, updatedSize);
 })
+
 const getAllSizes = getAllRecordsController(Size, {
     include: [
         { model: User, as: "uploader", attributes: ["userName"] },
         { model: User, as: "modifier", attributes: ["userName"] }
     ]
 })
+
 const getSizeById = getRecordByIdController(Size, "sizeId", "Size", {
     include: [
         { model: User, as: "uploader", attributes: ["userName"] },
         { model: User, as: "modifier", attributes: ["userName"] }
     ]
 })
+
 const deleteSize = deleteRecordController(Size, "sizeId", "Size")
-export { createSize, updateSize, getAllSizes, getSizeById, deleteSize }
+
+const searchSize = searchRecordsController(Size, ["sizeName"], {
+    include: [
+        { model: User, as: "uploader", attributes: ["userName"] },
+        { model: User, as: "modifier", attributes: ["userName"] }
+    ]
+}, "size");
+
+export { createSize, updateSize, getAllSizes, getSizeById, deleteSize, searchSize };

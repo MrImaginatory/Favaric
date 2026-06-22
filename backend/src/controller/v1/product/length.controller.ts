@@ -6,14 +6,14 @@ import StatusMessages from "../../../configs/message.config.js";
 import Length from "../../../models/product/length.model.js";
 import User from "../../../models/users/user.model.js";
 import { createRecord, updateRecord, getRecord, checkRecordExists } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController, deleteRecordController } from "../base.controller.js";
+import { getRecordByIdController, getAllRecordsController, deleteRecordController, searchRecordsController } from "../base.controller.js";
 import slugGenerator from "../../../utils/slug.util.js";
 import { Op } from "@sequelize/core";
 
 const createLength = asyncHandler(async (req: Request, res: Response) => {
     const { lengthName, lengthDescription, lengthValue } = req.body;
-    const uploadedBy = req.session?.userId;
-    const lastModifiedBy = req.session?.userId;
+    const uploadedBy = (req as any).user?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
     const lengthSlug = slugGenerator(lengthName);
 
     const isExist = await checkRecordExists(Length, { where: { lengthName, deletedAt: null } });
@@ -36,7 +36,7 @@ const createLength = asyncHandler(async (req: Request, res: Response) => {
 const updateLength = asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id as string;
     const { lengthName, lengthDescription, lengthValue } = req.body;
-    const lastModifiedBy = req.session?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
     const lengthSlug = slugGenerator(lengthName);
 
     const existingLength = await getRecord(Length, { where: { lengthId: id, deletedAt: null } });
@@ -82,4 +82,11 @@ const getLengthById = getRecordByIdController(Length, "lengthId", "Length", {
 
 const deleteLength = deleteRecordController(Length, "lengthId", "Length");
 
-export { createLength, updateLength, getLengths, getLengthById, deleteLength };
+const searchLength = searchRecordsController(Length, ["lengthName"], {
+    include: [
+        { model: User, as: "uploader", attributes: ["userName"] },
+        { model: User, as: "modifier", attributes: ["userName"] }
+    ]
+}, "length");
+
+export { createLength, updateLength, getLengths, getLengthById, deleteLength, searchLength };

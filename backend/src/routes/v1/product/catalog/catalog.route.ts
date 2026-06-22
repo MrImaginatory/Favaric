@@ -1,10 +1,9 @@
 import { Router } from "express";
 import { validate } from "../../../../middleware/validate.middleware.js";
 import { uuidValidation } from "../../../../validations/uuid.validation.js";
-import { createCatalog, getAllCatalogs, getCatalogById, updateCatalog, deleteCatalog } from "../../../../controller/v1/product/catalog.controller.js";
+import { createCatalog, getAllCatalogs, getCatalogById, updateCatalog, deleteCatalog, searchCatalog } from "../../../../controller/v1/product/catalog.controller.js";
 import { createCatalogValidation, updateCatalogValidation } from "../../../../validations/product/catalog.validation.js";
 import upload from "../../../../middleware/multer.middleware.js";
-
 const catalogRouter = Router();
 
 const handleCatalogFiles = (req: any, _res: any, next: any) => {
@@ -21,7 +20,7 @@ const handleCatalogFiles = (req: any, _res: any, next: any) => {
 
 catalogRouter.post(
     "/addCatalog",
-    upload("catalog").fields([{ name: "catalogImage", maxCount: 1 }, { name: "subimages", maxCount: 10 }]),
+    upload("catalog").fields([{ name: "catalogImage", maxCount: 1 }, { name: "subimages", maxCount: 20 }]),
     handleCatalogFiles,
     validate(createCatalogValidation),
     createCatalog
@@ -33,12 +32,14 @@ catalogRouter.get("/getCatalog/:id", validate(uuidValidation), getCatalogById);
 
 catalogRouter.patch(
     "/updateCatalog/:id",
-    upload("catalog").fields([{ name: "catalogImage", maxCount: 1 }, { name: "subimages", maxCount: 10 }]),
+    upload("catalog").fields([{ name: "catalogImage", maxCount: 1 }, { name: "subimages", maxCount: 20 }]),
     handleCatalogFiles,
     validate(updateCatalogValidation),
     updateCatalog
 );
 
 catalogRouter.delete("/deleteCatalog/:id", validate(uuidValidation), deleteCatalog);
+
+catalogRouter.get("/searchCatalog", searchCatalog);
 
 export default catalogRouter;

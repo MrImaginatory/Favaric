@@ -39,7 +39,8 @@ const redisStore = new RedisStore({
 });
 
 app.use(cors({
-    origin: "*",
+    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+    credentials: true,
 }));
 app.use(cookieParser());
 app.set('trust proxy', true);
@@ -69,6 +70,9 @@ app.use(express.json({
 app.use("/api/v1/health", healthRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/product", productRouter);
+
+// Serve static uploaded files publicly
+app.use("/api/v1/uploads", express.static(config.UPLOADS_PATH));
 
 app.use(statusRouter);
 

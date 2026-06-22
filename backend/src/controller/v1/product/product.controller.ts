@@ -6,7 +6,7 @@ import StatusMessages from "../../../configs/message.config.js";
 import Product from "../../../models/product/product.model.js";
 import User from "../../../models/users/user.model.js";
 import { createRecord, updateRecord, getRecord, checkRecordExists, deleteRecord } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController } from "../base.controller.js";
+import { getRecordByIdController, getAllRecordsController, searchRecordsController } from "../base.controller.js";
 import { generateMetaTitle, generateMetaDescription, generateMetaKeywords } from "../../../utils/metaData.util.js"
 import slugGenerator from "../../../utils/slug.util.js";
 import { renameDeletedFile } from "../../../utils/file.util.js";
@@ -79,8 +79,8 @@ const addProduct = asyncHandler(async (req: Request, res: Response) => {
         productSlug
     } = req.body;
 
-    const uploadedBy = req.session?.userId;
-    const lastModifiedBy = req.session?.userId;
+    const uploadedBy = (req as any).user?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const productMetaTitle = metaTitle ? metaTitle : generateMetaTitle(productTitle);
     const productMetaDescription = metaDescription ? metaDescription : generateMetaDescription(productDescription);
@@ -235,7 +235,7 @@ const updateProduct = asyncHandler(async (req: Request, res: Response) => {
         productSlug
     } = req.body;
 
-    const lastModifiedBy = req.session?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const currentProduct: any = await getRecord(Product, {
         where: { productId: id, deletedAt: null }
@@ -468,10 +468,32 @@ const deleteProduct = asyncHandler(async (req: Request, res: Response) => {
     sendResponse(res, 200, StatusMessages.SUCCESS, null);
 });
 
+const searchProduct = searchRecordsController(Product, ["productName", "productTitle", "productDescription", "designCode", "sku", "hsn"], {
+    include: [
+        { model: Category, as: "categoryDetails" },
+        { model: Brand, as: "brandDetails" },
+        { model: Fabric, as: "fabricDetails" },
+        { model: Occasion, as: "occasionDetails" },
+        { model: Pattern, as: "patternDetails" },
+        { model: Length, as: "lengthDetails" },
+        { model: CountryOfOrigin, as: "countryOfOriginDetails" },
+        { model: Color, as: "colorDetails" },
+        { model: Size, as: "sizeDetails" },
+        { model: Weight, as: "weightDetails" },
+        { model: Dimensions, as: "dimensionDetails" },
+        { model: ProductType, as: "productTypeDetails" },
+        { model: Catalog, as: "catalogDetails" },
+        { model: ShippingCharge, as: "shippingChargeDetails" },
+        { model: User, as: "uploader", attributes: ["userName"] },
+        { model: User, as: "modifier", attributes: ["userName"] }
+    ]
+}, "product");
+
 export default {
     addProduct,
     updateProduct,
     getProductById,
     getAllProducts,
     deleteProduct,
+    searchProduct
 }

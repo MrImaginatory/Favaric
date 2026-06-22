@@ -11,9 +11,11 @@ import { getPasswordResetEmailTemplate, getPasswordUpdatedEmailTemplate } from "
 import bcrypt from "bcryptjs";
 import UserSecurity from "../../../models/users/userSecurity.model.js";
 import config from "../../../configs/constant.config.js";
+import { searchRecordsController, getAllRecordsController } from "../base.controller.js";
+
 
 const getUserProfile = asyncHandler(async (req: Request, res: Response) => {
-    const userId = req.session?.userId;
+    const userId = (req as any).user?.userId;
     const user = await User.findByPk(userId);
     if (!user) {
         throw new AppError("User not found", 404);
@@ -22,7 +24,7 @@ const getUserProfile = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const updateProfile = asyncHandler(async (req: Request, res: Response) => {
-    const userId = req.session?.userId;
+    const userId = (req as any).user?.userId;
     const updateData = req.body;
 
     // Add uploaded file path to update data if a file was uploaded
@@ -121,7 +123,7 @@ const resetPassword = asyncHandler(async (req: Request, res: Response) => {
 const updateForgottenPassword = resetPassword; // Refactored duplicate logic into a reference
 
 const updatePassword = asyncHandler(async (req: Request, res: Response) => {
-    const userId = req.session?.userId;
+    const userId = (req as any).user?.userId;
     const { oldPassword, newPassword } = req.body;
 
     const user = await User.findByPk(userId);
@@ -154,11 +156,23 @@ const updatePassword = asyncHandler(async (req: Request, res: Response) => {
     return sendResponse(res, 200, StatusMessages.SUCCESS, { message: "Password updated successfully" });
 });
 
+const searchUser = searchRecordsController(User, ["userName", "email"], {}, "user");
+
+const getAllUsers = getAllRecordsController(User, {
+    exclude: [
+        "password",
+        "resetPasswordToken",
+        "resetPasswordExpires"
+    ]
+});
+
 export default {
     getUserProfile,
     updateProfile,
     forgotPassword,
     resetPassword,
     updateForgottenPassword,
-    updatePassword
+    updatePassword,
+    searchUser,
+    getAllUsers
 };

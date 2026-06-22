@@ -42,4 +42,6 @@ productEntityRouter.patch(
 
 productEntityRouter.delete("/deleteProduct/:id", validate(uuidValidation), productController.deleteProduct);
 
+productEntityRouter.get("/searchProduct", productController.searchProduct)
+
 export default productEntityRouter;

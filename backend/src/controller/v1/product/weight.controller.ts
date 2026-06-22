@@ -6,14 +6,14 @@ import StatusMessages from "../../../configs/message.config.js";
 import Weight from "../../../models/product/weight.model.js";
 import User from "../../../models/users/user.model.js";
 import { createRecord, updateRecord, getRecord, checkRecordExists } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController, deleteRecordController } from "../base.controller.js";
+import { getRecordByIdController, getAllRecordsController, deleteRecordController, searchRecordsController } from "../base.controller.js";
 import slugGenerator from "../../../utils/slug.util.js";
 import { Op } from "@sequelize/core";
 
 const createWeight = asyncHandler(async (req: Request, res: Response) => {
     const { weightName, weightValue } = req.body;
-    const uploadedBy = req.session?.userId;
-    const lastModifiedBy = req.session?.userId;
+    const uploadedBy = (req as any).user?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const weightSlug = slugGenerator(weightName);
 
@@ -36,7 +36,7 @@ const createWeight = asyncHandler(async (req: Request, res: Response) => {
 const updateWeight = asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id;
     const { weightName, weightValue } = req.body;
-    const lastModifiedBy = req.session?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const weight = await getRecord(Weight, {
         where: {
@@ -94,4 +94,11 @@ const getWeightById = getRecordByIdController(Weight, "weightId", "Weight", {
 
 const deleteWeight = deleteRecordController(Weight, "weightId", "Weight")
 
-export { createWeight, updateWeight, getAllWeights, getWeightById, deleteWeight }
+const searchWeight = searchRecordsController(Weight, ["weightName"], {
+    include: [
+        { model: User, as: "uploader", attributes: ["userName"] },
+        { model: User, as: "modifier", attributes: ["userName"] }
+    ]
+}, "weight");
+
+export { createWeight, updateWeight, getAllWeights, getWeightById, deleteWeight, searchWeight };

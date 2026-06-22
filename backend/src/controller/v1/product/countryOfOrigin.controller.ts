@@ -7,7 +7,7 @@ import StatusMessages from "../../../configs/message.config.js";
 import CountryOfOrigin from "../../../models/product/countryOfOrigin.model.js";
 import User from "../../../models/users/user.model.js";
 import { createRecord, updateRecord, getRecord, checkRecordExists } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController, deleteRecordController } from "../base.controller.js";
+import { getRecordByIdController, getAllRecordsController, deleteRecordController, searchRecordsController } from "../base.controller.js";
 import slugGenerator from "../../../utils/slug.util.js";
 import { generateMetaTitle, generateMetaDescription, generateMetaKeywords } from "../../../utils/metaData.util.js";
 
@@ -19,8 +19,8 @@ const createCountryOrigin = asyncHandler(async (req: Request, res: Response) => 
     const metaDescription = generateMetaDescription(countryOfOriginDescription);
     const metaKeywords = generateMetaKeywords([countryOfOriginName]);
 
-    const uploadedBy = req.session?.userId;
-    const lastModifiedBy = req.session?.userId;
+    const uploadedBy = (req as any).user?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const isExist = await checkRecordExists(CountryOfOrigin, { where: { countryOfOriginName, deletedAt: null } });
     if (isExist) {
@@ -50,7 +50,7 @@ const updateCountryOrigin = asyncHandler(async (req: Request, res: Response) => 
     const metaDescription = generateMetaDescription(countryOfOriginDescription);
     const metaKeywords = generateMetaKeywords([countryOfOriginName]);
 
-    const lastModifiedBy = req.session?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const country = await getRecord(CountryOfOrigin, { where: { countryOfOriginId: id, deletedAt: null } });
     if (!country) {
@@ -97,10 +97,18 @@ const getCountryOriginById = getRecordByIdController(CountryOfOrigin, "countryOf
 
 const deleteCountryOrigin = deleteRecordController(CountryOfOrigin, "countryOfOriginId", "Country");
 
+const searchCountries = searchRecordsController(CountryOfOrigin, ["countryOfOriginName"], {
+    include: [
+        { model: User, as: "uploader", attributes: ["userName"] },
+        { model: User, as: "modifier", attributes: ["userName"] }
+    ]
+}, "country");
+
 export {
     createCountryOrigin,
     updateCountryOrigin,
     getCountryOrigins,
     getCountryOriginById,
-    deleteCountryOrigin
+    deleteCountryOrigin,
+    searchCountries
 };

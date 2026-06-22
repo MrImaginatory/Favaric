@@ -25,6 +25,7 @@ userRouter.use("/wishlist", wishlistRouter);
 
 //user Routes
 userRouter.get("/profile", protect, userController.getUserProfile);
+userRouter.get("/searchUser", userController.searchUser);
 userRouter.put("/updateProfile", protect, upload("user/profile").single("profilePicture"), validate(updateProfileSchema), userController.updateProfile);
 userRouter.post("/updatePassword", protect, validate(updatePasswordSchema), userController.updatePassword);
 userRouter.post("/forgotPassword", validate(forgotPasswordSchema), userController.forgotPassword);

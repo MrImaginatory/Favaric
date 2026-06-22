@@ -6,15 +6,15 @@ import StatusMessages from "../../../configs/message.config.js";
 import Occasion from "../../../models/product/occasion.model.js";
 import User from "../../../models/users/user.model.js";
 import { createRecord, updateRecord, getRecord, checkRecordExists } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController, deleteRecordController } from "../base.controller.js";
+import { getRecordByIdController, getAllRecordsController, deleteRecordController, searchRecordsController } from "../base.controller.js";
 import { generateMetaTitle, generateMetaDescription, generateMetaKeywords } from "../../../utils/metaData.util.js";
 import slugGenerator from "../../../utils/slug.util.js";
 import { Op } from "@sequelize/core";
 
 const createOccasion = asyncHandler(async (req: Request, res: Response) => {
     const { occasionName, occasionDescription, } = req.body;
-    const uploadedBy = req.session?.userId;
-    const lastModifiedBy = req.session?.userId;
+    const uploadedBy = (req as any).user?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const occasionSlug = slugGenerator(occasionName);
     const metaTitle = generateMetaTitle(occasionName);
@@ -43,7 +43,7 @@ const createOccasion = asyncHandler(async (req: Request, res: Response) => {
 const updateOccasion = asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id;
     const { occasionName, occasionDescription } = req.body;
-    const lastModifiedBy = req.session?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const occasion = await getRecord(Occasion, {
         where: {
@@ -106,4 +106,11 @@ const getOccasionById = getRecordByIdController(Occasion, "occasionId", "Occasio
 
 const deleteOccasion = deleteRecordController(Occasion, "occasionId", "Occasion")
 
-export { createOccasion, updateOccasion, getOccasions, getOccasionById, deleteOccasion }
+const searchOccasion = searchRecordsController(Occasion, ["occasionName"], {
+    include: [
+        { model: User, as: "uploader", attributes: ["userName"] },
+        { model: User, as: "modifier", attributes: ["userName"] }
+    ]
+}, "occasion");
+
+export { createOccasion, updateOccasion, getOccasions, getOccasionById, deleteOccasion, searchOccasion };

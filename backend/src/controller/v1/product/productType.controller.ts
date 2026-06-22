@@ -6,7 +6,7 @@ import StatusMessages from "../../../configs/message.config.js";
 import ProductType from "../../../models/product/productType.model.js";
 import User from "../../../models/users/user.model.js";
 import { createRecord, updateRecord, getRecord, checkRecordExists } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController, deleteRecordController } from "../base.controller.js";
+import { getRecordByIdController, getAllRecordsController, deleteRecordController, searchRecordsController } from "../base.controller.js";
 import { generateMetaTitle, generateMetaDescription, generateMetaKeywords } from "../../../utils/metaData.util.js";
 import slugGenerator from "../../../utils/slug.util.js";
 import { Op } from "@sequelize/core";
@@ -14,8 +14,8 @@ import { Op } from "@sequelize/core";
 
 const createProductType = asyncHandler(async (req: Request, res: Response) => {
     const { productTypeName, productTypeDescription } = req.body;
-    const uploadedBy = req.session?.userId;
-    const lastModifiedBy = req.session?.userId;
+    const uploadedBy = (req as any).user?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const productTypeSlug = slugGenerator(productTypeName);
     const metaTitle = generateMetaTitle(productTypeName);
@@ -44,7 +44,7 @@ const createProductType = asyncHandler(async (req: Request, res: Response) => {
 const updateProductType = asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id;
     const { productTypeName, productTypeDescription } = req.body;
-    const lastModifiedBy = req.session?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const productType = await getRecord(ProductType, {
         where: {
@@ -106,4 +106,11 @@ const getProductTypeById = getRecordByIdController(ProductType, "productTypeId",
 
 const deleteProductType = deleteRecordController(ProductType, "productTypeId", "ProductType")
 
-export { createProductType, updateProductType, getAllProductTypes, getProductTypeById, deleteProductType }
+const searchProductType = searchRecordsController(ProductType, ["productTypeName"], {
+    include: [
+        { model: User, as: "uploader", attributes: ["userName"] },
+        { model: User, as: "modifier", attributes: ["userName"] }
+    ]
+}, "productType");
+
+export { createProductType, updateProductType, getAllProductTypes, getProductTypeById, deleteProductType, searchProductType };

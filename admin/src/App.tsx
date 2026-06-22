@@ -6,6 +6,22 @@ import Signup from "@/pages/auth/Signup"
 import { DashboardLayout } from "@/components/layout/DashboardLayout"
 import { ReactLenis } from "lenis/react"
 
+import Brand from "@/pages/master/Brand"
+import Category from "@/pages/master/Category"
+import Color from "@/pages/master/Color"
+import CountryOfOrigin from "@/pages/master/CountryOfOrigin"
+import Dimensions from "@/pages/master/Dimensions"
+import Fabric from "@/pages/master/Fabric"
+import Length from "@/pages/master/Length"
+import Occassion from "@/pages/master/Occassion"
+import Pattern from "@/pages/master/Pattern"
+import Product from "@/pages/master/Product"
+import ProductTypes from "@/pages/master/ProductTypes"
+import Shipping from "@/pages/master/Shipping"
+import Size from "@/pages/master/Size"
+import Subcategory from "@/pages/master/Subcategory"
+import Weight from "@/pages/master/Weight"
+
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAuth()
   if (!isAuthenticated) {
@@ -42,7 +58,21 @@ export function App() {
           }
         >
           <Route index element={<DashboardContent />} />
-          {/* Add other nested routes here later */}
+          <Route path="master/brand" element={<Brand />} />
+          <Route path="master/category" element={<Category />} />
+          <Route path="master/color" element={<Color />} />
+          <Route path="master/countryoforigin" element={<CountryOfOrigin />} />
+          <Route path="master/dimensions" element={<Dimensions />} />
+          <Route path="master/fabric" element={<Fabric />} />
+          <Route path="master/length" element={<Length />} />
+          <Route path="master/occassion" element={<Occassion />} />
+          <Route path="master/pattern" element={<Pattern />} />
+          <Route path="master/product" element={<Product />} />
+          <Route path="master/producttypes" element={<ProductTypes />} />
+          <Route path="master/shipping" element={<Shipping />} />
+          <Route path="master/size" element={<Size />} />
+          <Route path="master/subcategory" element={<Subcategory />} />
+          <Route path="master/weight" element={<Weight />} />
         </Route>
       </Routes>
       {isAuthPage && (

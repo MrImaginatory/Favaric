@@ -6,15 +6,15 @@ import StatusMessages from "../../../configs/message.config.js";
 import Fabric from "../../../models/product/fabric.model.js";
 import User from "../../../models/users/user.model.js";
 import { createRecord, updateRecord, getRecord, checkRecordExists } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController, deleteRecordController } from "../base.controller.js";
+import { getRecordByIdController, getAllRecordsController, deleteRecordController, searchRecordsController } from "../base.controller.js";
 import { generateMetaTitle, generateMetaDescription, generateMetaKeywords } from "../../../utils/metaData.util.js";
 import slugGenerator from "../../../utils/slug.util.js";
 import { Op } from "@sequelize/core";
 
 const createFabric = asyncHandler(async (req: Request, res: Response) => {
     const { fabricName, fabricDescription } = req.body;
-    const uploadedBy = req.session?.userId;
-    const lastModifiedBy = req.session?.userId;
+    const uploadedBy = (req as any).user?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
     const fabricSlug = slugGenerator(fabricName);
 
     const isExist = await checkRecordExists(Fabric, { where: { fabricName, deletedAt: null } });
@@ -43,7 +43,7 @@ const createFabric = asyncHandler(async (req: Request, res: Response) => {
 const updateFabric = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
     const { fabricName, fabricDescription } = req.body;
-    const lastModifiedBy = req.session?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const existingFabric = await getRecord(Fabric, { where: { fabricId: id, deletedAt: null } });
     if (!existingFabric) {
@@ -93,4 +93,11 @@ const getFabricById = getRecordByIdController(Fabric, "fabricId", "Fabric", {
 
 const deleteFabric = deleteRecordController(Fabric, "fabricId", "Fabric");
 
-export { createFabric, updateFabric, getAllFabrics, getFabricById, deleteFabric };
+const searchFabric = searchRecordsController(Fabric, ["fabricName"], {
+    include: [
+        { model: User, as: "uploader", attributes: ["userName"] },
+        { model: User, as: "modifier", attributes: ["userName"] }
+    ]
+}, "fabric");
+
+export { createFabric, updateFabric, getAllFabrics, getFabricById, deleteFabric, searchFabric };

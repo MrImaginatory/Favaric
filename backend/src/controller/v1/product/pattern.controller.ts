@@ -6,7 +6,7 @@ import StatusMessages from "../../../configs/message.config.js";
 import Pattern from "../../../models/product/pattern.model.js";
 import User from "../../../models/users/user.model.js";
 import { createRecord, updateRecord, getRecord, checkRecordExists } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController, deleteRecordController } from "../base.controller.js";
+import { getRecordByIdController, getAllRecordsController, deleteRecordController, searchRecordsController } from "../base.controller.js";
 import { generateMetaTitle, generateMetaDescription, generateMetaKeywords } from "../../../utils/metaData.util.js";
 import slugGenerator from "../../../utils/slug.util.js";
 import { Op } from "@sequelize/core";
@@ -14,8 +14,8 @@ import { Op } from "@sequelize/core";
 
 const createPattern = asyncHandler(async (req: Request, res: Response) => {
     const { patternName, patternDescription } = req.body;
-    const uploadedBy = req.session?.userId;
-    const lastModifiedBy = req.session?.userId;
+    const uploadedBy = (req as any).user?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const patternSlug = slugGenerator(patternName);
     const metaTitle = generateMetaTitle(patternName);
@@ -44,7 +44,7 @@ const createPattern = asyncHandler(async (req: Request, res: Response) => {
 const updatePattern = asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id;
     const { patternName, patternDescription } = req.body;
-    const lastModifiedBy = req.session?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const pattern = await getRecord(Pattern, {
         where: {
@@ -106,4 +106,11 @@ const getPatternById = getRecordByIdController(Pattern, "patternId", "Pattern", 
 
 const deletePattern = deleteRecordController(Pattern, "patternId", "Pattern")
 
-export { createPattern, updatePattern, getPatterns, getPatternById, deletePattern }
+const searchPattern = searchRecordsController(Pattern, ["patternName"], {
+    include: [
+        { model: User, as: "uploader", attributes: ["userName"] },
+        { model: User, as: "modifier", attributes: ["userName"] }
+    ]
+}, "pattern");
+
+export { createPattern, updatePattern, getPatterns, getPatternById, deletePattern, searchPattern };

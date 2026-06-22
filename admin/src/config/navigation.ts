@@ -32,14 +32,20 @@ export const navigationConfig: { navMain: NavItem[] } = {
       url: "/master",
       icon: Shield,
       items: [
-        {
-          title: "General Settings",
-          url: "/master/settings",
-        },
-        {
-          title: "Store Config",
-          url: "/master/store",
-        },
+        { title: "Brand", url: "/master/brand" },
+        { title: "Category", url: "/master/category" },
+        { title: "Color", url: "/master/color" },
+        { title: "Country Of Origin", url: "/master/countryoforigin" },
+        { title: "Dimensions", url: "/master/dimensions" },
+        { title: "Fabric", url: "/master/fabric" },
+        { title: "Length", url: "/master/length" },
+        { title: "Occassion", url: "/master/occassion" },
+        { title: "Pattern", url: "/master/pattern" },
+        { title: "ProductTypes", url: "/master/producttypes" },
+        { title: "Shipping", url: "/master/shipping" },
+        { title: "Size", url: "/master/size" },
+        { title: "Subcategory", url: "/master/subcategory" },
+        { title: "Weight", url: "/master/weight" },
       ],
     },
     {
@@ -48,20 +54,8 @@ export const navigationConfig: { navMain: NavItem[] } = {
       icon: Box,
       items: [
         {
-          title: "All Products",
-          url: "/products/all",
-        },
-        {
-          title: "Categories",
-          url: "/products/categories",
-        },
-        {
-          title: "Brands",
-          url: "/products/brands",
-        },
-        {
-          title: "Tags",
-          url: "/products/tags",
+          title: "Product",
+          url: "/master/product",
         },
       ],
     },

@@ -7,7 +7,7 @@ import Wishlist from "../../../models/users/userWishList.model.js";
 import Product from "../../../models/product/product.model.js";
 
 const addToWishlist = asyncHandler(async (req: Request, res: Response) => {
-    const userId = req.session?.userId;
+    const userId = (req as any).user?.userId;
     const { productId } = req.body;
 
     const wishlist = await Wishlist.create({
@@ -19,7 +19,7 @@ const addToWishlist = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const getWishlist = asyncHandler(async (req: Request, res: Response) => {
-    const userId = req.session?.userId;
+    const userId = (req as any).user?.userId;
 
     const wishlist = await Wishlist.findAll({
         where: { userId },
@@ -31,7 +31,7 @@ const getWishlist = asyncHandler(async (req: Request, res: Response) => {
 
 const deleteWishlistItem = asyncHandler(async (req: Request, res: Response) => {
     const { wishlistId } = req.params;
-    const userId = req.session?.userId;
+    const userId = (req as any).user?.userId;
 
     const wishlist = await Wishlist.findOne({
         where: { id: wishlistId, userId }

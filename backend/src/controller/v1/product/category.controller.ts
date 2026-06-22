@@ -6,13 +6,13 @@ import StatusMessages from "../../../configs/message.config.js";
 import Category from "../../../models/product/category.model.js";
 import User from "../../../models/users/user.model.js";
 import { createRecord, checkRecordExists, getRecord, updateRecord, deleteRecord } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController } from "../base.controller.js";
+import { getRecordByIdController, getAllRecordsController, searchRecordsController } from "../base.controller.js";
 import { generateMetaTitle, generateMetaDescription, generateMetaKeywords } from "../../../utils/metaData.util.js"
 import slugGenerator from "../../../utils/slug.util.js";
 import { renameDeletedFile } from "../../../utils/file.util.js";
 
 const createCategory = asyncHandler(async (req: Request, res: Response) => {
-    const userId = req.session.userId;
+    const userId = (req as any).user?.userId;
     const {
         categoryName,
         categoryDescription,
@@ -23,6 +23,10 @@ const createCategory = asyncHandler(async (req: Request, res: Response) => {
         metaDescription,
         metaKeywords
     } = req.body;
+
+    if (!categoryImage) {
+        throw new AppError("Category Image is Required", 400);
+    }
 
     const categorySlug = slugGenerator(categoryName);
     const categoryMetaTitle = metaTitle ? metaTitle : generateMetaTitle(categoryName);
@@ -78,12 +82,12 @@ const updateCategory = asyncHandler(async (req: Request, res: Response) => {
         metaDescription,
         metaKeywords
     } = req.body;
-    const userId = req.session.userId;
+    const userId = (req as any).user?.userId;
 
-    const categorySlug = slugGenerator(categoryName);
-    const categoryMetaTitle = metaTitle ? metaTitle : generateMetaTitle(categoryName);
-    const categoryMetaDescription = metaDescription ? metaDescription : generateMetaDescription(categoryDescription || categoryName);
-    const categoryMetaKeywords = metaKeywords ? metaKeywords : generateMetaKeywords(categoryName);
+    const categorySlug = categoryName ? slugGenerator(categoryName) : undefined;
+    const categoryMetaTitle = metaTitle ? metaTitle : (categoryName ? generateMetaTitle(categoryName) : undefined);
+    const categoryMetaDescription = metaDescription ? metaDescription : (categoryDescription ? generateMetaDescription(categoryDescription) : (categoryName ? generateMetaDescription(categoryName) : undefined));
+    const categoryMetaKeywords = metaKeywords ? metaKeywords : (categoryName ? generateMetaKeywords(categoryName) : undefined);
 
     const currentCategory: any = await getRecord(Category, {
         where: { categoryId: id, deletedAt: null }
@@ -111,18 +115,27 @@ const updateCategory = asyncHandler(async (req: Request, res: Response) => {
         await renameDeletedFile(currentCategory.categoryImage);
     }
 
-    const category = await updateRecord(Category, {
-        categoryName,
-        categoryDescription,
-        categoryImage,
-        isFeatured: Boolean(isFeatured),
-        isPopular: Boolean(isPopular),
-        categorySlug,
-        lastModifiedBy: userId,
-        metaTitle: categoryMetaTitle,
-        metaDescription: categoryMetaDescription,
-        metaKeywords: categoryMetaKeywords
-    }, { where: { categoryId: id } });
+    const updateData: any = {
+        isFeatured: isFeatured !== undefined ? Boolean(isFeatured) : undefined,
+        isPopular: isPopular !== undefined ? Boolean(isPopular) : undefined,
+        lastModifiedBy: userId
+    };
+
+    if (categoryName) {
+        updateData.categoryName = categoryName;
+        updateData.categorySlug = categorySlug;
+        updateData.metaTitle = categoryMetaTitle;
+        updateData.metaKeywords = categoryMetaKeywords;
+    }
+    if (categoryDescription) {
+        updateData.categoryDescription = categoryDescription;
+        updateData.metaDescription = categoryMetaDescription;
+    }
+    if (categoryImage) {
+        updateData.categoryImage = categoryImage;
+    }
+
+    const category = await updateRecord(Category, updateData, { where: { categoryId: id } });
 
     return sendResponse(res, 200, `Category ${StatusMessages.UPDATED}`, category);
 });
@@ -144,10 +157,18 @@ const deleteCategory = asyncHandler(async (req: Request, res: Response) => {
     sendResponse(res, 200, StatusMessages.SUCCESS, null);
 });
 
+const searchCategories = searchRecordsController(Category, ["categoryName"], {
+    include: [
+        { model: User, as: "uploader", attributes: ["userName"] },
+        { model: User, as: "modifier", attributes: ["userName"] }
+    ]
+}, "category");
+
 export {
     createCategory,
     getAllCategories,
     getCategoryById,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    searchCategories
 };

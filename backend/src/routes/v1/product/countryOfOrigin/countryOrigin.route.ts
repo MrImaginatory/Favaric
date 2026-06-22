@@ -9,16 +9,18 @@ import {
     updateCountryOrigin,
     getCountryOrigins,
     getCountryOriginById,
-    deleteCountryOrigin
+    deleteCountryOrigin,
+    searchCountries
 } from "../../../../controller/v1/product/countryOfOrigin.controller.js";
 
 
 const countryOriginRouter = Router();
 
 countryOriginRouter.post("/addCountry", validate(createCountryOriginValidation), createCountryOrigin);
-countryOriginRouter.put("/updateCountry/:id", validate(updateCountryOriginValidation), updateCountryOrigin);
+countryOriginRouter.patch("/updateCountry/:id", validate(updateCountryOriginValidation), updateCountryOrigin);
 countryOriginRouter.delete("/deleteCountry/:id", validate(uuidValidation), deleteCountryOrigin);
 countryOriginRouter.get("/getCountryById/:id", validate(uuidValidation), getCountryOriginById);
 countryOriginRouter.get("/getCountries", getCountryOrigins);
+countryOriginRouter.get("/searchCountries", searchCountries)
 
 export default countryOriginRouter;

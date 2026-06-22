@@ -5,7 +5,7 @@ const createCategoryValidation = z.object({
     body: z.object({
         categoryName: z.string("Category Name is required").min(1, "Category Name is required").max(255, "Category Name cannot be more than 255 characters"),
         categoryDescription: z.string("Category Description is required").min(1, "Category Description is required").max(1000, "Category Description cannot be more than 1000 characters"),
-        categoryImage: z.string("Category Image is required").min(1, "Category Image is required"),
+        categoryImage: z.string("Category Image is required").min(1, "Category Image is required").optional(),
         isFeatured: z.preprocess((val) => val === 'true' ? true : val === 'false' ? false : val, z.boolean({ message: "Is Featured Should be an Boolean Value" })).optional(),
         isPopular: z.preprocess((val) => val === 'true' ? true : val === 'false' ? false : val, z.boolean({ message: "Is Popular Should be an Boolean Value" })).optional(),
         metaTitle: z.string().min(1, "Meta Title is required").max(255, "Meta Title cannot be more than 255 characters").optional(),

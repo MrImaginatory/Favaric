@@ -7,7 +7,7 @@ import Cart from "../../../models/users/userCart.model.js";
 import Product from "../../../models/product/product.model.js";
 
 const addToCart = asyncHandler(async (req: Request, res: Response) => {
-    const userId = req.session?.userId;
+    const userId = (req as any).user?.userId;
     const { productId, quantity } = req.body;
 
     const findProduct = await Product.findOne({
@@ -52,7 +52,7 @@ const addToCart = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const getCart = asyncHandler(async (req: Request, res: Response) => {
-    const userId = req.session?.userId;
+    const userId = (req as any).user?.userId;
 
     const cart = await Cart.findAll({
         where: { userId },
@@ -71,7 +71,7 @@ const getCart = asyncHandler(async (req: Request, res: Response) => {
 
 const updateCart = asyncHandler(async (req: Request, res: Response) => {
     const { cartId } = req.params;
-    const userId = req.session?.userId;
+    const userId = (req as any).user?.userId;
     const { productId, quantity } = req.body;
 
     const findProduct = await Product.findOne({
@@ -110,7 +110,7 @@ const updateCart = asyncHandler(async (req: Request, res: Response) => {
 
 const deleteCart = asyncHandler(async (req: Request, res: Response) => {
     const { cartId } = req.params;
-    const userId = req.session?.userId;
+    const userId = (req as any).user?.userId;
 
     const cart = await Cart.findOne({
         where: { id: cartId, userId }

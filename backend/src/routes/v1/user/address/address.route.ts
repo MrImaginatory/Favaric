@@ -8,7 +8,7 @@ import { addAddressSchema, editAddressSchema } from "../../../../validations/use
 const addressRouter = Router();
 
 addressRouter.post("/addAddress", protect, validate(addAddressSchema), addressController.addAddress);
-addressRouter.put("/updateAddress/:id", protect, validate(editAddressSchema), addressController.updateAddress);
+addressRouter.patch("/updateAddress/:id", protect, validate(editAddressSchema), addressController.updateAddress);
 addressRouter.delete("/deleteAddress/:id", protect, addressController.deleteAddress);
 addressRouter.get("/getAddresses", protect, addressController.getAddresses);
 addressRouter.get("/getAddress/:id", protect, addressController.getAddressById);

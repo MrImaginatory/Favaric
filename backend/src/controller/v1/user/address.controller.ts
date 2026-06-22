@@ -6,7 +6,7 @@ import sendResponse from "../../../utils/responseHandler.util.js";
 import AppError from "../../../utils/appError.util.js";
 
 const addAddress = asyncHandler(async (req: Request, res: Response) => {
-    const userId = req.session?.userId;
+    const userId = (req as any).user?.userId;
     const { addressLine1, addressLine2, city, state, postalCode, country } = req.body;
 
     let defaultAddress = false;
@@ -38,7 +38,7 @@ const addAddress = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const getAddresses = asyncHandler(async (req: Request, res: Response) => {
-    const userId = req.session?.userId;
+    const userId = (req as any).user?.userId;
 
     const addresses = await Address.findAll({
         where: { userId },
@@ -50,7 +50,7 @@ const getAddresses = asyncHandler(async (req: Request, res: Response) => {
 
 const getAddressById = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
-    const userId = req.session?.userId;
+    const userId = (req as any).user?.userId;
 
     const address = await Address.findOne({
         where: { addressId: id, userId }
@@ -65,7 +65,7 @@ const getAddressById = asyncHandler(async (req: Request, res: Response) => {
 
 const updateAddress = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
-    const userId = req.session?.userId;
+    const userId = (req as any).user?.userId;
 
     const { addressLine1, addressLine2, city, state, postalCode, country } = req.body;
 
@@ -91,7 +91,7 @@ const updateAddress = asyncHandler(async (req: Request, res: Response) => {
 
 const deleteAddress = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
-    const userId = req.session?.userId;
+    const userId = (req as any).user?.userId;
 
     const address = await Address.findOne({
         where: { addressId: id, userId }
@@ -108,7 +108,7 @@ const deleteAddress = asyncHandler(async (req: Request, res: Response) => {
 
 const toggleDefaultAddress = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
-    const userId = req.session?.userId;
+    const userId = (req as any).user?.userId;
 
     await Address.update({ isDefault: false }, { where: { userId } });
 

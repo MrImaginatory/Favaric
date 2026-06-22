@@ -6,7 +6,7 @@ import StatusMessages from "../../../configs/message.config.js";
 import ShippingCharge from "../../../models/product/shippingCharge.model.js";
 import User from "../../../models/users/user.model.js";
 import { createRecord, updateRecord, getRecord, checkRecordExists } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController, deleteRecordController } from "../base.controller.js";
+import { getRecordByIdController, getAllRecordsController, deleteRecordController, searchRecordsController } from "../base.controller.js";
 import { Op } from "@sequelize/core";
 
 
@@ -16,8 +16,8 @@ const createShippingCharge = asyncHandler(async (req: Request, res: Response) =>
         shippingWeightSlabFrom, shippingWeightSlabTo,
         shippingStatus, shippingChargeCurrency } = req.body;
 
-    const uploadedBy = req.session?.userId;
-    const lastModifiedBy = req.session?.userId;
+    const uploadedBy = (req as any).user?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
 
     const isExist = await checkRecordExists(ShippingCharge, { where: { shippingBaseCountry, deletedAt: null } });
@@ -48,7 +48,7 @@ const updateShippingCharge = asyncHandler(async (req: Request, res: Response) =>
         shippingWeightSlabFrom, shippingWeightSlabTo,
         shippingStatus, shippingChargeCurrency } = req.body;
 
-    const lastModifiedBy = req.session?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const shippingCharge = await getRecord(ShippingCharge, {
         where: {
@@ -107,4 +107,11 @@ const getShippingChargeById = getRecordByIdController(ShippingCharge, "shippingC
 
 const deleteShippingCharge = deleteRecordController(ShippingCharge, "shippingChargeId", "ShippingCharge")
 
-export { createShippingCharge, updateShippingCharge, getAllShippingCharges, getShippingChargeById, deleteShippingCharge }
+const searchShippingCharge = searchRecordsController(ShippingCharge, ["shippingBaseCountry"], {
+    include: [
+        { model: User, as: "uploader", attributes: ["userName"] },
+        { model: User, as: "modifier", attributes: ["userName"] }
+    ]
+}, "shippingCharge");
+
+export { createShippingCharge, updateShippingCharge, getAllShippingCharges, getShippingChargeById, deleteShippingCharge, searchShippingCharge };

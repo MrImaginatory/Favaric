@@ -14,8 +14,8 @@ import Volume from "../../../../models/product/.depreciated/volume.model.js";
 
 const createVolume = asyncHandler(async (req: Request, res: Response) => {
     const { volumeName, volumeValue } = req.body;
-    const uploadedBy = req.session?.userId;
-    const lastModifiedBy = req.session?.userId;
+    const uploadedBy = (req as any).user?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const volumeSlug = slugGenerator(volumeName);
 
@@ -38,7 +38,7 @@ const createVolume = asyncHandler(async (req: Request, res: Response) => {
 const updateVolume = asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id;
     const { volumeName, volumeValue } = req.body;
-    const lastModifiedBy = req.session?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const volume = await getRecord(Volume, {
         where: {

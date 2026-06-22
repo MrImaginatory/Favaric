@@ -7,13 +7,13 @@ import SubCategory from "../../../models/product/subcategory.model.js";
 import Category from "../../../models/product/category.model.js";
 import User from "../../../models/users/user.model.js";
 import { createRecord, checkRecordExists, getRecord, updateRecord, deleteRecord } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController } from "../base.controller.js";
+import { getRecordByIdController, getAllRecordsController, searchRecordsController } from "../base.controller.js";
 import { generateMetaTitle, generateMetaDescription, generateMetaKeywords } from "../../../utils/metaData.util.js"
 import slugGenerator from "../../../utils/slug.util.js";
 import { renameDeletedFile } from "../../../utils/file.util.js";
 
 const createSubCategory = asyncHandler(async (req: Request, res: Response) => {
-    const userId = req.session.userId;
+    const userId = (req as any).user?.userId;
     const {
         subcategoryName,
         subcategoryDescription,
@@ -28,6 +28,10 @@ const createSubCategory = asyncHandler(async (req: Request, res: Response) => {
 
     const subcategorySlug = slugGenerator(subcategoryName);
     const subcategoryMetaTitle = metaTitle ? metaTitle : generateMetaTitle(subcategoryName);
+
+    if (!subcategoryImage) {
+        throw new AppError("SubCategory Image is Required", 400);
+    }
     const subcategoryMetaDescription = metaDescription ? metaDescription : generateMetaDescription(subcategoryDescription || subcategoryName);
     const subcategoryMetaKeywords = metaKeywords ? metaKeywords : generateMetaKeywords(subcategoryName);
 
@@ -89,12 +93,12 @@ const updateSubCategory = asyncHandler(async (req: Request, res: Response) => {
         metaDescription,
         metaKeywords
     } = req.body;
-    const userId = req.session.userId;
+    const userId = (req as any).user?.userId;
 
-    const subcategorySlug = slugGenerator(subcategoryName);
-    const subcategoryMetaTitle = metaTitle ? metaTitle : generateMetaTitle(subcategoryName);
-    const subcategoryMetaDescription = metaDescription ? metaDescription : generateMetaDescription(subcategoryDescription || subcategoryName);
-    const subcategoryMetaKeywords = metaKeywords ? metaKeywords : generateMetaKeywords(subcategoryName);
+    const subcategorySlug = subcategoryName ? slugGenerator(subcategoryName) : undefined;
+    const subcategoryMetaTitle = metaTitle ? metaTitle : (subcategoryName ? generateMetaTitle(subcategoryName) : undefined);
+    const subcategoryMetaDescription = metaDescription ? metaDescription : (subcategoryDescription ? generateMetaDescription(subcategoryDescription) : (subcategoryName ? generateMetaDescription(subcategoryName) : undefined));
+    const subcategoryMetaKeywords = metaKeywords ? metaKeywords : (subcategoryName ? generateMetaKeywords(subcategoryName) : undefined);
 
     const currentSubCategory: any = await getRecord(SubCategory, {
         where: { subCategoryId: id, deletedAt: null }
@@ -129,19 +133,28 @@ const updateSubCategory = asyncHandler(async (req: Request, res: Response) => {
         await renameDeletedFile(currentSubCategory.subcategoryImage);
     }
 
-    const subcategory = await updateRecord(SubCategory, {
-        subcategoryName,
-        subcategoryDescription,
-        subcategoryImage,
+    const updateData: any = {
         categoryId,
-        isFeatured: Boolean(isFeatured),
-        isPopular: Boolean(isPopular),
-        subcategorySlug,
-        lastModifiedBy: userId,
-        metaTitle: subcategoryMetaTitle,
-        metaDescription: subcategoryMetaDescription,
-        metaKeywords: subcategoryMetaKeywords
-    }, { where: { subCategoryId: id } });
+        isFeatured: isFeatured !== undefined ? Boolean(isFeatured) : undefined,
+        isPopular: isPopular !== undefined ? Boolean(isPopular) : undefined,
+        lastModifiedBy: userId
+    };
+
+    if (subcategoryName) {
+        updateData.subcategoryName = subcategoryName;
+        updateData.subcategorySlug = subcategorySlug;
+        updateData.metaTitle = subcategoryMetaTitle;
+        updateData.metaKeywords = subcategoryMetaKeywords;
+    }
+    if (subcategoryDescription) {
+        updateData.subcategoryDescription = subcategoryDescription;
+        updateData.metaDescription = subcategoryMetaDescription;
+    }
+    if (subcategoryImage) {
+        updateData.subcategoryImage = subcategoryImage;
+    }
+
+    const subcategory = await updateRecord(SubCategory, updateData, { where: { subCategoryId: id } });
 
     return sendResponse(res, 200, `SubCategory ${StatusMessages.UPDATED}`, subcategory);
 });
@@ -163,10 +176,19 @@ const deleteSubCategory = asyncHandler(async (req: Request, res: Response) => {
     sendResponse(res, 200, StatusMessages.SUCCESS, null);
 });
 
+const searchSubCategory = searchRecordsController(SubCategory, ["subcategoryName"], {
+    include: [
+        { model: Category, as: "category", attributes: ["categoryName"] },
+        { model: User, as: "uploader", attributes: ["userName"] },
+        { model: User, as: "modifier", attributes: ["userName"] }
+    ]
+}, "subCategory");
+
 export {
     createSubCategory,
     getAllSubCategories,
     getSubCategoryById,
     updateSubCategory,
-    deleteSubCategory
+    deleteSubCategory,
+    searchSubCategory
 };

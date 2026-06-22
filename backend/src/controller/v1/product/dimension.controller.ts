@@ -6,7 +6,7 @@ import StatusMessages from "../../../configs/message.config.js";
 import Dimension from "../../../models/product/dimension.model.js";
 import User from "../../../models/users/user.model.js";
 import { createRecord, updateRecord, checkRecordExists } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController, deleteRecordController } from "../base.controller.js";
+import { getRecordByIdController, getAllRecordsController, deleteRecordController, searchRecordsController } from "../base.controller.js";
 import slugGenerator from "../../../utils/slug.util.js";
 import { Op } from "@sequelize/core";
 
@@ -15,8 +15,8 @@ const createDimension = asyncHandler(async (req: Request, res: Response) => {
 
     const dimensionSlug = slugGenerator(dimensionName);
 
-    const uploadedBy = req.session?.userId;
-    const lastModifiedBy = req.session?.userId;
+    const uploadedBy = (req as any).user?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const isExist = await checkRecordExists(Dimension, { where: { dimensionSlug, deletedAt: null } });
 
@@ -44,7 +44,7 @@ const updateDimension = asyncHandler(async (req: Request, res: Response) => {
 
     const dimensionSlug = slugGenerator(dimensionName);
 
-    const lastModifiedBy = req.session?.userId;
+    const lastModifiedBy = (req as any).user?.userId;
 
     const isExist = await checkRecordExists(Dimension, {
         where: {
@@ -89,5 +89,11 @@ const getDimensionById = getRecordByIdController(Dimension, "dimensionId", "Dime
 
 const deleteDimension = deleteRecordController(Dimension, "dimensionId", "Dimension");
 
+const searchDimensions = searchRecordsController(Dimension, ["dimensionName"], {
+    include: [
+        { model: User, as: "uploader", attributes: ["userName"] },
+        { model: User, as: "modifier", attributes: ["userName"] }
+    ]
+}, "dimension");
 
-export { createDimension, updateDimension, getAllDimensions, getDimensionById, deleteDimension };
+export { createDimension, updateDimension, getAllDimensions, getDimensionById, deleteDimension, searchDimensions };
