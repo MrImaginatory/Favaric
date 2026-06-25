@@ -8,7 +8,7 @@ export default function Subcategory() {
     queryKey: ["categories_dropdown"],
     queryFn: async () => {
       const res = await apiClient.get("/product/categories/getCategories")
-      return res.data?.data || []
+      return res.data?.data?.records || []
     },
   })
 
