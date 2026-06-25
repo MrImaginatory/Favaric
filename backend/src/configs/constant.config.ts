@@ -17,11 +17,21 @@ const config = {
     PORT: getEnv("PORT", true),
 
     DB: {
-        DBHOST: getEnv("DBHOST", true),
-        DBPORT: getEnv("DBPORT", true),
-        DBUSER: getEnv("DBUSER", true),
-        DBPASSWORD: getEnv("DBPASSWORD", true),
-        DBNAME: getEnv("DBNAME", true),
+        DB_HOST: getEnv("DB_HOST", true),
+        DB_PORT: getEnv("DB_PORT", true),
+        DB_USER: getEnv("DB_USER", true),
+        DB_PASSWORD: getEnv("DB_PASSWORD", true),
+        DB_NAME: getEnv("DB_NAME", true),
+
+        POOL: {
+            MAX: getEnv("DB_POOL_MAX", true),
+            MIN: getEnv("DB_POOL_MIN", true),
+            ACQUIRE: getEnv("DB_POOL_ACQUIRE", true),
+            IDLE: getEnv("DB_POOL_IDLE", true),
+        },
+        RETRY: {
+            MAX: getEnv("DB_MAX_RETRY", true),
+        },
 
         FORCE_DROP_TABLE: getEnv("FORCE_DROP_TABLE", true),
         FORCE_ALTER_TABLE: getEnv("FORCE_ALTER_TABLE", true)
@@ -57,6 +67,11 @@ const config = {
     },
     SECURITY: {
         SQLITE_ENCRYPTION_KEY: getEnv("SQLITE_ENCRYPTION_KEY", true),
+    },
+    RATE_LIMIT: {
+        GLOBAL_RPM: getEnv("RATE_LIMIT_GLOBAL_RPM", true),
+        AUTH_RPM: getEnv("RATE_LIMIT_AUTH_RPM", true),
+        SEARCH_RPM: getEnv("RATE_LIMIT_SEARCH_RPM", true),
     }
 }
 

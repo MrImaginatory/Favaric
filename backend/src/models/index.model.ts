@@ -21,6 +21,8 @@ import SubCategory from "./product/subcategory.model.js"
 import Weight from "./product/weight.model.js"
 import Catalog from "./product/catalog.model.js"
 
+
+import CountryCode from "./application/countryCode.model.js"
 /*Depreciated Models*/
 // import Volume from "./product/volume.model.js"
 
@@ -48,7 +50,10 @@ const models = {
     Dimension,
     Length,
     CountryOfOrigin,
-    Catalog
+    Catalog,
+
+    //Application
+    CountryCode,
 
     /*Depreciated Models*/
     // Volume,

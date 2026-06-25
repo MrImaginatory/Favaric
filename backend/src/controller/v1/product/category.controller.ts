@@ -5,11 +5,14 @@ import sendResponse from "../../../utils/responseHandler.util.js";
 import StatusMessages from "../../../configs/message.config.js";
 import Category from "../../../models/product/category.model.js";
 import User from "../../../models/users/user.model.js";
-import { createRecord, checkRecordExists, getRecord, updateRecord, deleteRecord } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController, searchRecordsController } from "../base.controller.js";
+import { createRecord, checkRecordExists, getRecord, updateRecord, deleteRecord, getAllRecords } from "../../../services/base.service.js";
+import { searchRecordsController } from "../base.controller.js";
 import { generateMetaTitle, generateMetaDescription, generateMetaKeywords } from "../../../utils/metaData.util.js"
 import slugGenerator from "../../../utils/slug.util.js";
 import { renameDeletedFile } from "../../../utils/file.util.js";
+import { getCache, setCache, deleteCacheByPattern } from "../../../services/cache.service.js";
+import { refreshRefData } from "../../../services/refCache.service.js";
+import { Op } from "@sequelize/core";
 
 const createCategory = asyncHandler(async (req: Request, res: Response) => {
     const userId = (req as any).user?.userId;
@@ -53,21 +56,73 @@ const createCategory = asyncHandler(async (req: Request, res: Response) => {
         metaKeywords: categoryMetaKeywords
     });
 
+    await deleteCacheByPattern("categories:*");
+    await refreshRefData("ref:categories");
+
     return sendResponse(res, 201, `Category ${StatusMessages.CREATED}`, category);
 });
 
-const getAllCategories = getAllRecordsController(Category, {
-    include: [
-        { model: User, as: "uploader", attributes: ["userName"] },
-        { model: User, as: "modifier", attributes: ["userName"] }
-    ]
+const categoryIncludes = [
+    { model: User, as: "uploader", attributes: ["userName"] },
+    { model: User, as: "modifier", attributes: ["userName"] }
+];
+
+const getAllCategories = asyncHandler(async (req: Request, res: Response) => {
+    const limit = req.query.limit ? parseInt(req.query.limit as string, 10) : 1000;
+    const cursor = req.query.cursor as string | undefined;
+    const cacheKey = `categories:list:${limit}:${cursor || "first"}`;
+
+    const cached = await getCache<any>(cacheKey);
+    if (cached) {
+        sendResponse(res, 200, StatusMessages.SUCCESS, cached);
+        return;
+    }
+
+    const options: any = { include: categoryIncludes };
+    if (!isNaN(limit) && limit > 0) {
+        options.limit = limit;
+    }
+    if (cursor) {
+        options.where = { ...options.where, createdAt: { [Op.lt]: cursor } };
+    }
+    if (!options.order) {
+        options.order = [["createdAt", "DESC"]];
+    }
+
+    const records = await getAllRecords(Category, options);
+
+    let nextCursor = null;
+    if (records.length > 0 && records.length === limit) {
+        nextCursor = (records[records.length - 1] as any).createdAt;
+    }
+
+    const result = { records, nextCursor };
+    await setCache(cacheKey, result, 60);
+
+    sendResponse(res, 200, StatusMessages.SUCCESS, result);
 });
 
-const getCategoryById = getRecordByIdController(Category, "categoryId", "Category", {
-    include: [
-        { model: User, as: "uploader", attributes: ["userName"] },
-        { model: User, as: "modifier", attributes: ["userName"] }
-    ]
+const getCategoryById = asyncHandler(async (req: Request, res: Response) => {
+    const id = req.params.id as string;
+    const cacheKey = `categories:${id}`;
+
+    const cached = await getCache<any>(cacheKey);
+    if (cached) {
+        sendResponse(res, 200, StatusMessages.SUCCESS, cached);
+        return;
+    }
+
+    const record = await getRecord(Category, {
+        where: { categoryId: id },
+        include: categoryIncludes
+    });
+
+    if (!record) {
+        throw new AppError("Category not found", 404);
+    }
+
+    await setCache(cacheKey, record, 300);
+    sendResponse(res, 200, StatusMessages.SUCCESS, record);
 });
 
 const updateCategory = asyncHandler(async (req: Request, res: Response) => {
@@ -137,6 +192,9 @@ const updateCategory = asyncHandler(async (req: Request, res: Response) => {
 
     const category = await updateRecord(Category, updateData, { where: { categoryId: id } });
 
+    await deleteCacheByPattern("categories:*");
+    await refreshRefData("ref:categories");
+
     return sendResponse(res, 200, `Category ${StatusMessages.UPDATED}`, category);
 });
 
@@ -153,6 +211,9 @@ const deleteCategory = asyncHandler(async (req: Request, res: Response) => {
     }
 
     await deleteRecord(Category, "categoryId", id);
+
+    await deleteCacheByPattern("categories:*");
+    await refreshRefData("ref:categories");
 
     sendResponse(res, 200, StatusMessages.SUCCESS, null);
 });

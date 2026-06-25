@@ -5,6 +5,7 @@ import productController from "../../../../controller/v1/product/product.control
 import upload from "../../../../middleware/multer.middleware.js";
 
 import { createProductValidation, updateProductValidation, searchProductValidation } from "../../../../validations/product/product.validation.js";
+import { searchLimiter } from "../../../../middleware/rateLimiter.middleware.js";
 
 const productEntityRouter = Router();
 
@@ -45,6 +46,6 @@ productEntityRouter.patch(
 
 productEntityRouter.delete("/deleteProduct/:id", validate(uuidValidation), productController.deleteProduct);
 
-productEntityRouter.get("/searchProduct", validate(searchProductValidation), productController.searchProduct)
+productEntityRouter.get("/searchProduct", searchLimiter, validate(searchProductValidation), productController.searchProduct)
 
 export default productEntityRouter;

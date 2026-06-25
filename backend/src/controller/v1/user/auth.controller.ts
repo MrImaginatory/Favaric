@@ -13,6 +13,7 @@ import redis from "../../../utils/redis.util.js";
 import logger from "../../../utils/logger.util.js";
 import UserSecurity from "../../../models/users/userSecurity.model.js";
 import config from "../../../configs/constant.config.js";
+import { incrementSessionCount, decrementSessionCount } from "../../../services/cache.service.js";
 
 const signupController = asyncHandler(async (req: Request, res: Response) => {
     const { firstName, lastName, userName, email, password, countryCode, mobile } = req.body
@@ -120,9 +121,9 @@ const loginController = asyncHandler(async (req: any, res: Response) => {
         refreshToken: refreshToken,
     });
 
-    // Redis "100" logic check (as per user request)
-    const sessionKeys = await redis.keys("sess:*");
-    if (sessionKeys.length >= 100) {
+    // Track active session count
+    const sessionCount = await incrementSessionCount();
+    if (sessionCount >= 100) {
         logger.log("⚠️ Redis session limit (100) reached. Ensuring all sessions are backed up in Postgres.");
     }
 
@@ -169,6 +170,7 @@ const refreshTokenController = asyncHandler(async (req: any, res: Response) => {
         // Token reuse detected!
         await sessionInDb.destroy();
         await redis.del(`sess:${decoded.sessionId}`);
+        await decrementSessionCount();
         res.clearCookie("refreshToken");
         throw new AppError("Invalid refresh token. Security alert: Session terminated.", 401);
     }

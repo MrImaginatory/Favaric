@@ -5,12 +5,15 @@ import sendResponse from "../../../utils/responseHandler.util.js";
 import StatusMessages from "../../../configs/message.config.js";
 import Catalog from "../../../models/product/catalog.model.js";
 import User from "../../../models/users/user.model.js";
-import { createRecord, updateRecord, getRecord, checkRecordExists, deleteRecord } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController, searchRecordsController } from "../base.controller.js";
+import { createRecord, updateRecord, getRecord, checkRecordExists, deleteRecord, getAllRecords } from "../../../services/base.service.js";
+import { searchRecordsController } from "../base.controller.js";
 import { generateMetaTitle, generateMetaDescription, generateMetaKeywords } from "../../../utils/metaData.util.js"
 import slugGenerator from "../../../utils/slug.util.js";
 import { renameDeletedFile } from "../../../utils/file.util.js";
 import logger from "../../../utils/logger.util.js";
+import { getCache, setCache, deleteCacheByPattern } from "../../../services/cache.service.js";
+import { refreshRefData } from "../../../services/refCache.service.js";
+import { Op } from "@sequelize/core";
 
 const createCatalog = asyncHandler(async (req: Request, res: Response) => {
 
@@ -44,6 +47,9 @@ const createCatalog = asyncHandler(async (req: Request, res: Response) => {
         metaDescription: catalogMetaDescription,
         metaKeywords: catalogMetaKeywords
     });
+
+    await deleteCacheByPattern("catalogs:*");
+    await refreshRefData("ref:catalogs");
 
     return sendResponse(res, 201, `Catalog ${StatusMessages.CREATED}`, catalog);
 
@@ -130,21 +136,73 @@ const updateCatalog = asyncHandler(async (req: Request, res: Response) => {
 
     const catalog = await updateRecord(Catalog, updateData, { where: { catalogId: id } });
 
+    await deleteCacheByPattern("catalogs:*");
+    await refreshRefData("ref:catalogs");
+
     return sendResponse(res, 200, `Catalog ${StatusMessages.UPDATED}`, catalog);
 });
 
-const getAllCatalogs = getAllRecordsController(Catalog, {
-    include: [
-        { model: User, as: "uploader", attributes: ["userName"] },
-        { model: User, as: "modifier", attributes: ["userName"] }
-    ]
+const catalogIncludes = [
+    { model: User, as: "uploader", attributes: ["userName"] },
+    { model: User, as: "modifier", attributes: ["userName"] }
+];
+
+const getAllCatalogs = asyncHandler(async (req: Request, res: Response) => {
+    const limit = req.query.limit ? parseInt(req.query.limit as string, 10) : 1000;
+    const cursor = req.query.cursor as string | undefined;
+    const cacheKey = `catalogs:list:${limit}:${cursor || "first"}`;
+
+    const cached = await getCache<any>(cacheKey);
+    if (cached) {
+        sendResponse(res, 200, StatusMessages.SUCCESS, cached);
+        return;
+    }
+
+    const options: any = { include: catalogIncludes };
+    if (!isNaN(limit) && limit > 0) {
+        options.limit = limit;
+    }
+    if (cursor) {
+        options.where = { ...options.where, createdAt: { [Op.lt]: cursor } };
+    }
+    if (!options.order) {
+        options.order = [["createdAt", "DESC"]];
+    }
+
+    const records = await getAllRecords(Catalog, options);
+
+    let nextCursor = null;
+    if (records.length > 0 && records.length === limit) {
+        nextCursor = (records[records.length - 1] as any).createdAt;
+    }
+
+    const result = { records, nextCursor };
+    await setCache(cacheKey, result, 60);
+
+    sendResponse(res, 200, StatusMessages.SUCCESS, result);
 });
 
-const getCatalogById = getRecordByIdController(Catalog, "catalogId", "Catalog", {
-    include: [
-        { model: User, as: "uploader", attributes: ["userName"] },
-        { model: User, as: "modifier", attributes: ["userName"] }
-    ]
+const getCatalogById = asyncHandler(async (req: Request, res: Response) => {
+    const id = req.params.id as string;
+    const cacheKey = `catalogs:${id}`;
+
+    const cached = await getCache<any>(cacheKey);
+    if (cached) {
+        sendResponse(res, 200, StatusMessages.SUCCESS, cached);
+        return;
+    }
+
+    const record = await getRecord(Catalog, {
+        where: { catalogId: id },
+        include: catalogIncludes
+    });
+
+    if (!record) {
+        throw new AppError("Catalog not found", 404);
+    }
+
+    await setCache(cacheKey, record, 300);
+    sendResponse(res, 200, StatusMessages.SUCCESS, record);
 });
 
 const deleteCatalog = asyncHandler(async (req: Request, res: Response) => {
@@ -176,6 +234,9 @@ const deleteCatalog = asyncHandler(async (req: Request, res: Response) => {
     }
 
     await deleteRecord(Catalog, "catalogId", id);
+
+    await deleteCacheByPattern("catalogs:*");
+    await refreshRefData("ref:catalogs");
 
     sendResponse(res, 200, StatusMessages.SUCCESS, null);
 });

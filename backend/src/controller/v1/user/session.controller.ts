@@ -5,6 +5,7 @@ import UserSession from "../../../models/users/userSession.model.js";
 import redis from "../../../utils/redis.util.js";
 import StatusMessages from "../../../configs/message.config.js";
 import AppError from "../../../utils/appError.util.js";
+import { decrementSessionCount } from "../../../services/cache.service.js";
 
 const getActiveSessions = asyncHandler(async (req: any, res: Response) => {
     const userId = req.user?.userId; // Assuming user info is in req.user from auth middleware
@@ -34,6 +35,8 @@ const terminateSession = asyncHandler(async (req: any, res: Response) => {
 
     // Delete from Postgres
     await session.destroy();
+
+    await decrementSessionCount();
 
     return sendResponse(res, 200, StatusMessages.SUCCESS, { message: "Session terminated" });
 });

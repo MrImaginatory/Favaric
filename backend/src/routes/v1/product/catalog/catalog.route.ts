@@ -4,6 +4,7 @@ import { uuidValidation } from "../../../../validations/uuid.validation.js";
 import { createCatalog, getAllCatalogs, getCatalogById, updateCatalog, deleteCatalog, searchCatalog } from "../../../../controller/v1/product/catalog.controller.js";
 import { createCatalogValidation, updateCatalogValidation, searchCatalogValidation } from "../../../../validations/product/catalog.validation.js";
 import upload from "../../../../middleware/multer.middleware.js";
+import { searchLimiter } from "../../../../middleware/rateLimiter.middleware.js";
 const catalogRouter = Router();
 
 const handleCatalogFiles = (req: any, _res: any, next: any) => {
@@ -40,6 +41,6 @@ catalogRouter.patch(
 
 catalogRouter.delete("/deleteCatalog/:id", validate(uuidValidation), deleteCatalog);
 
-catalogRouter.get("/searchCatalog", validate(searchCatalogValidation), searchCatalog);
+catalogRouter.get("/searchCatalog", searchLimiter, validate(searchCatalogValidation), searchCatalog);
 
 export default catalogRouter;

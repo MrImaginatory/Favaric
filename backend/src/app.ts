@@ -17,18 +17,23 @@ import "./models/index.model.js";
 //utils
 import logger from "./utils/logger.util.js"
 import requestLogger from "./middleware/requestLogger.middleware.js";
+import { loadAllRefData } from "./services/refCache.service.js";
+import UserSession from "./models/users/userSession.model.js";
 
 
 //middleware
 import { sessionMetadataMiddleware } from "./middleware/sessionMetadata.middleware.js";
+import { globalLimiter } from "./middleware/rateLimiter.middleware.js";
 
 //routes
 import healthRouter from "./routes/health.route.js";
 import userRouter from "./routes/v1/user/user.route.js";
 import statusRouter from "./routes/status.route.js";
 import productRouter from "./routes/v1/product/product.route.js";
+import countryCodeRouter from "./routes/v1/application/countryCode.route.js";
 
 import globalErrorHandler from "./middleware/errorHandler.middleware.js";
+import { seedCountryCodes } from "./services/seedCountryCodes.service.js";
 
 const app = express();
 
@@ -59,6 +64,7 @@ app.use(session({
 
 app.use(requestLogger);
 app.use(sessionMetadataMiddleware);
+app.use(globalLimiter);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({
@@ -68,6 +74,7 @@ app.use(express.json({
 }));
 
 app.use("/api/v1/health", healthRouter);
+app.use("/api/v1/countryCodes", countryCodeRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/product", productRouter);
 
@@ -86,6 +93,12 @@ const connectWithDatabase = async () => {
             alter: Boolean(config.DB.FORCE_ALTER_TABLE === "true"),
             force: Boolean(config.DB.FORCE_DROP_TABLE === "true")
         });
+        await loadAllRefData();
+        await seedCountryCodes();
+
+        const activeSessions = await UserSession.count();
+        await redis.set("active_sessions_count", activeSessions.toString());
+
         logger.log(`💃 Models synchronized successfully on port ${config.PORT}`);
     } catch (error) {
         logger.error(`❌ Database initialization failed: ${error}`);

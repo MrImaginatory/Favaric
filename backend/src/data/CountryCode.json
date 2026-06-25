@@ -1,0 +1,1382 @@
+[
+    {
+        "countryName": "Afghanistan",
+        "callingCode": "93",
+        "isoCode": "AFG",
+        "null": null
+    },
+    {
+        "countryName": "Albania",
+        "callingCode": "355",
+        "isoCode": "ALB",
+        "null": null
+    },
+    {
+        "countryName": "Algeria",
+        "callingCode": "213",
+        "isoCode": "DZA",
+        "null": null
+    },
+    {
+        "countryName": "American Samoa",
+        "callingCode": "1-684",
+        "isoCode": "ASM",
+        "null": null
+    },
+    {
+        "countryName": "Andorra",
+        "callingCode": "376",
+        "isoCode": "AND",
+        "null": null
+    },
+    {
+        "countryName": "Angola",
+        "callingCode": "244",
+        "isoCode": "AGO",
+        "null": null
+    },
+    {
+        "countryName": "Anguilla",
+        "callingCode": "1-264",
+        "isoCode": "AIA",
+        "null": null
+    },
+    {
+        "countryName": "Antigua and Barbuda",
+        "callingCode": "1-268",
+        "isoCode": "ATG",
+        "null": null
+    },
+    {
+        "countryName": "Argentina",
+        "callingCode": "54",
+        "isoCode": "ARG",
+        "null": null
+    },
+    {
+        "countryName": "Armenia",
+        "callingCode": "374",
+        "isoCode": "ARM",
+        "null": null
+    },
+    {
+        "countryName": "Aruba",
+        "callingCode": "297",
+        "isoCode": "ABW",
+        "null": null
+    },
+    {
+        "countryName": "Australia",
+        "callingCode": "61",
+        "isoCode": "AUS",
+        "null": null
+    },
+    {
+        "countryName": "Austria",
+        "callingCode": "43",
+        "isoCode": "AUT",
+        "null": null
+    },
+    {
+        "countryName": "Azerbaijan",
+        "callingCode": "994",
+        "isoCode": "AZE",
+        "null": null
+    },
+    {
+        "countryName": "Bahamas",
+        "callingCode": "1-242",
+        "isoCode": "BHS",
+        "null": null
+    },
+    {
+        "countryName": "Bahrain",
+        "callingCode": "973",
+        "isoCode": "BHR",
+        "null": null
+    },
+    {
+        "countryName": "Bangladesh",
+        "callingCode": "880",
+        "isoCode": "BGD",
+        "null": null
+    },
+    {
+        "countryName": "Barbados",
+        "callingCode": "1-246",
+        "isoCode": "BRB",
+        "null": null
+    },
+    {
+        "countryName": "Belarus",
+        "callingCode": "375",
+        "isoCode": "BLR",
+        "null": null
+    },
+    {
+        "countryName": "Belgium",
+        "callingCode": "32",
+        "isoCode": "BEL",
+        "null": null
+    },
+    {
+        "countryName": "Belize",
+        "callingCode": "501",
+        "isoCode": "BLZ",
+        "null": null
+    },
+    {
+        "countryName": "Benin",
+        "callingCode": "229",
+        "isoCode": "BEN",
+        "null": null
+    },
+    {
+        "countryName": "Bermuda",
+        "callingCode": "1-441",
+        "isoCode": "BMU",
+        "null": null
+    },
+    {
+        "countryName": "Bhutan",
+        "callingCode": "975",
+        "isoCode": "BTN",
+        "null": null
+    },
+    {
+        "countryName": "Bolivia",
+        "callingCode": "591",
+        "isoCode": "BOL",
+        "null": null
+    },
+    {
+        "countryName": "Bosnia and Herzegovina",
+        "callingCode": "387",
+        "isoCode": "BIH",
+        "null": null
+    },
+    {
+        "countryName": "Botswana",
+        "callingCode": "267",
+        "isoCode": "BWA",
+        "null": null
+    },
+    {
+        "countryName": "Brazil",
+        "callingCode": "55",
+        "isoCode": "BRA",
+        "null": null
+    },
+    {
+        "countryName": "British Virgin Islands",
+        "callingCode": "1-284",
+        "isoCode": "VGB",
+        "null": null
+    },
+    {
+        "countryName": "Brunei",
+        "callingCode": "673",
+        "isoCode": "BRN",
+        "null": null
+    },
+    {
+        "countryName": "Bulgaria",
+        "callingCode": "359",
+        "isoCode": "BGR",
+        "null": null
+    },
+    {
+        "countryName": "Burkina Faso",
+        "callingCode": "226",
+        "isoCode": "BFA",
+        "null": null
+    },
+    {
+        "countryName": "Burundi",
+        "callingCode": "257",
+        "isoCode": "BDI",
+        "null": null
+    },
+    {
+        "countryName": "Cabo Verde",
+        "callingCode": "238",
+        "isoCode": "CPV",
+        "null": null
+    },
+    {
+        "countryName": "Cambodia",
+        "callingCode": "855",
+        "isoCode": "KHM",
+        "null": null
+    },
+    {
+        "countryName": "Cameroon",
+        "callingCode": "237",
+        "isoCode": "CMR",
+        "null": null
+    },
+    {
+        "countryName": "Canada",
+        "callingCode": "1",
+        "isoCode": "CAN",
+        "null": null
+    },
+    {
+        "countryName": "Cayman Islands",
+        "callingCode": "1-345",
+        "isoCode": "CYM",
+        "null": null
+    },
+    {
+        "countryName": "Central African Republic",
+        "callingCode": "236",
+        "isoCode": "CAF",
+        "null": null
+    },
+    {
+        "countryName": "Chad",
+        "callingCode": "235",
+        "isoCode": "TCD",
+        "null": null
+    },
+    {
+        "countryName": "Chile",
+        "callingCode": "56",
+        "isoCode": "CHL",
+        "null": null
+    },
+    {
+        "countryName": "China",
+        "callingCode": "86",
+        "isoCode": "CHN",
+        "null": null
+    },
+    {
+        "countryName": "Colombia",
+        "callingCode": "57",
+        "isoCode": "COL",
+        "null": null
+    },
+    {
+        "countryName": "Comoros",
+        "callingCode": "269",
+        "isoCode": "COM",
+        "null": null
+    },
+    {
+        "countryName": "Congo",
+        "callingCode": "242",
+        "isoCode": "COG",
+        "null": null
+    },
+    {
+        "countryName": "Cook Islands",
+        "callingCode": "682",
+        "isoCode": "COK",
+        "null": null
+    },
+    {
+        "countryName": "Costa Rica",
+        "callingCode": "506",
+        "isoCode": "CRI",
+        "null": null
+    },
+    {
+        "countryName": "Côte d'Ivoire",
+        "callingCode": "225",
+        "isoCode": "CIV",
+        "null": null
+    },
+    {
+        "countryName": "Croatia",
+        "callingCode": "385",
+        "isoCode": "HRV",
+        "null": null
+    },
+    {
+        "countryName": "Cuba",
+        "callingCode": "53",
+        "isoCode": "CUB",
+        "null": null
+    },
+    {
+        "countryName": "Curaçao",
+        "callingCode": "599",
+        "isoCode": "CUW",
+        "null": null
+    },
+    {
+        "countryName": "Cyprus",
+        "callingCode": "357",
+        "isoCode": "CYP",
+        "null": null
+    },
+    {
+        "countryName": "Czech Republic (Czechia)",
+        "callingCode": "420",
+        "isoCode": "CZE",
+        "null": null
+    },
+    {
+        "countryName": "Denmark",
+        "callingCode": "45",
+        "isoCode": "DNK",
+        "null": null
+    },
+    {
+        "countryName": "Djibouti",
+        "callingCode": "253",
+        "isoCode": "DJI",
+        "null": null
+    },
+    {
+        "countryName": "Dominica",
+        "callingCode": "1-767",
+        "isoCode": "DMA",
+        "null": null
+    },
+    {
+        "countryName": "Dominican Republic",
+        "callingCode": "1-809, 1-829, 1-849",
+        "isoCode": "DOM",
+        "null": null
+    },
+    {
+        "countryName": "DR Congo",
+        "callingCode": "243",
+        "isoCode": "COD",
+        "null": null
+    },
+    {
+        "countryName": "Ecuador",
+        "callingCode": "593",
+        "isoCode": "ECU",
+        "null": null
+    },
+    {
+        "countryName": "Egypt",
+        "callingCode": "20",
+        "isoCode": "EGY",
+        "null": null
+    },
+    {
+        "countryName": "El Salvador",
+        "callingCode": "503",
+        "isoCode": "SLV",
+        "null": null
+    },
+    {
+        "countryName": "Equatorial Guinea",
+        "callingCode": "240",
+        "isoCode": "GNQ",
+        "null": null
+    },
+    {
+        "countryName": "Eritrea",
+        "callingCode": "291",
+        "isoCode": "ERI",
+        "null": null
+    },
+    {
+        "countryName": "Estonia",
+        "callingCode": "372",
+        "isoCode": "EST",
+        "null": null
+    },
+    {
+        "countryName": "Eswatini",
+        "callingCode": "268",
+        "isoCode": "SWZ",
+        "null": null
+    },
+    {
+        "countryName": "Ethiopia",
+        "callingCode": "251",
+        "isoCode": "ETH",
+        "null": null
+    },
+    {
+        "countryName": "Faeroe Islands",
+        "callingCode": "298",
+        "isoCode": "FRO",
+        "null": null
+    },
+    {
+        "countryName": "Falkland Islands",
+        "callingCode": "500",
+        "isoCode": "FLK",
+        "null": null
+    },
+    {
+        "countryName": "Fiji",
+        "callingCode": "679",
+        "isoCode": "FJI",
+        "null": null
+    },
+    {
+        "countryName": "Finland",
+        "callingCode": "358",
+        "isoCode": "FIN",
+        "null": null
+    },
+    {
+        "countryName": "France",
+        "callingCode": "33",
+        "isoCode": "FRA",
+        "null": null
+    },
+    {
+        "countryName": "French Polynesia",
+        "callingCode": "689",
+        "isoCode": "PYF",
+        "null": null
+    },
+    {
+        "countryName": "Gabon",
+        "callingCode": "241",
+        "isoCode": "GAB",
+        "null": null
+    },
+    {
+        "countryName": "Gambia",
+        "callingCode": "220",
+        "isoCode": "GMB",
+        "null": null
+    },
+    {
+        "countryName": "Georgia",
+        "callingCode": "995",
+        "isoCode": "GEO",
+        "null": null
+    },
+    {
+        "countryName": "Germany",
+        "callingCode": "49",
+        "isoCode": "DEU",
+        "null": null
+    },
+    {
+        "countryName": "Ghana",
+        "callingCode": "233",
+        "isoCode": "GHA",
+        "null": null
+    },
+    {
+        "countryName": "Gibraltar",
+        "callingCode": "350",
+        "isoCode": "GIB",
+        "null": null
+    },
+    {
+        "countryName": "Greece",
+        "callingCode": "30",
+        "isoCode": "GRC",
+        "null": null
+    },
+    {
+        "countryName": "Greenland",
+        "callingCode": "299",
+        "isoCode": "GRL",
+        "null": null
+    },
+    {
+        "countryName": "Grenada",
+        "callingCode": "1-473",
+        "isoCode": "GRD",
+        "null": null
+    },
+    {
+        "countryName": "Guam",
+        "callingCode": "1-671",
+        "isoCode": "GUM",
+        "null": null
+    },
+    {
+        "countryName": "Guatemala",
+        "callingCode": "502",
+        "isoCode": "GTM",
+        "null": null
+    },
+    {
+        "countryName": "Guinea",
+        "callingCode": "224",
+        "isoCode": "GIN",
+        "null": null
+    },
+    {
+        "countryName": "Guinea-Bissau",
+        "callingCode": "245",
+        "isoCode": "GNB",
+        "null": null
+    },
+    {
+        "countryName": "Guyana",
+        "callingCode": "592",
+        "isoCode": "GUY",
+        "null": null
+    },
+    {
+        "countryName": "Haiti",
+        "callingCode": "509",
+        "isoCode": "HTI",
+        "null": null
+    },
+    {
+        "countryName": "Holy See",
+        "callingCode": "379",
+        "isoCode": "VAT",
+        "null": null
+    },
+    {
+        "countryName": "Honduras",
+        "callingCode": "504",
+        "isoCode": "HND",
+        "null": null
+    },
+    {
+        "countryName": "Hong Kong",
+        "callingCode": "852",
+        "isoCode": "HKG",
+        "null": null
+    },
+    {
+        "countryName": "Hungary",
+        "callingCode": "36",
+        "isoCode": "HUN",
+        "null": null
+    },
+    {
+        "countryName": "Iceland",
+        "callingCode": "354",
+        "isoCode": "ISL",
+        "null": null
+    },
+    {
+        "countryName": "India",
+        "callingCode": "91",
+        "isoCode": "IND",
+        "null": null
+    },
+    {
+        "countryName": "Indonesia",
+        "callingCode": "62",
+        "isoCode": "IDN",
+        "null": null
+    },
+    {
+        "countryName": "Iran",
+        "callingCode": "98",
+        "isoCode": "IRN",
+        "null": null
+    },
+    {
+        "countryName": "Iraq",
+        "callingCode": "964",
+        "isoCode": "IRQ",
+        "null": null
+    },
+    {
+        "countryName": "Ireland",
+        "callingCode": "353",
+        "isoCode": "IRL",
+        "null": null
+    },
+    {
+        "countryName": "Isle of Man",
+        "callingCode": "44-1624",
+        "isoCode": "IMN",
+        "null": null
+    },
+    {
+        "countryName": "Israel",
+        "callingCode": "972",
+        "isoCode": "ISR",
+        "null": null
+    },
+    {
+        "countryName": "Italy",
+        "callingCode": "39",
+        "isoCode": "ITA",
+        "null": null
+    },
+    {
+        "countryName": "Jamaica",
+        "callingCode": "1-876",
+        "isoCode": "JAM",
+        "null": null
+    },
+    {
+        "countryName": "Japan",
+        "callingCode": "81",
+        "isoCode": "JPN",
+        "null": null
+    },
+    {
+        "countryName": "Jordan",
+        "callingCode": "962",
+        "isoCode": "JOR",
+        "null": null
+    },
+    {
+        "countryName": "Kazakhstan",
+        "callingCode": "7",
+        "isoCode": "KAZ",
+        "null": null
+    },
+    {
+        "countryName": "Kenya",
+        "callingCode": "254",
+        "isoCode": "KEN",
+        "null": null
+    },
+    {
+        "countryName": "Kiribati",
+        "callingCode": "686",
+        "isoCode": "KIR",
+        "null": null
+    },
+    {
+        "countryName": "Kuwait",
+        "callingCode": "965",
+        "isoCode": "KWT",
+        "null": null
+    },
+    {
+        "countryName": "Kyrgyzstan",
+        "callingCode": "996",
+        "isoCode": "KGZ",
+        "null": null
+    },
+    {
+        "countryName": "Laos",
+        "callingCode": "856",
+        "isoCode": "LAO",
+        "null": null
+    },
+    {
+        "countryName": "Latvia",
+        "callingCode": "371",
+        "isoCode": "LVA",
+        "null": null
+    },
+    {
+        "countryName": "Lebanon",
+        "callingCode": "961",
+        "isoCode": "LBN",
+        "null": null
+    },
+    {
+        "countryName": "Lesotho",
+        "callingCode": "266",
+        "isoCode": "LSO",
+        "null": null
+    },
+    {
+        "countryName": "Liberia",
+        "callingCode": "231",
+        "isoCode": "LBR",
+        "null": null
+    },
+    {
+        "countryName": "Libya",
+        "callingCode": "218",
+        "isoCode": "LBY",
+        "null": null
+    },
+    {
+        "countryName": "Liechtenstein",
+        "callingCode": "423",
+        "isoCode": "LIE",
+        "null": null
+    },
+    {
+        "countryName": "Lithuania",
+        "callingCode": "370",
+        "isoCode": "LTU",
+        "null": null
+    },
+    {
+        "countryName": "Luxembourg",
+        "callingCode": "352",
+        "isoCode": "LUX",
+        "null": null
+    },
+    {
+        "countryName": "Macao",
+        "callingCode": "853",
+        "isoCode": "MAC",
+        "null": null
+    },
+    {
+        "countryName": "Madagascar",
+        "callingCode": "261",
+        "isoCode": "MDG",
+        "null": null
+    },
+    {
+        "countryName": "Malawi",
+        "callingCode": "265",
+        "isoCode": "MWI",
+        "null": null
+    },
+    {
+        "countryName": "Malaysia",
+        "callingCode": "60",
+        "isoCode": "MYS",
+        "null": null
+    },
+    {
+        "countryName": "Maldives",
+        "callingCode": "960",
+        "isoCode": "MDV",
+        "null": null
+    },
+    {
+        "countryName": "Mali",
+        "callingCode": "223",
+        "isoCode": "MLI",
+        "null": null
+    },
+    {
+        "countryName": "Malta",
+        "callingCode": "356",
+        "isoCode": "MLT",
+        "null": null
+    },
+    {
+        "countryName": "Marshall Islands",
+        "callingCode": "692",
+        "isoCode": "MHL",
+        "null": null
+    },
+    {
+        "countryName": "Mauritania",
+        "callingCode": "222",
+        "isoCode": "MRT",
+        "null": null
+    },
+    {
+        "countryName": "Mauritius",
+        "callingCode": "230",
+        "isoCode": "MUS",
+        "null": null
+    },
+    {
+        "countryName": "Mayotte",
+        "callingCode": "262",
+        "isoCode": "MYT",
+        "null": null
+    },
+    {
+        "countryName": "Mexico",
+        "callingCode": "52",
+        "isoCode": "MEX",
+        "null": null
+    },
+    {
+        "countryName": "Micronesia",
+        "callingCode": "691",
+        "isoCode": "FSM",
+        "null": null
+    },
+    {
+        "countryName": "Moldova",
+        "callingCode": "373",
+        "isoCode": "MDA",
+        "null": null
+    },
+    {
+        "countryName": "Monaco",
+        "callingCode": "377",
+        "isoCode": "MCO",
+        "null": null
+    },
+    {
+        "countryName": "Mongolia",
+        "callingCode": "976",
+        "isoCode": "MNG",
+        "null": null
+    },
+    {
+        "countryName": "Montenegro",
+        "callingCode": "382",
+        "isoCode": "MNE",
+        "null": null
+    },
+    {
+        "countryName": "Montserrat",
+        "callingCode": "1-664",
+        "isoCode": "MSR",
+        "null": null
+    },
+    {
+        "countryName": "Morocco",
+        "callingCode": "212",
+        "isoCode": "MAR",
+        "null": null
+    },
+    {
+        "countryName": "Mozambique",
+        "callingCode": "258",
+        "isoCode": "MOZ",
+        "null": null
+    },
+    {
+        "countryName": "Myanmar",
+        "callingCode": "95",
+        "isoCode": "MMR",
+        "null": null
+    },
+    {
+        "countryName": "Namibia",
+        "callingCode": "264",
+        "isoCode": "NAM",
+        "null": null
+    },
+    {
+        "countryName": "Nauru",
+        "callingCode": "674",
+        "isoCode": "NRU",
+        "null": null
+    },
+    {
+        "countryName": "Nepal",
+        "callingCode": "977",
+        "isoCode": "NPL",
+        "null": null
+    },
+    {
+        "countryName": "Netherlands",
+        "callingCode": "31",
+        "isoCode": "NLD",
+        "null": null
+    },
+    {
+        "countryName": "New Caledonia",
+        "callingCode": "687",
+        "isoCode": "NCL",
+        "null": null
+    },
+    {
+        "countryName": "New Zealand",
+        "callingCode": "64",
+        "isoCode": "NZL",
+        "null": null
+    },
+    {
+        "countryName": "Nicaragua",
+        "callingCode": "505",
+        "isoCode": "NIC",
+        "null": null
+    },
+    {
+        "countryName": "Niger",
+        "callingCode": "227",
+        "isoCode": "NER",
+        "null": null
+    },
+    {
+        "countryName": "Nigeria",
+        "callingCode": "234",
+        "isoCode": "NGA",
+        "null": null
+    },
+    {
+        "countryName": "Niue",
+        "callingCode": "683",
+        "isoCode": "NIU",
+        "null": null
+    },
+    {
+        "countryName": "Northern Mariana Islands",
+        "callingCode": "1-670",
+        "isoCode": "MNP",
+        "null": null
+    },
+    {
+        "countryName": "North Korea",
+        "callingCode": "850",
+        "isoCode": "PRK",
+        "null": null
+    },
+    {
+        "countryName": "North Macedonia",
+        "callingCode": "389",
+        "isoCode": "MKD",
+        "null": null
+    },
+    {
+        "countryName": "Norway",
+        "callingCode": "47",
+        "isoCode": "NOR",
+        "null": null
+    },
+    {
+        "countryName": "Oman",
+        "callingCode": "968",
+        "isoCode": "OMN",
+        "null": null
+    },
+    {
+        "countryName": "Pakistan",
+        "callingCode": "92",
+        "isoCode": "PAK",
+        "null": null
+    },
+    {
+        "countryName": "Palau",
+        "callingCode": "680",
+        "isoCode": "PLW",
+        "null": null
+    },
+    {
+        "countryName": "Panama",
+        "callingCode": "507",
+        "isoCode": "PAN",
+        "null": null
+    },
+    {
+        "countryName": "Papua New Guinea",
+        "callingCode": "675",
+        "isoCode": "PNG",
+        "null": null
+    },
+    {
+        "countryName": "Paraguay",
+        "callingCode": "595",
+        "isoCode": "PRY",
+        "null": null
+    },
+    {
+        "countryName": "Peru",
+        "callingCode": "51",
+        "isoCode": "PER",
+        "null": null
+    },
+    {
+        "countryName": "Philippines",
+        "callingCode": "63",
+        "isoCode": "PHL",
+        "null": null
+    },
+    {
+        "countryName": "Poland",
+        "callingCode": "48",
+        "isoCode": "POL",
+        "null": null
+    },
+    {
+        "countryName": "Portugal",
+        "callingCode": "351",
+        "isoCode": "PRT",
+        "null": null
+    },
+    {
+        "countryName": "Puerto Rico",
+        "callingCode": "1-787, 1-939",
+        "isoCode": "PRI",
+        "null": null
+    },
+    {
+        "countryName": "Qatar",
+        "callingCode": "974",
+        "isoCode": "QAT",
+        "null": null
+    },
+    {
+        "countryName": "Réunion",
+        "callingCode": "262",
+        "isoCode": "REU",
+        "null": null
+    },
+    {
+        "countryName": "Romania",
+        "callingCode": "40",
+        "isoCode": "ROU",
+        "null": null
+    },
+    {
+        "countryName": "Russia",
+        "callingCode": "7",
+        "isoCode": "RUS",
+        "null": null
+    },
+    {
+        "countryName": "Rwanda",
+        "callingCode": "250",
+        "isoCode": "RWA",
+        "null": null
+    },
+    {
+        "countryName": "Saint Barthelemy",
+        "callingCode": "590",
+        "isoCode": "BLM",
+        "null": null
+    },
+    {
+        "countryName": "Saint Helena",
+        "callingCode": "290",
+        "isoCode": "SHN",
+        "null": null
+    },
+    {
+        "countryName": "Saint Kitts & Nevis",
+        "callingCode": "1-869",
+        "isoCode": "KNA",
+        "null": null
+    },
+    {
+        "countryName": "Saint Lucia",
+        "callingCode": "1-758",
+        "isoCode": "LCA",
+        "null": null
+    },
+    {
+        "countryName": "Saint Martin",
+        "callingCode": "590",
+        "isoCode": "MAF",
+        "null": null
+    },
+    {
+        "countryName": "Saint Pierre & Miquelon",
+        "callingCode": "508",
+        "isoCode": "SPM",
+        "null": null
+    },
+    {
+        "countryName": "Samoa",
+        "callingCode": "685",
+        "isoCode": "WSM",
+        "null": null
+    },
+    {
+        "countryName": "San Marino",
+        "callingCode": "378",
+        "isoCode": "SMR",
+        "null": null
+    },
+    {
+        "countryName": "Sao Tome & Principe",
+        "callingCode": "239",
+        "isoCode": "STP",
+        "null": null
+    },
+    {
+        "countryName": "Saudi Arabia",
+        "callingCode": "966",
+        "isoCode": "SAU",
+        "null": null
+    },
+    {
+        "countryName": "Senegal",
+        "callingCode": "221",
+        "isoCode": "SEN",
+        "null": null
+    },
+    {
+        "countryName": "Serbia",
+        "callingCode": "381",
+        "isoCode": "SRB",
+        "null": null
+    },
+    {
+        "countryName": "Seychelles",
+        "callingCode": "248",
+        "isoCode": "SYC",
+        "null": null
+    },
+    {
+        "countryName": "Sierra Leone",
+        "callingCode": "232",
+        "isoCode": "SLE",
+        "null": null
+    },
+    {
+        "countryName": "Singapore",
+        "callingCode": "65",
+        "isoCode": "SGP",
+        "null": null
+    },
+    {
+        "countryName": "Sint Maarten",
+        "callingCode": "1-721",
+        "isoCode": "SXM",
+        "null": null
+    },
+    {
+        "countryName": "Slovakia",
+        "callingCode": "421",
+        "isoCode": "SVK",
+        "null": null
+    },
+    {
+        "countryName": "Slovenia",
+        "callingCode": "386",
+        "isoCode": "SVN",
+        "null": null
+    },
+    {
+        "countryName": "Solomon Islands",
+        "callingCode": "677",
+        "isoCode": "SLB",
+        "null": null
+    },
+    {
+        "countryName": "Somalia",
+        "callingCode": "252",
+        "isoCode": "SOM",
+        "null": null
+    },
+    {
+        "countryName": "South Africa",
+        "callingCode": "27",
+        "isoCode": "ZAF",
+        "null": null
+    },
+    {
+        "countryName": "South Korea",
+        "callingCode": "82",
+        "isoCode": "KOR",
+        "null": null
+    },
+    {
+        "countryName": "South Sudan",
+        "callingCode": "211",
+        "isoCode": "SSD",
+        "null": null
+    },
+    {
+        "countryName": "Spain",
+        "callingCode": "34",
+        "isoCode": "ESP",
+        "null": null
+    },
+    {
+        "countryName": "Sri Lanka",
+        "callingCode": "94",
+        "isoCode": "LKA",
+        "null": null
+    },
+    {
+        "countryName": "State of Palestine",
+        "callingCode": "970",
+        "isoCode": "PSE",
+        "null": null
+    },
+    {
+        "countryName": "St. Vincent & Grenadines",
+        "callingCode": "1-784",
+        "isoCode": "VCT",
+        "null": null
+    },
+    {
+        "countryName": "Sudan",
+        "callingCode": "249",
+        "isoCode": "SDN",
+        "null": null
+    },
+    {
+        "countryName": "Suriname",
+        "callingCode": "597",
+        "isoCode": "SUR",
+        "null": null
+    },
+    {
+        "countryName": "Sweden",
+        "callingCode": "46",
+        "isoCode": "SWE",
+        "null": null
+    },
+    {
+        "countryName": "Switzerland",
+        "callingCode": "41",
+        "isoCode": "CHE",
+        "null": null
+    },
+    {
+        "countryName": "Syria",
+        "callingCode": "963",
+        "isoCode": "SYR",
+        "null": null
+    },
+    {
+        "countryName": "Taiwan",
+        "callingCode": "886",
+        "isoCode": "TWN",
+        "null": null
+    },
+    {
+        "countryName": "Tajikistan",
+        "callingCode": "992",
+        "isoCode": "TJK",
+        "null": null
+    },
+    {
+        "countryName": "Tanzania",
+        "callingCode": "255",
+        "isoCode": "TZA",
+        "null": null
+    },
+    {
+        "countryName": "Thailand",
+        "callingCode": "66",
+        "isoCode": "THA",
+        "null": null
+    },
+    {
+        "countryName": "Timor-Leste",
+        "callingCode": "670",
+        "isoCode": "TLS",
+        "null": null
+    },
+    {
+        "countryName": "Togo",
+        "callingCode": "228",
+        "isoCode": "TGO",
+        "null": null
+    },
+    {
+        "countryName": "Tokelau",
+        "callingCode": "690",
+        "isoCode": "TKL",
+        "null": null
+    },
+    {
+        "countryName": "Tonga",
+        "callingCode": "676",
+        "isoCode": "TON",
+        "null": null
+    },
+    {
+        "countryName": "Trinidad and Tobago",
+        "callingCode": "1-868",
+        "isoCode": "TTO",
+        "null": null
+    },
+    {
+        "countryName": "Tunisia",
+        "callingCode": "216",
+        "isoCode": "TUN",
+        "null": null
+    },
+    {
+        "countryName": "Turkey",
+        "callingCode": "90",
+        "isoCode": "TUR",
+        "null": null
+    },
+    {
+        "countryName": "Turkmenistan",
+        "callingCode": "993",
+        "isoCode": "TKM",
+        "null": null
+    },
+    {
+        "countryName": "Turks and Caicos",
+        "callingCode": "1-649",
+        "isoCode": "TCA",
+        "null": null
+    },
+    {
+        "countryName": "Tuvalu",
+        "callingCode": "688",
+        "isoCode": "TUV",
+        "null": null
+    },
+    {
+        "countryName": "Uganda",
+        "callingCode": "256",
+        "isoCode": "UGA",
+        "null": null
+    },
+    {
+        "countryName": "Ukraine",
+        "callingCode": "380",
+        "isoCode": "UKR",
+        "null": null
+    },
+    {
+        "countryName": "United Arab Emirates",
+        "callingCode": "971",
+        "isoCode": "ARE",
+        "null": null
+    },
+    {
+        "countryName": "United Kingdom",
+        "callingCode": "44",
+        "isoCode": "GBR",
+        "null": null
+    },
+    {
+        "countryName": "United States",
+        "callingCode": "1",
+        "isoCode": "USA",
+        "null": null
+    },
+    {
+        "countryName": "Uruguay",
+        "callingCode": "598",
+        "isoCode": "URY",
+        "null": null
+    },
+    {
+        "countryName": "U.S. Virgin Islands",
+        "callingCode": "1-340",
+        "isoCode": "VIR",
+        "null": null
+    },
+    {
+        "countryName": "Uzbekistan",
+        "callingCode": "998",
+        "isoCode": "UZB",
+        "null": null
+    },
+    {
+        "countryName": "Vanuatu",
+        "callingCode": "678",
+        "isoCode": "VUT",
+        "null": null
+    },
+    {
+        "countryName": "Venezuela",
+        "callingCode": "58",
+        "isoCode": "VEN",
+        "null": null
+    },
+    {
+        "countryName": "Vietnam",
+        "callingCode": "84",
+        "isoCode": "VNM",
+        "null": null
+    },
+    {
+        "countryName": "Wallis & Futuna",
+        "callingCode": "681",
+        "isoCode": "WLF",
+        "null": null
+    },
+    {
+        "countryName": "Western Sahara",
+        "callingCode": "212",
+        "isoCode": "ESH",
+        "null": null
+    },
+    {
+        "countryName": "Yemen",
+        "callingCode": "967",
+        "isoCode": "YEM",
+        "null": null
+    },
+    {
+        "countryName": "Zambia",
+        "callingCode": "260",
+        "isoCode": "ZMB",
+        "null": null
+    },
+    {
+        "countryName": "Zimbabwe",
+        "callingCode": "263",
+        "isoCode": "ZWE",
+        "null": null
+    }
+]

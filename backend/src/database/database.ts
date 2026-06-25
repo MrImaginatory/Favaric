@@ -5,23 +5,23 @@ import logger from '../utils/logger.util.js';
 
 const sequelize = new Sequelize<any>({
     dialect: PostgresDialect,
-    database: config.DB.DBNAME,
-    user: config.DB.DBUSER,
-    password: config.DB.DBPASSWORD,
-    host: config.DB.DBHOST,
-    port: Number(config.DB.DBPORT),
+    database: config.DB.DB_NAME,
+    user: config.DB.DB_USER,
+    password: config.DB.DB_PASSWORD,
+    host: config.DB.DB_HOST,
+    port: Number(config.DB.DB_PORT),
 
     // logging: config.NODE_ENV === "production" ? false : console.log,
 
     pool: {
-        max: 2,
-        min: 1,
-        acquire: 60000,
-        idle: 10000,
+        max: Number(config.DB.POOL.MAX),
+        min: Number(config.DB.POOL.MIN),
+        acquire: Number(config.DB.POOL.ACQUIRE),
+        idle: Number(config.DB.POOL.IDLE),
     },
 
     retry: {
-        max: 3,
+        max: Number(config.DB.RETRY.MAX),
     },
 
     define: {

@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import { Loader2, Eye, EyeOff, Check, X } from "lucide-react"
-import { useMutation } from "@tanstack/react-query"
-import { authApi } from "@/lib/api"
+import { useMutation, useQuery } from "@tanstack/react-query"
+import { authApi, countryCodeApi } from "@/lib/api"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
+import { CountryCodeSelect } from "@/components/ui/country-code-select"
 
 const signupSchema = z.object({
   firstName: z.string().min(1, { message: "First name is required." }),
@@ -33,7 +34,7 @@ const signupSchema = z.object({
     .regex(/[^A-Za-z0-9]/, { message: "Password must contain at least one special character." }),
   confirmPassword: z.string(),
   countryCode: z.string().min(1, { message: "Country code is required." }),
-  mobile: z.string().min(10, { message: "Valid mobile number is required." }),
+  mobile: z.string().length(10, { message: "Mobile number must be exactly 10 digits." }).regex(/^\d+$/, { message: "Mobile number must contain only digits." }),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"],
@@ -50,6 +51,14 @@ export default function Signup() {
   const projectName = import.meta.env.VITE_APP_PROJECT_NAME || "Favric"
   const logoPath = import.meta.env.VITE_APP_LOGO || "/logo.svg"
 
+  const { data: countryCodes = [], isLoading: isLoadingCountries } = useQuery({
+    queryKey: ["countryCodes"],
+    queryFn: async () => {
+      const res = await countryCodeApi.getAll()
+      return res.data || []
+    },
+  })
+
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -59,13 +68,13 @@ export default function Signup() {
       email: "",
       password: "",
       confirmPassword: "",
-      countryCode: "91",
+      countryCode: "",
       mobile: "",
     },
   })
 
   const password = form.watch("password") || ""
-  
+
   const rules = [
     { regex: /.{8,}/, text: "At least 8 characters" },
     { regex: /[A-Z]/, text: "One uppercase letter" },
@@ -93,9 +102,8 @@ export default function Signup() {
   })
 
   function onSubmit(data: SignupFormValues) {
-    const { confirmPassword, countryCode, ...rest } = data
-    const payload = { ...rest, countryCode: Number(countryCode) }
-    signupUser(payload)
+    const { confirmPassword, ...rest } = data
+    signupUser(rest)
   }
 
   function onError(errors: any) {
@@ -178,15 +186,21 @@ export default function Signup() {
                   </FormItem>
                 )}
               />
-              <div className="grid grid-cols-[1fr_3fr] gap-4">
+              <div className="grid grid-cols-[auto_1fr] gap-4">
                 <FormField
                   control={form.control}
                   name="countryCode"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="">
                       <FormLabel>Code</FormLabel>
                       <FormControl>
-                        <Input type="number" placeholder="91" {...field} disabled={isLoading} autoComplete="tel-country-code" />
+                        <CountryCodeSelect
+                          countries={countryCodes}
+                          value={field.value}
+                          onValueChange={field.onChange}
+                          placeholder="Code"
+                          disabled={isLoading || isLoadingCountries}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -199,7 +213,7 @@ export default function Signup() {
                     <FormItem>
                       <FormLabel>Mobile Number</FormLabel>
                       <FormControl>
-                        <Input placeholder="1234567890" {...field} disabled={isLoading} autoComplete="tel-national" />
+                        <Input placeholder="1234567890" {...field} disabled={isLoading} autoComplete="tel-national" maxLength={10} inputMode="numeric" pattern="[0-9]*" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -235,12 +249,11 @@ export default function Signup() {
               <div className="flex flex-col gap-2 mt-1 mb-2">
                 <div className="flex gap-1 h-1.5 w-full">
                   {[...Array(5)].map((_, i) => (
-                    <div 
-                      key={i} 
-                      className={`h-full flex-1 rounded-full ${
-                        password.length === 0 ? "bg-muted" :
+                    <div
+                      key={i}
+                      className={`h-full flex-1 rounded-full ${password.length === 0 ? "bg-muted" :
                         i < strength ? (strength <= 2 ? "bg-red-500" : strength <= 4 ? "bg-yellow-500" : "bg-green-500") : "bg-muted"
-                      }`} 
+                        }`}
                     />
                   ))}
                 </div>
@@ -279,7 +292,7 @@ export default function Signup() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button type="submit" className="w-full" disabled={isLoading || isLoadingCountries}>
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Create Account
               </Button>

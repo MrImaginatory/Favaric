@@ -11,9 +11,9 @@ class User extends Model {
     public email!: string;
     public password!: string;
 
-    public countryCode!: number;
+    public countryCode!: string;
     public mobile!: string;
-    public whatsAppNumberCountryCode!: number;
+    public whatsAppNumberCountryCode!: string;
     public whatsAppNumber!: string;
 
     public gender!: string;
@@ -67,7 +67,7 @@ User.init({
         allowNull: false
     },
     countryCode: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false
     },
     mobile: {
@@ -76,7 +76,7 @@ User.init({
         unique: true
     },
     whatsAppNumberCountryCode: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: true
     },
     whatsAppNumber: {
@@ -146,6 +146,14 @@ User.init({
     User.hasMany(models.UserWishList, {
         foreignKey: "userId",
         as: "wishlist"
+    });
+    User.belongsTo(models.CountryCode, {
+        foreignKey: "countryCode",
+        as: "countryDetails"
+    });
+    User.belongsTo(models.CountryCode, {
+        foreignKey: "whatsAppNumberCountryCode",
+        as: "whatsAppCountryDetails"
     });
 };
 

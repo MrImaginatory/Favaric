@@ -5,13 +5,15 @@ import sendResponse from "../../../utils/responseHandler.util.js";
 import StatusMessages from "../../../configs/message.config.js";
 import Product from "../../../models/product/product.model.js";
 import User from "../../../models/users/user.model.js";
-import { createRecord, updateRecord, getRecord, checkRecordExists, deleteRecord } from "../../../services/base.service.js";
-import { getRecordByIdController, getAllRecordsController, searchRecordsController } from "../base.controller.js";
+import { createRecord, updateRecord, getRecord, checkRecordExists, deleteRecord, getAllRecords } from "../../../services/base.service.js";
+import { searchRecordsController } from "../base.controller.js";
 import { generateMetaTitle, generateMetaDescription, generateMetaKeywords } from "../../../utils/metaData.util.js"
 import slugGenerator from "../../../utils/slug.util.js";
 import { renameDeletedFile } from "../../../utils/file.util.js";
 import logger from "../../../utils/logger.util.js";
 import { Op } from "@sequelize/core";
+import { getCache, setCache, deleteCacheByPattern } from "../../../services/cache.service.js";
+import { validateAllReferences } from "../../../services/refCache.service.js";
 
 import Category from "../../../models/product/category.model.js";
 import Brand from "../../../models/product/brand.model.js";
@@ -95,36 +97,25 @@ const addProduct = asyncHandler(async (req: Request, res: Response) => {
         throw new AppError(`Product ${StatusMessages.ALREADY_EXISTS}`, 409);
     }
 
-    const referenceChecks: Array<{ model: any; condition: any; name: string }> = [
-        { model: Category, condition: { categoryId: category }, name: "Category" },
-        { model: Brand, condition: { brandId: brand }, name: "Brand" },
-        { model: Fabric, condition: { fabricId: fabric }, name: "Fabric" },
-        { model: Occasion, condition: { occasionId: occasion }, name: "Occasion" },
-        { model: Pattern, condition: { patternId: pattern }, name: "Pattern" },
-        { model: Length, condition: { lengthId: length }, name: "Length" },
-        { model: CountryOfOrigin, condition: { countryOfOriginId: countryOfOrigin }, name: "Country of Origin" },
-        { model: Color, condition: { colorId: color }, name: "Color" },
-        { model: Size, condition: { sizeId: size }, name: "Size" },
-        { model: Weight, condition: { weightId: weight }, name: "Weight" },
-        { model: Dimensions, condition: { dimensionsId: dimensions }, name: "Dimensions" },
-        { model: ProductType, condition: { productTypeId: productType }, name: "Product Type" },
-        { model: ShippingCharge, condition: { shippingChargeId: shippingCharge }, name: "Shipping Charge" }
-    ];
+    const failedRef = await validateAllReferences([
+        { value: category, model: Category, keyField: "categoryId", name: "Category" },
+        { value: brand, model: Brand, keyField: "brandId", name: "Brand" },
+        { value: fabric, model: Fabric, keyField: "fabricId", name: "Fabric" },
+        { value: occasion, model: Occasion, keyField: "occasionId", name: "Occasion" },
+        { value: pattern, model: Pattern, keyField: "patternId", name: "Pattern" },
+        { value: length, model: Length, keyField: "lengthId", name: "Length" },
+        { value: countryOfOrigin, model: CountryOfOrigin, keyField: "countryOfOriginId", name: "Country of Origin" },
+        { value: color, model: Color, keyField: "colorId", name: "Color" },
+        { value: size, model: Size, keyField: "sizeId", name: "Size" },
+        { value: weight, model: Weight, keyField: "weightId", name: "Weight" },
+        { value: dimensions, model: Dimensions, keyField: "dimensionId", name: "Dimensions" },
+        { value: productType, model: ProductType, keyField: "productTypeId", name: "Product Type" },
+        { value: shippingCharge, model: ShippingCharge, keyField: "shippingChargeId", name: "Shipping Charge" },
+        ...(isCatalog ? [{ value: catalogId, model: Catalog, keyField: "catalogId", name: "Catalog" }] : []),
+    ]);
 
-    if (isCatalog) {
-        referenceChecks.push({ model: Catalog, condition: { catalogId: catalogId }, name: "Catalog" });
-    }
-
-    const checkResults = await Promise.all(
-        referenceChecks.map(async (check) => {
-            const exists = await checkRecordExists(check.model, check.condition);
-            return exists ? null : check.name;
-        })
-    );
-
-    const failedCheck = checkResults.find(result => result !== null);
-    if (failedCheck) {
-        throw new AppError(`${failedCheck} ${StatusMessages.NOT_FOUND}`, 404);
+    if (failedRef) {
+        throw new AppError(`${failedRef} ${StatusMessages.NOT_FOUND}`, 404);
     }
 
     const product = await createRecord(Product, {
@@ -178,6 +169,8 @@ const addProduct = asyncHandler(async (req: Request, res: Response) => {
         uploadedBy,
         lastModifiedBy,
     })
+
+    await deleteCacheByPattern("products:*");
 
     return sendResponse(res, 201, `Product ${StatusMessages.CREATED}`, product);
 
@@ -258,39 +251,25 @@ const updateProduct = asyncHandler(async (req: Request, res: Response) => {
         }
     }
 
-    const referenceChecks: Array<{ model: any; condition: any; name: string }> = [];
+    const failedRef = await validateAllReferences([
+        ...(category ? [{ value: category, model: Category, keyField: "categoryId", name: "Category" }] : []),
+        ...(brand ? [{ value: brand, model: Brand, keyField: "brandId", name: "Brand" }] : []),
+        ...(fabric ? [{ value: fabric, model: Fabric, keyField: "fabricId", name: "Fabric" }] : []),
+        ...(occasion ? [{ value: occasion, model: Occasion, keyField: "occasionId", name: "Occasion" }] : []),
+        ...(pattern ? [{ value: pattern, model: Pattern, keyField: "patternId", name: "Pattern" }] : []),
+        ...(length ? [{ value: length, model: Length, keyField: "lengthId", name: "Length" }] : []),
+        ...(countryOfOrigin ? [{ value: countryOfOrigin, model: CountryOfOrigin, keyField: "countryOfOriginId", name: "Country of Origin" }] : []),
+        ...(color ? [{ value: color, model: Color, keyField: "colorId", name: "Color" }] : []),
+        ...(size ? [{ value: size, model: Size, keyField: "sizeId", name: "Size" }] : []),
+        ...(weight ? [{ value: weight, model: Weight, keyField: "weightId", name: "Weight" }] : []),
+        ...(dimensions ? [{ value: dimensions, model: Dimensions, keyField: "dimensionId", name: "Dimensions" }] : []),
+        ...(productType ? [{ value: productType, model: ProductType, keyField: "productTypeId", name: "Product Type" }] : []),
+        ...(shippingCharge ? [{ value: shippingCharge, model: ShippingCharge, keyField: "shippingChargeId", name: "Shipping Charge" }] : []),
+        ...(isCatalog && catalogId ? [{ value: catalogId, model: Catalog, keyField: "catalogId", name: "Catalog" }] : []),
+    ]);
 
-    if (category) referenceChecks.push({ model: Category, condition: { categoryId: category }, name: "Category" });
-    if (brand) referenceChecks.push({ model: Brand, condition: { brandId: brand }, name: "Brand" });
-    if (fabric) referenceChecks.push({ model: Fabric, condition: { fabricId: fabric }, name: "Fabric" });
-    if (occasion) referenceChecks.push({ model: Occasion, condition: { occasionId: occasion }, name: "Occasion" });
-    if (pattern) referenceChecks.push({ model: Pattern, condition: { patternId: pattern }, name: "Pattern" });
-    if (length) referenceChecks.push({ model: Length, condition: { lengthId: length }, name: "Length" });
-    if (countryOfOrigin) referenceChecks.push({ model: CountryOfOrigin, condition: { countryOfOriginId: countryOfOrigin }, name: "Country of Origin" });
-    if (color) referenceChecks.push({ model: Color, condition: { colorId: color }, name: "Color" });
-    if (size) referenceChecks.push({ model: Size, condition: { sizeId: size }, name: "Size" });
-    if (weight) referenceChecks.push({ model: Weight, condition: { weightId: weight }, name: "Weight" });
-    if (dimensions) referenceChecks.push({ model: Dimensions, condition: { dimensionsId: dimensions }, name: "Dimensions" });
-    if (productType) referenceChecks.push({ model: ProductType, condition: { productTypeId: productType }, name: "Product Type" });
-    if (shippingCharge) referenceChecks.push({ model: ShippingCharge, condition: { shippingChargeId: shippingCharge }, name: "Shipping Charge" });
-    if (isCatalog !== undefined && isCatalog) {
-        if (catalogId) {
-            referenceChecks.push({ model: Catalog, condition: { catalogId: catalogId }, name: "Catalog" });
-        }
-    }
-
-    if (referenceChecks.length > 0) {
-        const checkResults = await Promise.all(
-            referenceChecks.map(async (check) => {
-                const exists = await checkRecordExists(check.model, check.condition);
-                return exists ? null : check.name;
-            })
-        );
-
-        const failedCheck = checkResults.find(result => result !== null);
-        if (failedCheck) {
-            throw new AppError(`${failedCheck} ${StatusMessages.NOT_FOUND}`, 404);
-        }
+    if (failedRef) {
+        throw new AppError(`${failedRef} ${StatusMessages.NOT_FOUND}`, 404);
     }
 
     // 1. Check Thumbnail Image for deletion/replacement
@@ -388,50 +367,87 @@ const updateProduct = asyncHandler(async (req: Request, res: Response) => {
 
     const product = await updateRecord(Product, updateData, { where: { productId: id } });
 
+    await deleteCacheByPattern("products:*");
+
     return sendResponse(res, 200, `Product ${StatusMessages.UPDATED}`, product);
 });
 
-const getProductById = getRecordByIdController(Product, "productId", "Product", {
-    include: [
-        { model: Category, as: "categoryDetails" },
-        { model: Brand, as: "brandDetails" },
-        { model: Fabric, as: "fabricDetails" },
-        { model: Occasion, as: "occasionDetails" },
-        { model: Pattern, as: "patternDetails" },
-        { model: Length, as: "lengthDetails" },
-        { model: CountryOfOrigin, as: "countryOfOriginDetails" },
-        { model: Color, as: "colorDetails" },
-        { model: Size, as: "sizeDetails" },
-        { model: Weight, as: "weightDetails" },
-        { model: Dimensions, as: "dimensionDetails" },
-        { model: ProductType, as: "productTypeDetails" },
-        { model: Catalog, as: "catalogDetails" },
-        { model: ShippingCharge, as: "shippingChargeDetails" },
-        { model: User, as: "uploader", attributes: ["userName"] },
-        { model: User, as: "modifier", attributes: ["userName"] }
-    ]
-})
+const productIncludes = [
+    { model: Category, as: "categoryDetails" },
+    { model: Brand, as: "brandDetails" },
+    { model: Fabric, as: "fabricDetails" },
+    { model: Occasion, as: "occasionDetails" },
+    { model: Pattern, as: "patternDetails" },
+    { model: Length, as: "lengthDetails" },
+    { model: CountryOfOrigin, as: "countryOfOriginDetails" },
+    { model: Color, as: "colorDetails" },
+    { model: Size, as: "sizeDetails" },
+    { model: Weight, as: "weightDetails" },
+    { model: Dimensions, as: "dimensionDetails" },
+    { model: ProductType, as: "productTypeDetails" },
+    { model: Catalog, as: "catalogDetails" },
+    { model: ShippingCharge, as: "shippingChargeDetails" },
+    { model: User, as: "uploader", attributes: ["userName"] },
+    { model: User, as: "modifier", attributes: ["userName"] }
+];
 
-const getAllProducts = getAllRecordsController(Product, {
-    include: [
-        { model: Category, as: "categoryDetails" },
-        { model: Brand, as: "brandDetails" },
-        { model: Fabric, as: "fabricDetails" },
-        { model: Occasion, as: "occasionDetails" },
-        { model: Pattern, as: "patternDetails" },
-        { model: Length, as: "lengthDetails" },
-        { model: CountryOfOrigin, as: "countryOfOriginDetails" },
-        { model: Color, as: "colorDetails" },
-        { model: Size, as: "sizeDetails" },
-        { model: Weight, as: "weightDetails" },
-        { model: Dimensions, as: "dimensionDetails" },
-        { model: ProductType, as: "productTypeDetails" },
-        { model: Catalog, as: "catalogDetails" },
-        { model: ShippingCharge, as: "shippingChargeDetails" },
-        { model: User, as: "uploader", attributes: ["userName"] },
-        { model: User, as: "modifier", attributes: ["userName"] }
-    ]
-})
+const getProductById = asyncHandler(async (req: Request, res: Response) => {
+    const id = req.params.id as string;
+    const cacheKey = `products:${id}`;
+
+    const cached = await getCache<any>(cacheKey);
+    if (cached) {
+        sendResponse(res, 200, StatusMessages.SUCCESS, cached);
+        return;
+    }
+
+    const record = await getRecord(Product, {
+        where: { productId: id },
+        include: productIncludes
+    });
+
+    if (!record) {
+        throw new AppError("Product not found", 404);
+    }
+
+    await setCache(cacheKey, record, 300);
+    sendResponse(res, 200, StatusMessages.SUCCESS, record);
+});
+
+const getAllProducts = asyncHandler(async (req: Request, res: Response) => {
+    const limit = req.query.limit ? parseInt(req.query.limit as string, 10) : 1000;
+    const cursor = req.query.cursor as string | undefined;
+    const cacheKey = `products:list:${limit}:${cursor || "first"}`;
+
+    const cached = await getCache<any>(cacheKey);
+    if (cached) {
+        sendResponse(res, 200, StatusMessages.SUCCESS, cached);
+        return;
+    }
+
+    const options: any = { include: productIncludes };
+    if (!isNaN(limit) && limit > 0) {
+        options.limit = limit;
+    }
+    if (cursor) {
+        options.where = { ...options.where, createdAt: { [Op.lt]: cursor } };
+    }
+    if (!options.order) {
+        options.order = [["createdAt", "DESC"]];
+    }
+
+    const records = await getAllRecords(Product, options);
+
+    let nextCursor = null;
+    if (records.length > 0 && records.length === limit) {
+        nextCursor = (records[records.length - 1] as any).createdAt;
+    }
+
+    const result = { records, nextCursor };
+    await setCache(cacheKey, result, 60);
+
+    sendResponse(res, 200, StatusMessages.SUCCESS, result);
+});
 
 const deleteProduct = asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id as string;
@@ -464,6 +480,8 @@ const deleteProduct = asyncHandler(async (req: Request, res: Response) => {
     }
 
     await deleteRecord(Product, "productId", id);
+
+    await deleteCacheByPattern("products:*");
 
     sendResponse(res, 200, StatusMessages.SUCCESS, null);
 });

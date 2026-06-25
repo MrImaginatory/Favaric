@@ -127,3 +127,10 @@ export const authApi = {
     return response.data;
   }
 };
+
+export const countryCodeApi = {
+  getAll: async () => {
+    const response = await apiClient.get('/countryCodes/getCountryCodes');
+    return response.data;
+  }
+};
