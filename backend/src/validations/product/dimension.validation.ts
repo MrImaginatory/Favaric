@@ -8,6 +8,7 @@ const createDimensionValidation = z.object({
         dimensionLength: z.number().min(1, "Dimension length is required").max(100000, "Dimension length cannot exceed 100000 characters"),
         dimensionBreadth: z.number().min(1, "Dimension breadth is required").max(100000, "Dimension breadth cannot exceed 100000 characters"),
         dimensionHeight: z.number().min(1, "Dimension height is required").max(100000, "Dimension height cannot exceed 100000 characters"),
+        metricId: z.string("Metric is Required").uuid("Metric ID must be a valid UUID"),
     })
 })
 
@@ -21,6 +22,7 @@ const updateDimensionValidation = z.object({
         dimensionLength: z.number().min(1, "Dimension length is required").max(100000, "Dimension length cannot exceed 100000 characters").optional(),
         dimensionBreadth: z.number().min(1, "Dimension breadth is required").max(100000, "Dimension breadth cannot exceed 100000 characters").optional(),
         dimensionHeight: z.number().min(1, "Dimension height is required").max(100000, "Dimension height cannot exceed 100000 characters").optional(),
+        metricId: z.string().uuid("Metric ID must be a valid UUID").optional(),
     })
 })
 

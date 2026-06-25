@@ -1,0 +1,12 @@
+[
+    { "metricName": "cm" },
+    { "metricName": "m" },
+    { "metricName": "mm" },
+    { "metricName": "in" },
+    { "metricName": "ft" },
+    { "metricName": "kg" },
+    { "metricName": "g" },
+    { "metricName": "mg" },
+    { "metricName": "lb" },
+    { "metricName": "oz" }
+]

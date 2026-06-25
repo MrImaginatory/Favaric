@@ -23,6 +23,7 @@ import Catalog from "./product/catalog.model.js"
 
 
 import CountryCode from "./application/countryCode.model.js"
+import Metrics from "./application/metrics.model.js"
 /*Depreciated Models*/
 // import Volume from "./product/volume.model.js"
 
@@ -54,6 +55,7 @@ const models = {
 
     //Application
     CountryCode,
+    Metrics,
 
     /*Depreciated Models*/
     // Volume,

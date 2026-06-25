@@ -7,7 +7,7 @@ import { createWeightValidation, updateWeightValidation, searchWeightValidation 
 const weightRouter = Router();
 
 weightRouter.post("/addWeight", validate(createWeightValidation), createWeight);
-weightRouter.put("/updateWeight/:id", validate(updateWeightValidation), updateWeight);
+weightRouter.patch("/updateWeight/:id", validate(updateWeightValidation), updateWeight);
 weightRouter.get("/getWeight/:id", validate(uuidValidation), getWeightById);
 weightRouter.get("/getAllWeights", getAllWeights);
 weightRouter.delete("/deleteWeight/:id", validate(uuidValidation), deleteWeight);

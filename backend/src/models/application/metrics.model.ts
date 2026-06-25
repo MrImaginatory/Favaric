@@ -1,49 +1,32 @@
 import { DataTypes, sql, Model } from "@sequelize/core";
 import sequelize from "../../database/database.js";
 
-class Length extends Model {
-    public lengthId!: string;
-    public lengthName!: string;
-    public lengthSlug!: string;
-
-    public lengthValue!: number;
-    public metricId!: string;
+class Metrics extends Model {
+    declare metricId: string;
+    declare metricName: string;
 
     public uploadedBy!: string;
     public lastModifiedBy!: string;
     public deletedAt!: Date;
 }
 
-Length.init({
-    lengthId: {
+Metrics.init({
+    metricId: {
         type: DataTypes.UUID,
         defaultValue: sql.uuidV4,
         primaryKey: true
     },
-    lengthName: {
+    metricName: {
         type: DataTypes.STRING,
-        allowNull: false
-    },
-    lengthSlug: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    lengthValue: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    metricId: {
-        type: DataTypes.UUID,
         allowNull: false,
     },
-
     uploadedBy: {
         type: DataTypes.UUID,
-        allowNull: false
+        allowNull: true,
     },
     lastModifiedBy: {
         type: DataTypes.UUID,
-        allowNull: false
+        allowNull: true,
     },
     deletedAt: {
         type: DataTypes.DATE,
@@ -51,24 +34,32 @@ Length.init({
     }
 }, {
     sequelize,
-    tableName: "lengths",
+    tableName: "metrics",
     timestamps: true,
     paranoid: true
 });
 
-(Length as any).associate = (models: any) => {
-    Length.belongsTo(models.User, {
+(Metrics as any).associate = (models: any) => {
+    Metrics.belongsTo(models.User, {
         foreignKey: "uploadedBy",
         as: "uploader"
     });
-    Length.belongsTo(models.User, {
+    Metrics.belongsTo(models.User, {
         foreignKey: "lastModifiedBy",
         as: "modifier"
     });
-    Length.belongsTo(models.Metrics, {
+    Metrics.hasMany(models.Dimension, {
         foreignKey: "metricId",
-        as: "metric"
+        as: "dimensions"
+    });
+    Metrics.hasMany(models.Length, {
+        foreignKey: "metricId",
+        as: "lengths"
+    });
+    Metrics.hasMany(models.Weight, {
+        foreignKey: "metricId",
+        as: "weights"
     });
 };
 
-export default Length;
+export default Metrics;

@@ -4,14 +4,21 @@ import AppError from "../../../utils/appError.util.js";
 import sendResponse from "../../../utils/responseHandler.util.js";
 import StatusMessages from "../../../configs/message.config.js";
 import Weight from "../../../models/product/weight.model.js";
+import Metrics from "../../../models/application/metrics.model.js";
 import User from "../../../models/users/user.model.js";
 import { createRecord, updateRecord, getRecord, checkRecordExists } from "../../../services/base.service.js";
 import { getRecordByIdController, getAllRecordsController, deleteRecordController, searchRecordsController } from "../base.controller.js";
 import slugGenerator from "../../../utils/slug.util.js";
 import { Op } from "@sequelize/core";
 
+const weightIncludes = [
+    { model: User, as: "uploader", attributes: ["userName"] },
+    { model: User, as: "modifier", attributes: ["userName"] },
+    { model: Metrics, as: "metric", attributes: ["metricId", "metricName"] },
+];
+
 const createWeight = asyncHandler(async (req: Request, res: Response) => {
-    const { weightName, weightValue } = req.body;
+    const { weightName, weightValue, metricId } = req.body;
     const uploadedBy = (req as any).user?.userId;
     const lastModifiedBy = (req as any).user?.userId;
 
@@ -26,6 +33,7 @@ const createWeight = asyncHandler(async (req: Request, res: Response) => {
         weightName,
         weightSlug,
         weightValue,
+        metricId,
         uploadedBy,
         lastModifiedBy
     });
@@ -35,7 +43,7 @@ const createWeight = asyncHandler(async (req: Request, res: Response) => {
 
 const updateWeight = asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id;
-    const { weightName, weightValue } = req.body;
+    const { weightName, weightValue, metricId } = req.body;
     const lastModifiedBy = (req as any).user?.userId;
 
     const weight = await getRecord(Weight, {
@@ -67,6 +75,7 @@ const updateWeight = asyncHandler(async (req: Request, res: Response) => {
         weightName,
         weightSlug,
         weightValue,
+        metricId,
         lastModifiedBy
     }, {
         where: {
@@ -78,27 +87,12 @@ const updateWeight = asyncHandler(async (req: Request, res: Response) => {
     sendResponse(res, 200, `Weight ${StatusMessages.UPDATED}`, updatedWeight);
 })
 
-const getAllWeights = getAllRecordsController(Weight, {
-    include: [
-        { model: User, as: "uploader", attributes: ["userName"] },
-        { model: User, as: "modifier", attributes: ["userName"] }
-    ]
-})
+const getAllWeights = getAllRecordsController(Weight, { include: weightIncludes });
 
-const getWeightById = getRecordByIdController(Weight, "weightId", "Weight", {
-    include: [
-        { model: User, as: "uploader", attributes: ["userName"] },
-        { model: User, as: "modifier", attributes: ["userName"] }
-    ]
-})
+const getWeightById = getRecordByIdController(Weight, "weightId", "Weight", { include: weightIncludes });
 
-const deleteWeight = deleteRecordController(Weight, "weightId", "Weight")
+const deleteWeight = deleteRecordController(Weight, "weightId", "Weight");
 
-const searchWeight = searchRecordsController(Weight, ["weightName"], {
-    include: [
-        { model: User, as: "uploader", attributes: ["userName"] },
-        { model: User, as: "modifier", attributes: ["userName"] }
-    ]
-}, "weight");
+const searchWeight = searchRecordsController(Weight, ["weightName"], { include: weightIncludes }, "weight");
 
 export { createWeight, updateWeight, getAllWeights, getWeightById, deleteWeight, searchWeight };

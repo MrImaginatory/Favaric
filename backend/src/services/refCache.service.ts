@@ -12,6 +12,7 @@ import Dimensions from "../models/product/dimension.model.js";
 import ProductType from "../models/product/productType.model.js";
 import ShippingCharge from "../models/product/shippingCharge.model.js";
 import Catalog from "../models/product/catalog.model.js";
+import Metrics from "../models/application/metrics.model.js";
 import { getCache, setCache, deleteCache } from "./cache.service.js";
 import logger from "../utils/logger.util.js";
 
@@ -39,6 +40,7 @@ const REF_CONFIGS: RefConfig[] = [
     { model: ProductType, keyField: "productTypeId", cachePrefix: "ref:productTypes", label: "Product Type" },
     { model: ShippingCharge, keyField: "shippingChargeId", cachePrefix: "ref:shippingCharges", label: "Shipping Charge" },
     { model: Catalog, keyField: "catalogId", cachePrefix: "ref:catalogs", label: "Catalog" },
+    { model: Metrics, keyField: "metricId", cachePrefix: "ref:metrics", label: "Metric" },
 ];
 
 export const loadRefData = async (config: RefConfig): Promise<Set<string>> => {

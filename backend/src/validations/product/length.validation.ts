@@ -6,6 +6,7 @@ const createLengthValidation = z.object({
         lengthName: z.string().min(1, "Length name is required").max(30, "Length name cannot exceed 30 characters"),
         lengthDescription: z.string().min(1, "Length description is required").max(255, "Length description cannot exceed 255 characters"),
         lengthValue: z.number().min(1, "Length value is required").max(100000, "Length value cannot exceed 100000 characters"),
+        metricId: z.string("Metric is Required").uuid("Metric ID must be a valid UUID"),
     })
 })
 
@@ -17,6 +18,7 @@ const updateLengthValidation = z.object({
         lengthName: z.string().min(1, "Length name is required").max(30, "Length name cannot exceed 30 characters").optional(),
         lengthDescription: z.string().min(1, "Length description is required").max(255, "Length description cannot exceed 255 characters").optional(),
         lengthValue: z.number().min(1, "Length value is required").max(100000, "Length value cannot exceed 100000 characters").optional(),
+        metricId: z.string().uuid("Metric ID must be a valid UUID").optional(),
     })
 })
 

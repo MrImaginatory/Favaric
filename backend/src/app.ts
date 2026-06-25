@@ -34,6 +34,7 @@ import countryCodeRouter from "./routes/v1/application/countryCode.route.js";
 
 import globalErrorHandler from "./middleware/errorHandler.middleware.js";
 import { seedCountryCodes } from "./services/seedCountryCodes.service.js";
+import { seedMetrics } from "./services/seedMetrics.service.js";
 
 const app = express();
 
@@ -95,6 +96,7 @@ const connectWithDatabase = async () => {
         });
         await loadAllRefData();
         await seedCountryCodes();
+        await seedMetrics();
 
         const activeSessions = await UserSession.count();
         await redis.set("active_sessions_count", activeSessions.toString());

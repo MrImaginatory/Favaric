@@ -6,7 +6,7 @@ class Weight extends Model {
     public weightName!: string;
     public weightSlug!: string;
     public weightValue!: number;
-    public weightUnit!: string;
+    public metricId!: string;
 
     public uploadedBy!: string;
     public lastModifiedBy!: string;
@@ -31,11 +31,9 @@ Weight.init({
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    weightUnit: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: "grams",
-        comment: "in grams"
+    metricId: {
+        type: DataTypes.UUID,
+        allowNull: true,
     },
 
     uploadedBy: {
@@ -65,6 +63,10 @@ Weight.init({
     Weight.belongsTo(models.User, {
         foreignKey: "lastModifiedBy",
         as: "modifier"
+    });
+    Weight.belongsTo(models.Metrics, {
+        foreignKey: "metricId",
+        as: "metric"
     });
 };
 

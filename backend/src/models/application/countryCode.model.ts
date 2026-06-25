@@ -6,6 +6,7 @@ class CountryCode extends Model {
     public countryName!: string;
     public callingCode!: string;
     public isoCode!: string;
+
 }
 
 CountryCode.init({

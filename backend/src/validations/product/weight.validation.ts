@@ -5,6 +5,7 @@ const createWeightValidation = z.object({
     body: z.object({
         weightName: z.string().min(1, "Weight name is required").max(30, "Weight name cannot exceed 30 characters"),
         weightValue: z.string().min(1, "Weight value is required").max(30, "Weight value cannot exceed 30 characters"),
+        metricId: z.string().uuid("Metric ID must be a valid UUID"),
     })
 })
 
@@ -15,6 +16,7 @@ const updateWeightValidation = z.object({
     body: z.object({
         weightName: z.string().min(1, "Weight name is required").max(30, "Weight name cannot exceed 30 characters").optional(),
         weightValue: z.string().min(1, "Weight value is required").max(30, "Weight value cannot exceed 30 characters").optional(),
+        metricId: z.string("Metric is Required").uuid("Metric ID must be a valid UUID").optional(),
     })
 })
 

@@ -11,9 +11,7 @@ class Dimension extends Model {
     public dimensionLength!: number;
     public dimensionBreadth!: number;
     public dimensionHeight!: number;
-    public dimensionUnit!: string;
-
-
+    public metricId!: string;
 
     public uploadedBy!: string;
     public lastModifiedBy!: string;
@@ -40,24 +38,19 @@ Dimension.init({
     },
     dimensionLength: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        comment: "in cm"
+        allowNull: false
     },
     dimensionBreadth: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        comment: "in cm"
+        allowNull: false
     },
     dimensionHeight: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        comment: "in cm"
+        allowNull: false
     },
-    dimensionUnit: {
-        type: DataTypes.STRING,
+    metricId: {
+        type: DataTypes.UUID,
         allowNull: false,
-        defaultValue: "cm",
-        comment: "in cm"
     },
 
     uploadedBy: {
@@ -87,6 +80,10 @@ Dimension.init({
     Dimension.belongsTo(models.User, {
         foreignKey: "lastModifiedBy",
         as: "modifier"
+    });
+    Dimension.belongsTo(models.Metrics, {
+        foreignKey: "metricId",
+        as: "metric"
     });
 };
 
