@@ -28,7 +28,15 @@ const updateCatalogValidation = z.object({
     })
 });
 
+const searchCatalogValidation = z.object({
+    query: z.object({
+        catalog: z.string("Catalog Name is Required and Must be an String").min(1, "Catalog Name minimum length should be 1").max(255, "Catalog Name maximum length should be 255"),
+    })
+});
+
+
 export {
     createCatalogValidation,
     updateCatalogValidation,
+    searchCatalogValidation
 };

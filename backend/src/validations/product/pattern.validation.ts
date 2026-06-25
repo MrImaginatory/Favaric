@@ -18,4 +18,11 @@ const updatePatternValidation = z.object({
     })
 })
 
-export { createPatternValidation, updatePatternValidation }
+const searchPatternValidation = z.object({
+    query: z.object({
+        pattern: z.string("Pattern Name is Required and Must be an String").min(1, "Pattern Name minimum length should be 1").max(255, "Pattern Name maximum length should be 255"),
+    })
+});
+
+
+export { createPatternValidation, updatePatternValidation, searchPatternValidation }

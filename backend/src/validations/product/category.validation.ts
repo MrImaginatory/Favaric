@@ -30,7 +30,14 @@ const updateCategoryValidation = z.object({
     })
 });
 
+
+const searchCategoryValidation = z.object({
+    query: z.object({
+        category: z.string("Category Name is Required and Must be an String").min(1, "Category Name minimum length should be 1").max(255, "Category Name maximum length should be 255"),
+    })
+});
 export {
     createCategoryValidation,
     updateCategoryValidation,
+    searchCategoryValidation
 };

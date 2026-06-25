@@ -2,7 +2,7 @@ import { Router } from "express";
 import { validate } from "../../../../middleware/validate.middleware.js";
 import { uuidValidation } from "../../../../validations/uuid.validation.js";
 import { createDimension, updateDimension, getAllDimensions, getDimensionById, deleteDimension, searchDimensions } from "../../../../controller/v1/product/dimension.controller.js";
-import { createDimensionValidation, updateDimensionValidation } from "../../../../validations/product/dimension.validation.js";
+import { createDimensionValidation, updateDimensionValidation, searchDimensionValidation } from "../../../../validations/product/dimension.validation.js";
 
 const dimensionRouter = Router();
 
@@ -11,6 +11,6 @@ dimensionRouter.patch("/updateDimension/:id", validate(updateDimensionValidation
 dimensionRouter.delete("/deleteDimension/:id", validate(uuidValidation), deleteDimension);
 dimensionRouter.get("/getDimension/:id", validate(uuidValidation), getDimensionById);
 dimensionRouter.get("/getAllDimensions", getAllDimensions);
-dimensionRouter.get("/searchDimension", searchDimensions)
+dimensionRouter.get("/searchDimension", validate(searchDimensionValidation), searchDimensions)
 
 export default dimensionRouter;

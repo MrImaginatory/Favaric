@@ -18,4 +18,11 @@ const updateWeightValidation = z.object({
     })
 })
 
-export { createWeightValidation, updateWeightValidation }
+const searchWeightValidation = z.object({
+    query: z.object({
+        weight: z.string("Weight Name is Required and Must be an String").min(1, "Weight Name minimum length should be 1").max(255, "Weight Name maximum length should be 255"),
+    })
+});
+
+
+export { createWeightValidation, updateWeightValidation, searchWeightValidation }

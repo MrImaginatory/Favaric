@@ -20,8 +20,15 @@ const updateBrandValidation = z.object({
     })
 });
 
+const searchBrandValidation = z.object({
+    query: z.object({
+        brand: z.string("Brand Name is Required and Must be an String").min(1, "Brand Name minimum length should be 1").max(255, "Brand Name maximum length should be 255"),
+    })
+});
+
 export {
     createBrandValidation,
     updateBrandValidation,
+    searchBrandValidation,
 };
 

@@ -18,4 +18,11 @@ const updateSizeValidation = z.object({
     })
 })
 
-export { createSizeValidation, updateSizeValidation }
+const searchSizeValidation = z.object({
+    query: z.object({
+        size: z.string("Size Name is Required and Must be an String").min(1, "Size Name minimum length should be 1").max(255, "Size Name maximum length should be 255"),
+    })
+});
+
+
+export { createSizeValidation, updateSizeValidation, searchSizeValidation }

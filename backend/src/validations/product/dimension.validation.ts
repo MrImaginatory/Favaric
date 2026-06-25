@@ -24,4 +24,10 @@ const updateDimensionValidation = z.object({
     })
 })
 
-export { createDimensionValidation, updateDimensionValidation }
+const searchDimensionValidation = z.object({
+    query: z.object({
+        dimension: z.string("Dimension Name is Required and Must be an String").min(1, "Dimension Name minimum length should be 1").max(255, "Dimension Name maximum length should be 255"),
+    })
+});
+
+export { createDimensionValidation, updateDimensionValidation, searchDimensionValidation }

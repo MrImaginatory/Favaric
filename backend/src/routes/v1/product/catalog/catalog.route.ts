@@ -2,7 +2,7 @@ import { Router } from "express";
 import { validate } from "../../../../middleware/validate.middleware.js";
 import { uuidValidation } from "../../../../validations/uuid.validation.js";
 import { createCatalog, getAllCatalogs, getCatalogById, updateCatalog, deleteCatalog, searchCatalog } from "../../../../controller/v1/product/catalog.controller.js";
-import { createCatalogValidation, updateCatalogValidation } from "../../../../validations/product/catalog.validation.js";
+import { createCatalogValidation, updateCatalogValidation, searchCatalogValidation } from "../../../../validations/product/catalog.validation.js";
 import upload from "../../../../middleware/multer.middleware.js";
 const catalogRouter = Router();
 
@@ -40,6 +40,6 @@ catalogRouter.patch(
 
 catalogRouter.delete("/deleteCatalog/:id", validate(uuidValidation), deleteCatalog);
 
-catalogRouter.get("/searchCatalog", searchCatalog);
+catalogRouter.get("/searchCatalog", validate(searchCatalogValidation), searchCatalog);
 
 export default catalogRouter;

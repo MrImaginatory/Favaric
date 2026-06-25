@@ -2,7 +2,7 @@ import { Router } from "express";
 import { validate } from "../../../../middleware/validate.middleware.js";
 import { uuidValidation } from "../../../../validations/uuid.validation.js";
 import {
-    createCountryOriginValidation, updateCountryOriginValidation
+    createCountryOriginValidation, updateCountryOriginValidation, searchCountryOriginValidation
 } from "../../../../validations/product/countryOfOrigin.validation.js";
 import {
     createCountryOrigin,
@@ -21,6 +21,6 @@ countryOriginRouter.patch("/updateCountry/:id", validate(updateCountryOriginVali
 countryOriginRouter.delete("/deleteCountry/:id", validate(uuidValidation), deleteCountryOrigin);
 countryOriginRouter.get("/getCountryById/:id", validate(uuidValidation), getCountryOriginById);
 countryOriginRouter.get("/getCountries", getCountryOrigins);
-countryOriginRouter.get("/searchCountries", searchCountries)
+countryOriginRouter.get("/searchCountries", validate(searchCountryOriginValidation), searchCountries)
 
 export default countryOriginRouter;

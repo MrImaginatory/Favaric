@@ -20,4 +20,10 @@ const updateLengthValidation = z.object({
     })
 })
 
-export { createLengthValidation, updateLengthValidation }
+const searchLengthValidation = z.object({
+    query: z.object({
+        length: z.string("Length Name is Required and Must be an String").min(1, "Length Name minimum length should be 1").max(255, "Length Name maximum length should be 255"),
+    })
+});
+
+export { createLengthValidation, updateLengthValidation, searchLengthValidation }

@@ -18,8 +18,15 @@ const editColorValidation = z.object({
     })
 })
 
+const searchColorValidation = z.object({
+    query: z.object({
+        color: z.string("Color Name is Required and Must be an String").min(1, "Color Name minimum length should be 1").max(255, "Color Name maximum length should be 255"),
+    })
+});
+
 
 export {
     addColorValidation,
     editColorValidation,
+    searchColorValidation
 }

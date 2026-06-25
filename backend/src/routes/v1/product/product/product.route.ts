@@ -4,6 +4,8 @@ import { uuidValidation } from "../../../../validations/uuid.validation.js";
 import productController from "../../../../controller/v1/product/product.controller.js";
 import upload from "../../../../middleware/multer.middleware.js";
 
+import { createProductValidation, updateProductValidation, searchProductValidation } from "../../../../validations/product/product.validation.js";
+
 const productEntityRouter = Router();
 
 const handleProductFiles = (req: any, _res: any, next: any) => {
@@ -25,6 +27,7 @@ productEntityRouter.post(
     "/addProduct",
     upload("product").fields([{ name: "thumbnailImage", maxCount: 1 }, { name: "image", maxCount: 1 }, { name: "subImages", maxCount: 10 }]),
     handleProductFiles,
+    validate(createProductValidation),
     productController.addProduct
 );
 
@@ -34,14 +37,14 @@ productEntityRouter.get("/getProduct/:id", validate(uuidValidation), productCont
 
 productEntityRouter.patch(
     "/updateProduct/:id",
-    validate(uuidValidation),
     upload("product").fields([{ name: "thumbnailImage", maxCount: 1 }, { name: "image", maxCount: 1 }, { name: "subImages", maxCount: 10 }]),
     handleProductFiles,
+    validate(updateProductValidation),
     productController.updateProduct
 );
 
 productEntityRouter.delete("/deleteProduct/:id", validate(uuidValidation), productController.deleteProduct);
 
-productEntityRouter.get("/searchProduct", productController.searchProduct)
+productEntityRouter.get("/searchProduct", validate(searchProductValidation), productController.searchProduct)
 
 export default productEntityRouter;

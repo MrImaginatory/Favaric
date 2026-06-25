@@ -2,7 +2,7 @@ import { Router } from "express";
 import { validate } from "../../../../middleware/validate.middleware.js";
 import { uuidValidation } from "../../../../validations/uuid.validation.js";
 import { createProductType, updateProductType, getAllProductTypes, getProductTypeById, deleteProductType, searchProductType } from "../../../../controller/v1/product/productType.controller.js"
-import { createProductTypeValidation, updateProductTypeValidation } from "../../../../validations/product/productType.validation.js"
+import { createProductTypeValidation, updateProductTypeValidation, searchProductTypeValidation } from "../../../../validations/product/productType.validation.js"
 
 const productTypeRouter = Router();
 
@@ -11,6 +11,6 @@ productTypeRouter.patch("/updateProductType/:id", validate(updateProductTypeVali
 productTypeRouter.get("/getProductType/:id", validate(uuidValidation), getProductTypeById);
 productTypeRouter.get("/getAllProductTypes", getAllProductTypes);
 productTypeRouter.delete("/deleteProductType/:id", validate(uuidValidation), deleteProductType);
-productTypeRouter.get("/searchProductType", searchProductType)
+productTypeRouter.get("/searchProductType", validate(searchProductTypeValidation), searchProductType)
 
 export default productTypeRouter;

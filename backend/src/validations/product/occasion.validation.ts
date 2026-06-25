@@ -18,4 +18,11 @@ const updateOccasionValidation = z.object({
     })
 })
 
-export { createOccasionValidation, updateOccasionValidation }
+const searchOccasionValidation = z.object({
+    query: z.object({
+        occasion: z.string("Occasion Name is Required and Must be an String").min(1, "Occasion Name minimum length should be 1").max(255, "Occasion Name maximum length should be 255"),
+    })
+});
+
+
+export { createOccasionValidation, updateOccasionValidation, searchOccasionValidation }

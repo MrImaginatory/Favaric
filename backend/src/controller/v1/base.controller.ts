@@ -77,7 +77,7 @@ export const searchRecordsController = <T extends Model>(
         const searchCondition = {
             [Op.or]: searchFields.map((field) => ({
                 [field]: {
-                    [Op.like]: `%${q}%`,
+                    [Op.iLike]: `%${q}%`,
                 },
             })),
         };

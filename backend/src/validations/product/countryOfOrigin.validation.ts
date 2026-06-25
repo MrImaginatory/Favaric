@@ -18,4 +18,10 @@ const updateCountryOriginValidation = z.object({
     })
 })
 
-export { createCountryOriginValidation, updateCountryOriginValidation }
+const searchCountryOriginValidation = z.object({
+    query: z.object({
+        country: z.string("Country Name is Required and Must be an String").min(1, "Country Name minimum length should be 1").max(255, "Country Name maximum length should be 255"),
+    })
+});
+
+export { createCountryOriginValidation, updateCountryOriginValidation, searchCountryOriginValidation }

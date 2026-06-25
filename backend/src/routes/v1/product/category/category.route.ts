@@ -2,7 +2,7 @@ import { Router } from "express";
 import { validate } from "../../../../middleware/validate.middleware.js";
 import { uuidValidation } from "../../../../validations/uuid.validation.js";
 import { createCategory, getAllCategories, getCategoryById, updateCategory, deleteCategory, searchCategories } from "../../../../controller/v1/product/category.controller.js";
-import { createCategoryValidation, updateCategoryValidation } from "../../../../validations/product/category.validation.js";
+import { createCategoryValidation, updateCategoryValidation, searchCategoryValidation } from "../../../../validations/product/category.validation.js";
 import upload from "../../../../middleware/multer.middleware.js";
 
 const categoryRouter = Router();
@@ -36,6 +36,6 @@ categoryRouter.patch(
 
 categoryRouter.delete("/deleteCategory/:id", validate(uuidValidation), deleteCategory);
 
-categoryRouter.get("/searchCategory", searchCategories)
+categoryRouter.get("/searchCategory", validate(searchCategoryValidation), searchCategories)
 
 export default categoryRouter;

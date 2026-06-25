@@ -30,4 +30,10 @@ const updateShippingChargeValidation = z.object({
     })
 })
 
-export { createShippingChargeValidation, updateShippingChargeValidation }
+const searchShippingChargeValidation = z.object({
+    query: z.object({
+        shippingBaseCountry: z.string("Shipping Base Country is Required and Must be an String").min(1, "Shipping Base Country minimum length should be 1").max(255, "Shipping Base Country maximum length should be 255"),
+    })
+});
+
+export { createShippingChargeValidation, updateShippingChargeValidation, searchShippingChargeValidation }

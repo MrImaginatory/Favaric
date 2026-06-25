@@ -32,7 +32,14 @@ const updateSubCategoryValidation = z.object({
     })
 });
 
+const searchSubCategoryValidation = z.object({
+    query: z.object({
+        subcategory: z.string("SubCategory Name is Required and Must be an String").min(1, "SubCategory Name minimum length should be 1").max(255, "SubCategory Name maximum length should be 255"),
+    })
+});
+
 export {
     createSubCategoryValidation,
     updateSubCategoryValidation,
+    searchSubCategoryValidation
 };

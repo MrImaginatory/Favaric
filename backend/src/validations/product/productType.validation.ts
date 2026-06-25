@@ -18,4 +18,11 @@ const updateProductTypeValidation = z.object({
     })
 })
 
-export { createProductTypeValidation, updateProductTypeValidation }
+const searchProductTypeValidation = z.object({
+    query: z.object({
+        productType: z.string("Product Type Name is Required and Must be an String").min(1, "Product Type Name minimum length should be 1").max(255, "Product Type Name maximum length should be 255"),
+    })
+});
+
+
+export { createProductTypeValidation, updateProductTypeValidation, searchProductTypeValidation }

@@ -18,4 +18,10 @@ const updateFabricValidation = z.object({
     })
 })
 
-export { createFabricValidation, updateFabricValidation }
+const searchFabricValidation = z.object({
+    query: z.object({
+        fabric: z.string("Fabric Name is Required and Must be an String").min(1, "Fabric Name minimum length should be 1").max(255, "Fabric Name maximum length should be 255"),
+    })
+});
+
+export { createFabricValidation, updateFabricValidation, searchFabricValidation }
