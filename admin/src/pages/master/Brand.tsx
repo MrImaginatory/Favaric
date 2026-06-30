@@ -32,31 +32,7 @@ export default function Brand() {
     },
     { field: "metaTitle", headerName: "Meta Title", width: 180 },
     { field: "metaDescription", headerName: "Meta Description", width: 200 },
-    { field: "metaKeywords", headerName: "Meta Keywords", width: 180 },
-    { 
-      field: "uploader.userName", 
-      headerName: "Uploaded By", 
-      width: 180,
-      cellRenderer: (params: any) => params.data?.uploader?.userName || "System"
-    },
-    { 
-      field: "modifier.userName", 
-      headerName: "Last Modified By", 
-      width: 180,
-      cellRenderer: (params: any) => params.data?.modifier?.userName || "System"
-    },
-    { 
-      field: "createdAt", 
-      headerName: "Created At", 
-      width: 180,
-      cellRenderer: (params: any) => params.value ? new Date(params.value).toLocaleString() : ""
-    },
-    { 
-      field: "updatedAt", 
-      headerName: "Updated At", 
-      width: 180,
-      cellRenderer: (params: any) => params.value ? new Date(params.value).toLocaleString() : ""
-    },
+    { field: "metaKeywords", headerName: "Meta Keywords", width: 180 }
   ]
 
   const endpoints = {

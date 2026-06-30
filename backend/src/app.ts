@@ -49,7 +49,7 @@ app.use(cors({
     credentials: true,
 }));
 app.use(cookieParser());
-app.set('trust proxy', true);
+app.set('trust proxy', 1);
 
 app.use(session({
     store: redisStore,
