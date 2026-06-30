@@ -11,8 +11,8 @@ class UserSession extends Model {
     public refreshToken!: string;
     public userAgent!: string;
     public expiresAt!: Date;
+    public deletedAt!: Date;
 }
-
 UserSession.init({
     sessionId: {
         type: DataTypes.STRING,
@@ -49,11 +49,17 @@ UserSession.init({
     expiresAt: {
         type: DataTypes.DATE,
         allowNull: true,
+    },
+    deletedAt: {
+        type: DataTypes.DATE,
+        allowNull: true
     }
 }, {
     sequelize,
     modelName: "UserSession",
     tableName: "user_sessions",
+    timestamps: true,
+    paranoid: true,
     timestamps: true,
 });
 

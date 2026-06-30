@@ -29,9 +29,8 @@ class User extends Model {
     public role!: string;
     public isActive!: boolean;
     public isVerified!: boolean;
-    public isDeleted!: boolean;
+    public deletedAt!: Date;
 }
-
 User.init({
     userId: {
         type: DataTypes.UUID,
@@ -127,15 +126,16 @@ User.init({
         allowNull: false,
         defaultValue: false
     },
-    isDeleted: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false
+    deletedAt: {
+        type: DataTypes.DATE,
+        allowNull: true
     }
 }, {
     sequelize,
     modelName: "User",
-    tableName: "users"
+    tableName: "users",
+    timestamps: true,
+    paranoid: true
 });
 
 (User as any).associate = (models: any) => {

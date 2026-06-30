@@ -13,8 +13,8 @@ class UserAddress extends Model {
     public isDefault!: boolean;
     public createdAt!: Date;
     public updatedAt!: Date;
+    public deletedAt!: Date;
 }
-
 UserAddress.init({
     addressId: {
         type: DataTypes.UUID,
@@ -53,11 +53,17 @@ UserAddress.init({
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false
+    },
+    deletedAt: {
+        type: DataTypes.DATE,
+        allowNull: true
     }
 }, {
     sequelize,
     modelName: "userAddress",
-    tableName: "userAddress"
+    tableName: "userAddress",
+    timestamps: true,
+    paranoid: true
 });
 
 (UserAddress as any).associate = (models: any) => {

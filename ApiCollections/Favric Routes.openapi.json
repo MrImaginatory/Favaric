@@ -1475,6 +1475,415 @@
         ]
       }
     },
+    "/product/catalogs/addCatalog": {
+      "post": {
+        "summary": "Create Catalog",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "catalogName": {
+                    "example": "Sample Catalog",
+                    "type": "string"
+                  },
+                  "catalogDescription": {
+                    "example": "{{$lorem.sentence(min=3,max=200)}}",
+                    "type": "string"
+                  },
+                  "catalogImage": {
+                    "format": "binary",
+                    "type": "string",
+                    "example": "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (1).jpg"
+                  },
+                  "catalogSubImages": {
+                    "format": "binary",
+                    "type": "string",
+                    "example": [
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (1).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (2).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (3).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (4).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (5).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (6).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (7).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (8).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (9).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (10).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (11).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (12).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (13).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (14).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (15).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (16).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (17).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (18).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (19).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (20).jpg"
+                    ]
+                  }
+                }
+              },
+              "example": {
+                "catalogName": "Sample Catalog",
+                "catalogDescription": "{{$lorem.sentence(min=3,max=200)}}",
+                "catalogImage": "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (1).jpg",
+                "catalogSubImages": [
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (1).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (2).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (3).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (4).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (5).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (6).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (7).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (8).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (9).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (10).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (11).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (12).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (13).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (14).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (15).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (16).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (17).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (18).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (19).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (20).jpg"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/catalogs/updateCatalog/{id}": {
+      "patch": {
+        "summary": "Update Catalog",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "7f7efd2b-c977-4fe9-8601-93781a8d517c",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "catalogName": {
+                    "example": "Sample Catalog",
+                    "type": "string"
+                  },
+                  "catalogDescription": {
+                    "example": "{{$lorem.sentence(min=3,max=200)}}",
+                    "type": "string"
+                  },
+                  "catalogImage": {
+                    "format": "binary",
+                    "type": "string",
+                    "example": "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (1).jpg"
+                  },
+                  "catalogSubImages": {
+                    "format": "binary",
+                    "type": "string",
+                    "example": [
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (4).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (5).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (6).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (7).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (8).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (9).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (10).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (11).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (12).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (13).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (14).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (15).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (16).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (17).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (18).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (19).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (20).jpg"
+                    ]
+                  }
+                }
+              },
+              "example": {
+                "catalogName": "Sample Catalog",
+                "catalogDescription": "{{$lorem.sentence(min=3,max=200)}}",
+                "catalogImage": "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (1).jpg",
+                "catalogSubImages": [
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (4).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (5).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (6).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (7).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (8).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (9).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (10).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (11).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (12).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (13).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (14).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (15).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (16).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (17).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (18).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (19).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (20).jpg"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/catalogs/getCatalogs": {
+      "get": {
+        "summary": "Get Catalogs",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/catalogs/getCatalog/{id}": {
+      "get": {
+        "summary": "Get Catalog By Id",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "7f7efd2b-c977-4fe9-8601-93781a8d517c",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/catalogs/searchCatalog": {
+      "get": {
+        "summary": "Search Catalog",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "catalog",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "S",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "records": [
+                      {
+                        "catalogId": "7f7efd2b-c977-4fe9-8601-93781a8d517c",
+                        "catalogName": "Sample Catalog",
+                        "catalogSlug": "sample_catalog",
+                        "catalogDescription": "Tactus tunc audeo sopor distinctio appono cunae amplitudo quaerat contigo esse aureus vulticulus defero demo patrocinor verbum tribuo angulus volutabrum dolorum vicissitudo officiis ceno alii volutabrum decerno tristis vulgo aperiam voluptatibus dolorem subnecto tam peior valetudo tubineus campana quidem carus utpote tribuo admitto depopulo vergo succurro deleniti vis tergum blandior vilitas agnosco provident reiciendis aequus apostolus caute tamen coma cetera carpo tametsi ducimus adaugeo alii demo decumbo alo cito atrocitas tendo adficio certe succurro sono vinco magni credo cimentarius ars vix depono vorax amplexus victoria demergo.",
+                        "catalogImage": "uploads/catalog/catalogImage-1782820532020-296740116.jpg",
+                        "catalogSubImages": [
+                          "uploads/catalog/catalogSubImages-1782820532021-972250291.jpg",
+                          "uploads/catalog/catalogSubImages-1782820532022-965016635.jpg",
+                          "uploads/catalog/catalogSubImages-1782820532022-535136286.jpg",
+                          "uploads/catalog/catalogSubImages-1782820532024-637399538.jpg",
+                          "uploads/catalog/catalogSubImages-1782820532025-781005373.jpg",
+                          "uploads/catalog/catalogSubImages-1782820532025-589651340.jpg",
+                          "uploads/catalog/catalogSubImages-1782820532026-400047328.jpg",
+                          "uploads/catalog/catalogSubImages-1782820532026-268007005.jpg",
+                          "uploads/catalog/catalogSubImages-1782820532026-148424986.jpg",
+                          "uploads/catalog/catalogSubImages-1782820532030-847613540.jpg",
+                          "uploads/catalog/catalogSubImages-1782820532032-49673431.jpg",
+                          "uploads/catalog/catalogSubImages-1782820532036-373905962.jpg",
+                          "uploads/catalog/catalogSubImages-1782820532038-407942204.jpg",
+                          "uploads/catalog/catalogSubImages-1782820532039-303743300.jpg",
+                          "uploads/catalog/catalogSubImages-1782820532039-686648433.jpg",
+                          "uploads/catalog/catalogSubImages-1782820532039-782678505.jpg",
+                          "uploads/catalog/catalogSubImages-1782820532040-178636228.jpg"
+                        ],
+                        "metaTitle": "Sample Catalog | Favric",
+                        "metaDescription": "Tactus tunc audeo sopor distinctio appono cunae amplitudo quaerat contigo esse aureus vulticulus defero demo patrocinor verbum tribuo angulus volutabrum dolorum vicissitudo officiis ceno alii volutabrum decerno tristis vulgo aperiam voluptatibus dolorem subnecto tam peior valetudo tubineus campana quidem carus utpote tribuo admitto depopulo vergo succurro deleniti vis tergum blandior vilitas agnosco provident reiciendis aequus apostolus caute tamen coma cetera carpo tametsi ducimus adaugeo alii demo decumbo alo cito atrocitas tendo adficio certe succurro sono vinco magni credo cimentarius ars vix depono vorax amplexus victoria demergo. | Favric",
+                        "metaKeywords": "Sample Catalog | Favric",
+                        "uploadedBy": "99edb6dd-b010-4e51-b138-4433103ba5c5",
+                        "lastModifiedBy": "99edb6dd-b010-4e51-b138-4433103ba5c5",
+                        "deletedAt": null,
+                        "createdAt": "2026-06-30T11:49:55.834Z",
+                        "updatedAt": "2026-06-30T11:55:32.097Z",
+                        "uploader": {
+                          "userName": "mr.imaginatory@gmail.com"
+                        },
+                        "modifier": {
+                          "userName": "mr.imaginatory@gmail.com"
+                        }
+                      }
+                    ],
+                    "nextCursor": null
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/catalogs/deleteCatalog/{id}": {
+      "delete": {
+        "summary": "Delete Catalog",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "f40a71c4-a7a1-4f4e-94ee-4340e1be0588",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/product/categories/addCategory": {
       "post": {
         "summary": "Create Category",
@@ -4802,6 +5211,33 @@
               }
             },
             "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/products/addProduct": {
+      "post": {
+        "summary": "Add Product",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
           }
         },
         "security": [

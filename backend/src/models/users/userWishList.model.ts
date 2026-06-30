@@ -5,6 +5,7 @@ class UserWishList extends Model {
     public wishListId!: string;
     public userId!: string;
     public productId!: string;
+    public deletedAt!: Date;
 }
 
 UserWishList.init({
@@ -20,11 +21,17 @@ UserWishList.init({
     productId: {
         type: DataTypes.UUID,
         allowNull: false
+    },
+    deletedAt: {
+        type: DataTypes.DATE,
+        allowNull: true
     }
 }, {
     sequelize,
     modelName: "userWishList",
-    tableName: "userWishList"
+    tableName: "userWishList",
+    timestamps: true,
+    paranoid: true
 });
 
 (UserWishList as any).associate = (models: any) => {

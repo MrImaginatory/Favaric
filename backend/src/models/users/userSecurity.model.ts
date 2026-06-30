@@ -6,8 +6,8 @@ class UserSecurity extends Model {
     public userId!: string;
     public customSalt!: string;
     public pepper!: string;
+    public deletedAt!: Date;
 }
-
 UserSecurity.init({
     userId: {
         type: DataTypes.UUID,

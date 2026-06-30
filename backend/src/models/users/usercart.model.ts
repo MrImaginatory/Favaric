@@ -8,8 +8,8 @@ class UserCart extends Model {
     public quantity!: number;
     public createdAt!: Date;
     public updatedAt!: Date;
+    public deletedAt!: Date;
 }
-
 UserCart.init({
     cartId: {
         type: DataTypes.UUID,
@@ -27,11 +27,17 @@ UserCart.init({
     quantity: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    deletedAt: {
+        type: DataTypes.DATE,
+        allowNull: true
     }
 }, {
     sequelize,
     modelName: "userCart",
-    tableName: "userCart"
+    tableName: "userCart",
+    timestamps: true,
+    paranoid: true
 });
 
 (UserCart as any).associate = (models: any) => {

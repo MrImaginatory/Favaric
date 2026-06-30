@@ -13,7 +13,7 @@ import { renameDeletedFile } from "../../../utils/file.util.js";
 import logger from "../../../utils/logger.util.js";
 import { Op } from "@sequelize/core";
 import { getCache, setCache, deleteCacheByPattern } from "../../../services/cache.service.js";
-import { validateAllReferences } from "../../../services/refCache.service.js";
+import { validateAllReferences, buildReferenceChecks } from "../../../services/refCache.service.js";
 
 import Category from "../../../models/product/category.model.js";
 import Brand from "../../../models/product/brand.model.js";
@@ -97,7 +97,7 @@ const addProduct = asyncHandler(async (req: Request, res: Response) => {
         throw new AppError(`Product ${StatusMessages.ALREADY_EXISTS}`, 409);
     }
 
-    const failedRef = await validateAllReferences([
+    const failedRef = await validateAllReferences(buildReferenceChecks([
         { value: category, model: Category, keyField: "categoryId", name: "Category" },
         { value: brand, model: Brand, keyField: "brandId", name: "Brand" },
         { value: fabric, model: Fabric, keyField: "fabricId", name: "Fabric" },
@@ -112,7 +112,7 @@ const addProduct = asyncHandler(async (req: Request, res: Response) => {
         { value: productType, model: ProductType, keyField: "productTypeId", name: "Product Type" },
         { value: shippingCharge, model: ShippingCharge, keyField: "shippingChargeId", name: "Shipping Charge" },
         ...(isCatalog ? [{ value: catalogId, model: Catalog, keyField: "catalogId", name: "Catalog" }] : []),
-    ]);
+    ]));
 
     if (failedRef) {
         throw new AppError(`${failedRef} ${StatusMessages.NOT_FOUND}`, 404);
