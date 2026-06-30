@@ -36,6 +36,7 @@ export type FormField = {
   label: string
   type?: "text" | "number" | "textarea" | "boolean" | "file" | "richtext" | "color" | "status_checkbox" | "select"
   required?: boolean
+  multiple?: boolean
   options?: { label: string; value: string | number }[]
 }
 
@@ -230,10 +231,11 @@ export function MasterCRUDTemplate({
             payload.append(`remove_${key}`, 'true');
             continue;
           }
-          // React Hook Form returns FileList for file inputs
           if (val instanceof FileList || (val && typeof val === 'object' && 'length' in val)) {
             if (val.length > 0) {
-              payload.append(key, val[0]);
+              for (let i = 0; i < val.length; i++) {
+                payload.append(key, val[i]);
+              }
             }
           } else if (val instanceof File) {
             payload.append(key, val);
@@ -460,6 +462,7 @@ export function MasterCRUDTemplate({
                             key={previewUrl ? "has-file" : "no-file"}
                             id={field.name}
                             type="file"
+                            multiple={field.multiple}
                             onChange={(e) => onChange(e.target.files)}
                             className={
                               "cursor-pointer file:cursor-pointer file:border file:border-border file:rounded-md file:bg-muted/50 file:px-3 file:py-1 file:mr-4 file:text-xs file:font-medium file:text-foreground hover:file:bg-muted text-muted-foreground h-9 pt-1.5 px-1.5 " +

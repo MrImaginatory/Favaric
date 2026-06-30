@@ -22,6 +22,7 @@ import Size from "@/pages/master/Size"
 import Subcategory from "@/pages/master/Subcategory"
 import Weight from "@/pages/master/Weight"
 import Metric from "@/pages/master/Metric"
+import Catalog from "@/pages/products/Catalog"
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAuth()
@@ -75,6 +76,7 @@ export function App() {
           <Route path="master/size" element={<Size />} />
           <Route path="master/subcategory" element={<Subcategory />} />
           <Route path="master/weight" element={<Weight />} />
+          <Route path="products/catalog" element={<Catalog />} />
         </Route>
       </Routes>
       {isAuthPage && (

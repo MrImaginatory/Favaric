@@ -134,3 +134,10 @@ export const countryCodeApi = {
     return response.data;
   }
 };
+
+export const productApi = {
+  addCatalog: async (data: FormData) => {
+    const response = await apiClient.post('/product/catalogs/addCatalog', data);
+    return response.data;
+  }
+};

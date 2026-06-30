@@ -58,6 +58,10 @@ export const navigationConfig: { navMain: NavItem[] } = {
           title: "Product",
           url: "/master/product",
         },
+        {
+          title: "Catalog",
+          url: "/products/catalog",
+        },
       ],
     },
     {
