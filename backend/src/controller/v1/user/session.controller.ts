@@ -1,6 +1,7 @@
 import type { Response } from "express";
 import asyncHandler from "../../../utils/asyncHandler.util.js";
 import sendResponse from "../../../utils/responseHandler.util.js";
+import { getAllRecords, getRecord } from "../../../services/base.service.js";
 import UserSession from "../../../models/users/userSession.model.js";
 import redis from "../../../utils/redis.util.js";
 import StatusMessages from "../../../configs/message.config.js";
@@ -10,7 +11,7 @@ import { decrementSessionCount } from "../../../services/cache.service.js";
 const getActiveSessions = asyncHandler(async (req: any, res: Response) => {
     const userId = req.user?.userId; // Assuming user info is in req.user from auth middleware
     
-    const sessions = await UserSession.findAll({
+    const sessions = await getAllRecords(UserSession, {
         where: { userId },
         order: [["createdAt", "DESC"]]
     });
@@ -22,7 +23,7 @@ const terminateSession = asyncHandler(async (req: any, res: Response) => {
     const { sessionId } = req.params;
     const userId = req.user?.userId;
 
-    const session = await UserSession.findOne({
+    const session = await getRecord(UserSession, {
         where: { sessionId, userId }
     });
 
@@ -34,7 +35,7 @@ const terminateSession = asyncHandler(async (req: any, res: Response) => {
     await redis.del(`sess:${sessionId}`);
 
     // Delete from Postgres
-    await session.destroy();
+    await (session as any).destroy();
 
     await decrementSessionCount();
 

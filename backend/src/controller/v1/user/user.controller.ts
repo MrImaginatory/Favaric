@@ -11,12 +11,13 @@ import { getPasswordResetEmailTemplate, getPasswordUpdatedEmailTemplate } from "
 import bcrypt from "bcryptjs";
 import UserSecurity from "../../../models/users/userSecurity.model.js";
 import config from "../../../configs/constant.config.js";
+import { getRecord, updateRecord } from "../../../services/base.service.js";
 import { searchRecordsController, getAllRecordsController } from "../base.controller.js";
 
 
 const getUserProfile = asyncHandler(async (req: Request, res: Response) => {
     const userId = (req as any).user?.userId;
-    const user = await User.findByPk(userId);
+    const user = await getRecord(User, { where: { userId } });
     if (!user) {
         throw new AppError("User not found", 404);
     }
@@ -32,17 +33,17 @@ const updateProfile = asyncHandler(async (req: Request, res: Response) => {
         updateData.profilePicture = req.file.path.replace(/\\/g, '/');
     }
 
-    const user = await User.findByPk(userId);
+    const user = await getRecord(User, { where: { userId } });
     if (!user) {
         throw new AppError("User not found", 404);
     }
-    await user.update(updateData);
+    await updateRecord(User, updateData, { where: { userId } });
     return sendResponse(res, 200, StatusMessages.SUCCESS, user);
 });
 
 const forgotPassword = asyncHandler(async (req: Request, res: Response) => {
     const { email } = req.body;
-    const user = await User.findOne({ where: { email: email.toLowerCase() } });
+    const user = await getRecord(User, { where: { email: email.toLowerCase() } });
 
     if (!user) {
         throw new AppError("User not found", 404);
@@ -83,7 +84,7 @@ const forgotPassword = asyncHandler(async (req: Request, res: Response) => {
 
 const resetPassword = asyncHandler(async (req: Request, res: Response) => {
     const { userId, code, password } = req.body;
-    const user = await User.findByPk(userId);
+    const user = await getRecord(User, { where: { userId } });
     if (!user) {
         throw new AppError("User not found", 404);
     }
@@ -93,7 +94,7 @@ const resetPassword = asyncHandler(async (req: Request, res: Response) => {
         throw new AppError("Invalid or expired code", 400);
     }
 
-    const userSecurity: any = await UserSecurity.findByPk(userId);
+    const userSecurity: any = await getRecord(UserSecurity, { where: { userId } });
     if (!userSecurity) {
         throw new AppError("Security credentials not found", 401);
     }
@@ -102,7 +103,11 @@ const resetPassword = asyncHandler(async (req: Request, res: Response) => {
     user.resetPasswordToken = null as any;
     user.resetPasswordExpires = null as any;
 
-    await user.save();
+    await updateRecord(User, {
+        password: user.password,
+        resetPasswordToken: null as any,
+        resetPasswordExpires: null as any
+    }, { where: { userId } });
 
     await redis.del(`pwd_reset_otp:${userId}`);
     await redis.del(`pwd_reset_cooldown:${userId}`);
@@ -126,12 +131,12 @@ const updatePassword = asyncHandler(async (req: Request, res: Response) => {
     const userId = (req as any).user?.userId;
     const { oldPassword, newPassword } = req.body;
 
-    const user = await User.findByPk(userId);
+    const user = await getRecord(User, { where: { userId } });
     if (!user) {
         throw new AppError("User not found", 404);
     }
 
-    const userSecurity: any = await UserSecurity.findByPk(userId);
+    const userSecurity: any = await getRecord(UserSecurity, { where: { userId } });
     if (!userSecurity) {
         throw new AppError("Security credentials not found", 401);
     }
@@ -143,7 +148,7 @@ const updatePassword = asyncHandler(async (req: Request, res: Response) => {
     }
 
     user.password = await bcrypt.hash(newPassword + userSecurity.pepper + userSecurity.customSalt, 10);
-    await user.save();
+    await updateRecord(User, { password: user.password }, { where: { userId } });
 
     // Send confirmation email
     const time = new Date().toLocaleString('en-US', { timeZone: 'UTC' }) + ' UTC';

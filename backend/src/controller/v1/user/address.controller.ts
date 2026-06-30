@@ -4,6 +4,7 @@ import Address from "../../../models/users/userAddress.model.js";
 import StatusMessages from "../../../configs/message.config.js";
 import sendResponse from "../../../utils/responseHandler.util.js";
 import AppError from "../../../utils/appError.util.js";
+import { createRecord, getAllRecords, getRecord, updateRecord } from "../../../services/base.service.js";
 
 const addAddress = asyncHandler(async (req: Request, res: Response) => {
     const userId = (req as any).user?.userId;
@@ -23,7 +24,7 @@ const addAddress = asyncHandler(async (req: Request, res: Response) => {
         throw new AppError("You can only add 3 addresses", 400);
     }
 
-    const address = await Address.create({
+    const address = await createRecord(Address, {
         userId,
         addressLine1,
         addressLine2,
@@ -40,7 +41,7 @@ const addAddress = asyncHandler(async (req: Request, res: Response) => {
 const getAddresses = asyncHandler(async (req: Request, res: Response) => {
     const userId = (req as any).user?.userId;
 
-    const addresses = await Address.findAll({
+    const addresses = await getAllRecords(Address, {
         where: { userId },
         order: [["createdAt", "DESC"]]
     });
@@ -52,7 +53,7 @@ const getAddressById = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
     const userId = (req as any).user?.userId;
 
-    const address = await Address.findOne({
+    const address = await getRecord(Address, {
         where: { addressId: id, userId }
     });
 
@@ -69,7 +70,7 @@ const updateAddress = asyncHandler(async (req: Request, res: Response) => {
 
     const { addressLine1, addressLine2, city, state, postalCode, country } = req.body;
 
-    const findAddress = await Address.findOne({
+    const findAddress = await getRecord(Address, {
         where: { addressId: id, userId }
     });
 
@@ -77,14 +78,14 @@ const updateAddress = asyncHandler(async (req: Request, res: Response) => {
         throw new AppError("Address not found", 404);
     }
 
-    await findAddress.update({
+    await updateRecord(Address, {
         addressLine1,
         addressLine2,
         city,
         state,
         postalCode,
         country
-    });
+    }, { where: { addressId: id, userId } });
 
     return sendResponse(res, 200, StatusMessages.SUCCESS, findAddress);
 });
@@ -93,7 +94,7 @@ const deleteAddress = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
     const userId = (req as any).user?.userId;
 
-    const address = await Address.findOne({
+    const address = await getRecord(Address, {
         where: { addressId: id, userId }
     });
 
@@ -101,7 +102,9 @@ const deleteAddress = asyncHandler(async (req: Request, res: Response) => {
         throw new AppError("Address not found", 404);
     }
 
-    await address.destroy();
+    // Direct destroy used since deleteRecord deletes by PK and cascades, but we need to ensure userId match.
+    // So we just destroy the found record. Or update deleteRecord to take queryOptions.
+    await (address as any).destroy();
 
     return sendResponse(res, 200, StatusMessages.SUCCESS, { message: "Address deleted successfully" });
 });
@@ -110,9 +113,9 @@ const toggleDefaultAddress = asyncHandler(async (req: Request, res: Response) =>
     const { id } = req.params;
     const userId = (req as any).user?.userId;
 
-    await Address.update({ isDefault: false }, { where: { userId } });
+    await updateRecord(Address, { isDefault: false }, { where: { userId } });
 
-    const address = await Address.findOne({
+    const address = await getRecord(Address, {
         where: { addressId: id, userId }
     });
 
@@ -120,7 +123,7 @@ const toggleDefaultAddress = asyncHandler(async (req: Request, res: Response) =>
         throw new AppError("Address not found", 404);
     }
 
-    await address.update({ isDefault: true });
+    await updateRecord(Address, { isDefault: true }, { where: { addressId: id, userId } });
 
     return sendResponse(res, 200, StatusMessages.SUCCESS, address);
 });

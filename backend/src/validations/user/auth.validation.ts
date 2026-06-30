@@ -8,7 +8,7 @@ export const signupSchema = z.object({
         email: z.string().email("Invalid email address"),
         password: z.string().min(6, "Password must be at least 6 characters").max(255, "Password cannot exceed 255 characters"),
         countryCode: z.string().uuid("Country code must be a valid UUID"),
-        mobile: z.string().min(10, "Mobile number must be at least 10 characters").max(10, "Mobile number cannot exceed 10 digits").regex(/^[0-9]+$/, "Mobile number must contain only digits"),
+        mobile: z.coerce.string().min(10, "Mobile number must be at least 10 characters").max(10, "Mobile number cannot exceed 10 digits").regex(/^[0-9]+$/, "Mobile number must contain only digits"),
     }),
 });
 
@@ -26,9 +26,9 @@ export const updateProfileSchema = z.object({
         userName: z.string("Username must be a string").min(3, "User name must be at least 3 characters").max(255, "User name cannot exceed 255 characters"),
         email: z.string("Email must be an email").email("Invalid email address"),
         countryCode: z.string().uuid("Country code must be a valid UUID"),
-        mobile: z.string("Mobile number must be a string").min(10, "Mobile number must be at least 10 characters").max(10, "Mobile number cannot exceed 10 digits").regex(/^[0-9]+$/, "Mobile number must contain only digits"),
+        mobile: z.coerce.string().min(10, "Mobile number must be at least 10 characters").max(10, "Mobile number cannot exceed 10 digits").regex(/^[0-9]+$/, "Mobile number must contain only digits"),
         whatsAppNumberCountryCode: z.string().uuid("WhatsApp country code must be a valid UUID").optional(),
-        whatsAppNumber: z.string("Mobile number must be a string").min(10, "Mobile number must be at least 10 characters").max(10, "Mobile number cannot exceed 10 digits").regex(/^[0-9]+$/, "Mobile number must contain only digits").optional(),
+        whatsAppNumber: z.coerce.string().min(10, "Mobile number must be at least 10 characters").max(10, "Mobile number cannot exceed 10 digits").regex(/^[0-9]+$/, "Mobile number must contain only digits").optional(),
         gender: z.string("Gender must be a string").min(2, "Gender must be at least 2 characters").max(255, "Gender cannot exceed 255 characters").optional(),
         profilePicture: z.string("Profile picture must be a string").min(2, "Profile picture must be at least 2 characters").max(255, "Profile picture cannot exceed 255 characters").optional(),
         country: z.string("Country must be a string").min(2, "Country must be at least 2 characters").max(255, "Country cannot exceed 255 characters").optional(),

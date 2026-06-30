@@ -14,11 +14,12 @@ import logger from "../../../utils/logger.util.js";
 import UserSecurity from "../../../models/users/userSecurity.model.js";
 import config from "../../../configs/constant.config.js";
 import { incrementSessionCount, decrementSessionCount } from "../../../services/cache.service.js";
+import { getRecord, createRecord, updateRecord } from "../../../services/base.service.js";
 
 const signupController = asyncHandler(async (req: Request, res: Response) => {
     const { firstName, lastName, userName, email, password, countryCode, mobile } = req.body
 
-    const existingUser = await User.findOne({
+    const existingUser = await getRecord(User, {
         where: {
             [Op.or]: [
                 { email: email.toLowerCase() },
@@ -42,7 +43,7 @@ const signupController = asyncHandler(async (req: Request, res: Response) => {
 
     let user;
     try {
-        user = await User.create({
+        user = await createRecord(User, {
             firstName: firstName,
             lastName: lastName,
             userName: userName,
@@ -52,7 +53,7 @@ const signupController = asyncHandler(async (req: Request, res: Response) => {
             mobile: mobile,
         });
 
-        await UserSecurity.create({
+        await createRecord(UserSecurity, {
             userId: user.userId,
             customSalt,
             pepper
@@ -73,7 +74,7 @@ const signupController = asyncHandler(async (req: Request, res: Response) => {
 const loginController = asyncHandler(async (req: any, res: Response) => {
     const reqBody = req.body
 
-    const user = await User.findOne({
+    const user = await getRecord(User, {
         where: {
             email: reqBody.email.toLowerCase()
         }
@@ -83,7 +84,7 @@ const loginController = asyncHandler(async (req: any, res: Response) => {
         throw new AppError(StatusMessages.USER_NOT_FOUND, 404)
     }
 
-    const userSecurity: any = await UserSecurity.findByPk(user.userId);
+    const userSecurity: any = await getRecord(UserSecurity, { where: { userId: user.userId } });
     if (!userSecurity) {
         throw new AppError("Security credentials not found. Please contact support or sign up again.", 401);
     }
@@ -160,7 +161,7 @@ const refreshTokenController = asyncHandler(async (req: any, res: Response) => {
     }
 
     // Check Postgres for session and reuse detection
-    const sessionInDb = await UserSession.findOne({ where: { sessionId: decoded.sessionId } });
+    const sessionInDb = await getRecord(UserSession, { where: { sessionId: decoded.sessionId } });
 
     if (!sessionInDb) {
         throw new AppError("Session not found. Please login again.", 401);
@@ -180,8 +181,7 @@ const refreshTokenController = asyncHandler(async (req: any, res: Response) => {
     const newRefreshToken = JWTUtil.generateRefreshToken({ id: decoded.id, sessionId: decoded.sessionId });
 
     // Update DB
-    sessionInDb.refreshToken = newRefreshToken;
-    await sessionInDb.save();
+    await updateRecord(UserSession, { refreshToken: newRefreshToken }, { where: { sessionId: decoded.sessionId } });
 
     // Set new refresh token in cookie
     res.cookie("refreshToken", newRefreshToken, {

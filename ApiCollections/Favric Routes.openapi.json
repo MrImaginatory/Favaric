@@ -165,7 +165,15 @@
                 "type": "object",
                 "properties": {}
               },
-              "example": "{\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"userName\": \"{{$randomUserName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"testUser@123\",\r\n    \"countryCode\": {{countryCode}},\r\n    \"mobile\": \"{{mobile}}\"\r\n}"
+              "example": {
+                "firstName": "{{$randomFirstName}}",
+                "lastName": "{{$randomLastName}}",
+                "userName": "{{$randomUserName}}",
+                "email": "{{$randomEmail}}",
+                "password": "testUser@123",
+                "countryCode": "dbccb4f6-7775-4463-8f6b-297230cf8fbd",
+                "mobile": "{{mobile}}"
+              }
             }
           }
         },
@@ -5227,6 +5235,565 @@
         "description": "",
         "tags": [],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "productName": {
+                    "example": "{{$commerce.productName}}",
+                    "type": "string"
+                  },
+                  "productTitle": {
+                    "example": "{{$commerce.product}}",
+                    "type": "string"
+                  },
+                  "productDescription": {
+                    "example": "{{$lorem.sentence(min=3,max=200)}}",
+                    "type": "string"
+                  },
+                  "regularPrice": {
+                    "example": "{{$number.int(min=1,max=99999)}}",
+                    "type": "string"
+                  },
+                  "salePrice": {
+                    "example": "{{$number.int(min=1,max=99999)}}",
+                    "type": "string"
+                  },
+                  "currency": {
+                    "example": "{{$finance.currencyCode}}",
+                    "type": "string"
+                  },
+                  "gstPercentage": {
+                    "example": "{{$number.int(min=1,max=10)}}",
+                    "type": "string"
+                  },
+                  "category": {
+                    "example": "7fb8fa23-394e-4a1d-8d44-d944eea29db7",
+                    "type": "string"
+                  },
+                  "brand": {
+                    "example": "82e7a9a8-e683-4a6a-9d71-48a58060d91e",
+                    "type": "string"
+                  },
+                  "thumbnailImage": {
+                    "format": "binary",
+                    "type": "string",
+                    "example": "file://C:\\Users\\Admin\\Downloads\\6egfpcj5qcsg1.jpeg"
+                  },
+                  "image": {
+                    "format": "binary",
+                    "type": "string",
+                    "example": "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (1).jpg"
+                  },
+                  "subImages": {
+                    "format": "binary",
+                    "type": "string",
+                    "example": [
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (15).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (16).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (17).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (18).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (19).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (20).jpg"
+                    ]
+                  },
+                  "stock": {
+                    "example": "150",
+                    "type": "string"
+                  },
+                  "maxOrderQty": {
+                    "example": "3",
+                    "type": "string"
+                  },
+                  "minOrderQty": {
+                    "example": "1",
+                    "type": "string"
+                  },
+                  "designCode": {
+                    "example": "87584",
+                    "type": "string"
+                  },
+                  "sku": {
+                    "example": "59874",
+                    "type": "string"
+                  },
+                  "hsn": {
+                    "example": "84651",
+                    "type": "string"
+                  },
+                  "fabric": {
+                    "example": "594d6cef-fe15-4fbb-99f0-2346af745d4e",
+                    "type": "string"
+                  },
+                  "occasion": {
+                    "example": "0e4b2176-aada-4b79-b429-8c38ee6d886e",
+                    "type": "string"
+                  },
+                  "pattern": {
+                    "example": "c1f0f068-516f-4dd2-83c9-355cf44d6973",
+                    "type": "string"
+                  },
+                  "length": {
+                    "example": "6dc02ef4-4f90-4a1b-b624-f960b935ae2c",
+                    "type": "string"
+                  },
+                  "transparency": {
+                    "example": "Semi Transparent",
+                    "type": "string"
+                  },
+                  "countryOfOrigin": {
+                    "example": "b37b4b70-d07f-4f37-98ae-02dd4a6373b4",
+                    "type": "string"
+                  },
+                  "color": {
+                    "example": "cfe9a133-0cf7-4ebd-8768-db18f900f3f5",
+                    "type": "string"
+                  },
+                  "size": {
+                    "example": "da2bad60-3cbf-465f-9f4b-ceabda89a93a",
+                    "type": "string"
+                  },
+                  "weight": {
+                    "example": "b43abbb7-c323-4bd0-a76c-9087d31ab639",
+                    "type": "string"
+                  },
+                  "dimensions": {
+                    "example": "2fd2bd03-d121-45a8-9c1e-f85da8f9e6f2",
+                    "type": "string"
+                  },
+                  "isFeatured": {
+                    "type": "boolean",
+                    "example": "true"
+                  },
+                  "isTrending": {
+                    "type": "boolean",
+                    "example": "true"
+                  },
+                  "isNewArrival": {
+                    "type": "boolean",
+                    "example": "true"
+                  },
+                  "isDiscounted": {
+                    "type": "boolean",
+                    "example": "true"
+                  },
+                  "isAvailable": {
+                    "type": "boolean",
+                    "example": "true"
+                  },
+                  "isCatalog": {
+                    "type": "boolean",
+                    "example": "true"
+                  },
+                  "catalogId": {
+                    "example": "9eb58fa3-873a-4a42-9a5b-8f1c93314bc8",
+                    "type": "string"
+                  },
+                  "isPinned": {
+                    "type": "boolean",
+                    "example": "false"
+                  },
+                  "pinPosition": {
+                    "type": "integer",
+                    "example": 0
+                  },
+                  "productType": {
+                    "example": "73e803c8-ce51-488b-b8b1-15b2f9d40639",
+                    "type": "string"
+                  },
+                  "quantityPerUnit": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "shippingCharge": {
+                    "example": "41d1e62d-543a-4034-bf51-42431633e387",
+                    "type": "string"
+                  },
+                  "productStitched": {
+                    "type": "boolean",
+                    "example": "false"
+                  },
+                  "moq": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "otherDetails": {
+                    "example": "",
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "productName": "{{$commerce.productName}}",
+                "productTitle": "{{$commerce.product}}",
+                "productDescription": "{{$lorem.sentence(min=3,max=200)}}",
+                "regularPrice": "{{$number.int(min=1,max=99999)}}",
+                "salePrice": "{{$number.int(min=1,max=99999)}}",
+                "currency": "{{$finance.currencyCode}}",
+                "gstPercentage": "{{$number.int(min=1,max=10)}}",
+                "category": "7fb8fa23-394e-4a1d-8d44-d944eea29db7",
+                "brand": "82e7a9a8-e683-4a6a-9d71-48a58060d91e",
+                "thumbnailImage": "file://C:\\Users\\Admin\\Downloads\\6egfpcj5qcsg1.jpeg",
+                "image": "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (1).jpg",
+                "subImages": [
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (15).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (16).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (17).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (18).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (19).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (20).jpg"
+                ],
+                "stock": "150",
+                "maxOrderQty": "3",
+                "minOrderQty": "1",
+                "designCode": "87584",
+                "sku": "59874",
+                "hsn": "84651",
+                "fabric": "594d6cef-fe15-4fbb-99f0-2346af745d4e",
+                "occasion": "0e4b2176-aada-4b79-b429-8c38ee6d886e",
+                "pattern": "c1f0f068-516f-4dd2-83c9-355cf44d6973",
+                "length": "6dc02ef4-4f90-4a1b-b624-f960b935ae2c",
+                "transparency": "Semi Transparent",
+                "countryOfOrigin": "b37b4b70-d07f-4f37-98ae-02dd4a6373b4",
+                "color": "cfe9a133-0cf7-4ebd-8768-db18f900f3f5",
+                "size": "da2bad60-3cbf-465f-9f4b-ceabda89a93a",
+                "weight": "b43abbb7-c323-4bd0-a76c-9087d31ab639",
+                "dimensions": "2fd2bd03-d121-45a8-9c1e-f85da8f9e6f2",
+                "isFeatured": "true",
+                "isTrending": "true",
+                "isNewArrival": "true",
+                "isDiscounted": "true",
+                "isAvailable": "true",
+                "isCatalog": "true",
+                "catalogId": "9eb58fa3-873a-4a42-9a5b-8f1c93314bc8",
+                "isPinned": "false",
+                "pinPosition": 0,
+                "productType": "73e803c8-ce51-488b-b8b1-15b2f9d40639",
+                "quantityPerUnit": 1,
+                "shippingCharge": "41d1e62d-543a-4034-bf51-42431633e387",
+                "productStitched": "false",
+                "moq": 1,
+                "otherDetails": ""
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/products/updateProduct/{id}": {
+      "patch": {
+        "summary": "Update Product",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "555589a1-28dd-4704-bc0c-84b35b0f2ac4",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "productName": {
+                    "example": "{{$commerce.productName}}",
+                    "type": "string"
+                  },
+                  "productTitle": {
+                    "example": "{{$commerce.product}}",
+                    "type": "string"
+                  },
+                  "productDescription": {
+                    "example": "{{$lorem.sentence(min=3,max=200)}}",
+                    "type": "string"
+                  },
+                  "regularPrice": {
+                    "example": "{{$number.int(min=1,max=99999)}}",
+                    "type": "string"
+                  },
+                  "salePrice": {
+                    "example": "{{$number.int(min=1,max=99999)}}",
+                    "type": "string"
+                  },
+                  "currency": {
+                    "example": "{{$finance.currencyCode}}",
+                    "type": "string"
+                  },
+                  "gstPercentage": {
+                    "example": "{{$number.int(min=1,max=10)}}",
+                    "type": "string"
+                  },
+                  "category": {
+                    "example": "7fb8fa23-394e-4a1d-8d44-d944eea29db7",
+                    "type": "string"
+                  },
+                  "brand": {
+                    "example": "82e7a9a8-e683-4a6a-9d71-48a58060d91e",
+                    "type": "string"
+                  },
+                  "thumbnailImage": {
+                    "format": "binary",
+                    "type": "string",
+                    "example": "file://C:\\Users\\Admin\\Downloads\\6egfpcj5qcsg1.jpeg"
+                  },
+                  "image": {
+                    "format": "binary",
+                    "type": "string",
+                    "example": "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (1).jpg"
+                  },
+                  "subImages": {
+                    "format": "binary",
+                    "type": "string",
+                    "example": [
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (15).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (16).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (17).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (18).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (19).jpg",
+                      "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (20).jpg"
+                    ]
+                  },
+                  "stock": {
+                    "example": "150",
+                    "type": "string"
+                  },
+                  "maxOrderQty": {
+                    "example": "3",
+                    "type": "string"
+                  },
+                  "minOrderQty": {
+                    "example": "1",
+                    "type": "string"
+                  },
+                  "designCode": {
+                    "example": "87584",
+                    "type": "string"
+                  },
+                  "sku": {
+                    "example": "59874",
+                    "type": "string"
+                  },
+                  "hsn": {
+                    "example": "84651",
+                    "type": "string"
+                  },
+                  "fabric": {
+                    "example": "594d6cef-fe15-4fbb-99f0-2346af745d4e",
+                    "type": "string"
+                  },
+                  "occasion": {
+                    "example": "0e4b2176-aada-4b79-b429-8c38ee6d886e",
+                    "type": "string"
+                  },
+                  "pattern": {
+                    "example": "c1f0f068-516f-4dd2-83c9-355cf44d6973",
+                    "type": "string"
+                  },
+                  "length": {
+                    "example": "6dc02ef4-4f90-4a1b-b624-f960b935ae2c",
+                    "type": "string"
+                  },
+                  "transparency": {
+                    "example": "Semi Transparent",
+                    "type": "string"
+                  },
+                  "countryOfOrigin": {
+                    "example": "b37b4b70-d07f-4f37-98ae-02dd4a6373b4",
+                    "type": "string"
+                  },
+                  "color": {
+                    "example": "cfe9a133-0cf7-4ebd-8768-db18f900f3f5",
+                    "type": "string"
+                  },
+                  "size": {
+                    "example": "da2bad60-3cbf-465f-9f4b-ceabda89a93a",
+                    "type": "string"
+                  },
+                  "weight": {
+                    "example": "b43abbb7-c323-4bd0-a76c-9087d31ab639",
+                    "type": "string"
+                  },
+                  "dimensions": {
+                    "example": "2fd2bd03-d121-45a8-9c1e-f85da8f9e6f2",
+                    "type": "string"
+                  },
+                  "isFeatured": {
+                    "type": "boolean",
+                    "example": "true"
+                  },
+                  "isTrending": {
+                    "type": "boolean",
+                    "example": "true"
+                  },
+                  "isNewArrival": {
+                    "type": "boolean",
+                    "example": "true"
+                  },
+                  "isDiscounted": {
+                    "type": "boolean",
+                    "example": "true"
+                  },
+                  "isAvailable": {
+                    "type": "boolean",
+                    "example": "true"
+                  },
+                  "isCatalog": {
+                    "type": "boolean",
+                    "example": "true"
+                  },
+                  "catalogId": {
+                    "example": "9eb58fa3-873a-4a42-9a5b-8f1c93314bc8",
+                    "type": "string"
+                  },
+                  "isPinned": {
+                    "type": "boolean",
+                    "example": "false"
+                  },
+                  "pinPosition": {
+                    "type": "integer",
+                    "example": 0
+                  },
+                  "productType": {
+                    "example": "73e803c8-ce51-488b-b8b1-15b2f9d40639",
+                    "type": "string"
+                  },
+                  "quantityPerUnit": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "shippingCharge": {
+                    "example": "41d1e62d-543a-4034-bf51-42431633e387",
+                    "type": "string"
+                  },
+                  "productStitched": {
+                    "type": "boolean",
+                    "example": "false"
+                  },
+                  "moq": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "otherDetails": {
+                    "example": "",
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "productName": "{{$commerce.productName}}",
+                "productTitle": "{{$commerce.product}}",
+                "productDescription": "{{$lorem.sentence(min=3,max=200)}}",
+                "regularPrice": "{{$number.int(min=1,max=99999)}}",
+                "salePrice": "{{$number.int(min=1,max=99999)}}",
+                "currency": "{{$finance.currencyCode}}",
+                "gstPercentage": "{{$number.int(min=1,max=10)}}",
+                "category": "7fb8fa23-394e-4a1d-8d44-d944eea29db7",
+                "brand": "82e7a9a8-e683-4a6a-9d71-48a58060d91e",
+                "thumbnailImage": "file://C:\\Users\\Admin\\Downloads\\6egfpcj5qcsg1.jpeg",
+                "image": "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (1).jpg",
+                "subImages": [
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (15).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (16).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (17).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (18).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (19).jpg",
+                  "file://E:\\Images\\SampleImages\\Anarkali\\Anarkali (20).jpg"
+                ],
+                "stock": "150",
+                "maxOrderQty": "3",
+                "minOrderQty": "1",
+                "designCode": "87584",
+                "sku": "59874",
+                "hsn": "84651",
+                "fabric": "594d6cef-fe15-4fbb-99f0-2346af745d4e",
+                "occasion": "0e4b2176-aada-4b79-b429-8c38ee6d886e",
+                "pattern": "c1f0f068-516f-4dd2-83c9-355cf44d6973",
+                "length": "6dc02ef4-4f90-4a1b-b624-f960b935ae2c",
+                "transparency": "Semi Transparent",
+                "countryOfOrigin": "b37b4b70-d07f-4f37-98ae-02dd4a6373b4",
+                "color": "cfe9a133-0cf7-4ebd-8768-db18f900f3f5",
+                "size": "da2bad60-3cbf-465f-9f4b-ceabda89a93a",
+                "weight": "b43abbb7-c323-4bd0-a76c-9087d31ab639",
+                "dimensions": "2fd2bd03-d121-45a8-9c1e-f85da8f9e6f2",
+                "isFeatured": "true",
+                "isTrending": "true",
+                "isNewArrival": "true",
+                "isDiscounted": "true",
+                "isAvailable": "true",
+                "isCatalog": "true",
+                "catalogId": "9eb58fa3-873a-4a42-9a5b-8f1c93314bc8",
+                "isPinned": "false",
+                "pinPosition": 0,
+                "productType": "73e803c8-ce51-488b-b8b1-15b2f9d40639",
+                "quantityPerUnit": 1,
+                "shippingCharge": "41d1e62d-543a-4034-bf51-42431633e387",
+                "productStitched": "false",
+                "moq": 1,
+                "otherDetails": ""
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/products/getProducts": {
+      "get": {
+        "summary": "Get products",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "",
@@ -5238,6 +5805,123 @@
                 }
               }
             }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/products/getProduct/{id}": {
+      "get": {
+        "summary": "Get Product By Id",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "555589a1-28dd-4704-bc0c-84b35b0f2ac4",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/products/searchProduct": {
+      "get": {
+        "summary": "Search Products",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "product",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "Unbranded",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/products/deleteProduct/{id}": {
+      "delete": {
+        "summary": "Delete Product",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "555589a1-28dd-4704-bc0c-84b35b0f2ac4",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
           }
         },
         "security": [
