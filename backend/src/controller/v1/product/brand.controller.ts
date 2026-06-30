@@ -89,12 +89,17 @@ const updateBrand = asyncHandler(async (req: Request, res: Response) => {
         updateData.brandDescription = brandDescription;
         updateData.metaDescription = metaDescription;
     }
-    if (brandLogo) {
-        updateData.brandLogo = brandLogo;
-    }
 
-    if (brandLogo && brand.brandLogo && brandLogo !== brand.brandLogo) {
-        await renameDeletedFile(brand.brandLogo);
+    if (req.body.remove_brandLogo === 'true') {
+        updateData.brandLogo = null;
+        if (brand.brandLogo) {
+            await renameDeletedFile(brand.brandLogo);
+        }
+    } else if (brandLogo) {
+        updateData.brandLogo = brandLogo;
+        if (brand.brandLogo && brandLogo !== brand.brandLogo) {
+            await renameDeletedFile(brand.brandLogo);
+        }
     }
 
     await updateRecord(Brand, updateData, { where: { brandId: id } });

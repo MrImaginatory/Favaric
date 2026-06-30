@@ -16,7 +16,7 @@ const handleSubCategoryFiles = (req: any, _res: any, next: any) => {
 
 subcategoryRouter.post(
     "/addSubCategory",
-    upload("subcategory").single("subcategoryImage"),
+    upload("subcategory", "subcategoryName").single("subcategoryImage"),
     handleSubCategoryFiles,
     validate(createSubCategoryValidation),
     createSubCategory
@@ -28,7 +28,7 @@ subcategoryRouter.get("/getSubCategory/:id", validate(uuidValidation), getSubCat
 
 subcategoryRouter.patch(
     "/updateSubCategory/:id",
-    upload("subcategory").single("subcategoryImage"),
+    upload("subcategory", "subcategoryName").single("subcategoryImage"),
     handleSubCategoryFiles,
     validate(updateSubCategoryValidation),
     updateSubCategory

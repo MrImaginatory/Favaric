@@ -1,10 +1,10 @@
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+import slug from "slug";
 import config from "../configs/constant.config.js";
 
-
-export const upload = (subfolder: string) => {
+export const upload = (subfolder: string, nameField?: string) => {
     const storage = multer.diskStorage({
         destination: (_req, file, cb) => {
             // 1. Resolve dynamic path placeholders
@@ -15,7 +15,7 @@ export const upload = (subfolder: string) => {
             let targetPath = path.join(config.UPLOADS_PATH, resolvedSubfolder);
 
             // 2. Handle sub-categorization for 'subimages' field
-            if (file.fieldname === "subimages") {
+            if (file.fieldname === "subimages" || file.fieldname.toLowerCase().includes("subimage")) {
                 targetPath = path.join(targetPath, "subimages");
             }
 
@@ -26,11 +26,25 @@ export const upload = (subfolder: string) => {
 
             cb(null, targetPath);
         },
-        filename: (_req, file, cb) => {
-            // 3. Generate unique filename to avoid overwriting
-            const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+        filename: (req, file, cb) => {
+            // Determine which field from req.body to use for the base name
+            const fieldToRead = nameField || "name";
+            // Get the value from req.body, fallback to original originalname (without extension) if not provided
+            const rawBaseName = req.body[fieldToRead] || path.parse(file.originalname).name;
+            const formattedName = slug(rawBaseName, { lower: true });
+            
             const extension = path.extname(file.originalname);
-            cb(null, `${file.fieldname}-${uniqueSuffix}${extension}`);
+            const isSubImage = file.fieldname.toLowerCase().includes("sub");
+
+            if (isSubImage) {
+                // For multiple files like sub-images, we MUST append a unique suffix so they don't overwrite each other
+                const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e4);
+                cb(null, `${formattedName}_${file.fieldname}_${uniqueSuffix}${extension}`);
+            } else {
+                // For a main image, we can just use the base name directly (e.g., productname.jpg)
+                // Appending a short timestamp ensures cache busting if the image is updated later
+                cb(null, `${formattedName}_${Date.now()}${extension}`);
+            }
         },
     });
 

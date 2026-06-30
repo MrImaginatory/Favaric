@@ -17,7 +17,7 @@ const handleCategoryFiles = (req: any, _res: any, next: any) => {
 
 categoryRouter.post(
     "/addCategory",
-    upload("category").single("categoryImage"),
+    upload("category", "categoryName").single("categoryImage"),
     handleCategoryFiles,
     validate(createCategoryValidation),
     createCategory
@@ -29,7 +29,7 @@ categoryRouter.get("/getCategory/:id", validate(uuidValidation), getCategoryById
 
 categoryRouter.patch(
     "/updateCategory/:id",
-    upload("category").single("categoryImage"),
+    upload("category", "categoryName").single("categoryImage"),
     handleCategoryFiles,
     validate(updateCategoryValidation),
     updateCategory

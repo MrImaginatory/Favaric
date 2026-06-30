@@ -12,8 +12,8 @@ const handleCatalogFiles = (req: any, _res: any, next: any) => {
         if (req.files['catalogImage'] && req.files['catalogImage'].length > 0) {
             req.body.catalogImage = req.files['catalogImage'][0].path.replace(/\\/g, '/');
         }
-        if (req.files['subimages'] && req.files['subimages'].length > 0) {
-            req.body.catalogSubImages = req.files['subimages'].map((f: any) => f.path.replace(/\\/g, '/'));
+        if (req.files['catalogSubImages'] && req.files['catalogSubImages'].length > 0) {
+            req.body.catalogSubImages = req.files['catalogSubImages'].map((f: any) => f.path.replace(/\\/g, '/'));
         }
     }
     next();
@@ -21,7 +21,7 @@ const handleCatalogFiles = (req: any, _res: any, next: any) => {
 
 catalogRouter.post(
     "/addCatalog",
-    upload("catalog").fields([{ name: "catalogImage", maxCount: 1 }, { name: "subimages", maxCount: 20 }]),
+    upload("catalog", "catalogName").fields([{ name: "catalogImage", maxCount: 1 }, { name: "catalogSubImages", maxCount: 20 }]),
     handleCatalogFiles,
     validate(createCatalogValidation),
     createCatalog
@@ -33,7 +33,7 @@ catalogRouter.get("/getCatalog/:id", validate(uuidValidation), getCatalogById);
 
 catalogRouter.patch(
     "/updateCatalog/:id",
-    upload("catalog").fields([{ name: "catalogImage", maxCount: 1 }, { name: "subimages", maxCount: 20 }]),
+    upload("catalog", "catalogName").fields([{ name: "catalogImage", maxCount: 1 }, { name: "catalogSubImages", maxCount: 20 }]),
     handleCatalogFiles,
     validate(updateCatalogValidation),
     updateCatalog

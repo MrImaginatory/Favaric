@@ -165,11 +165,6 @@ const updateCategory = asyncHandler(async (req: Request, res: Response) => {
         }
     }
 
-    // Handle Image Deletion
-    if (categoryImage && currentCategory.categoryImage && categoryImage !== currentCategory.categoryImage) {
-        await renameDeletedFile(currentCategory.categoryImage);
-    }
-
     const updateData: any = {
         isFeatured: isFeatured !== undefined ? Boolean(isFeatured) : undefined,
         isPopular: isPopular !== undefined ? Boolean(isPopular) : undefined,
@@ -186,8 +181,17 @@ const updateCategory = asyncHandler(async (req: Request, res: Response) => {
         updateData.categoryDescription = categoryDescription;
         updateData.metaDescription = categoryMetaDescription;
     }
-    if (categoryImage) {
+
+    if (req.body.remove_categoryImage === 'true') {
+        updateData.categoryImage = null;
+        if (currentCategory.categoryImage) {
+            await renameDeletedFile(currentCategory.categoryImage);
+        }
+    } else if (categoryImage) {
         updateData.categoryImage = categoryImage;
+        if (currentCategory.categoryImage && categoryImage !== currentCategory.categoryImage) {
+            await renameDeletedFile(currentCategory.categoryImage);
+        }
     }
 
     const category = await updateRecord(Category, updateData, { where: { categoryId: id } });

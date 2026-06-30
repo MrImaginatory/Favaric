@@ -15,6 +15,8 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogFooter,
+  DialogDescription,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -63,6 +65,7 @@ export function MasterCRUDTemplate({
   const queryClient = useQueryClient()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [editingItem, setEditingItem] = useState<any>(null)
+  const [itemToDelete, setItemToDelete] = useState<string | null>(null)
   const { theme } = useTheme()
   const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
 
@@ -217,12 +220,16 @@ export function MasterCRUDTemplate({
       payload = new FormData();
       for (const key in formData) {
         const val = formData[key];
-        // Skip undefined or null values
-        if (val === undefined || val === null) continue;
+        if (val === undefined) continue;
 
         // Check if field is meant to be a file
         const fieldDef = fields.find(f => f.name === key);
         if (fieldDef?.type === "file") {
+          if (val === null) {
+            // Signal to backend that the file should be removed
+            payload.append(`remove_${key}`, 'true');
+            continue;
+          }
           // React Hook Form returns FileList for file inputs
           if (val instanceof FileList || (val && typeof val === 'object' && 'length' in val)) {
             if (val.length > 0) {
@@ -233,7 +240,9 @@ export function MasterCRUDTemplate({
           }
         } else {
           // For non-file fields, append as string
-          payload.append(key, typeof val === 'object' ? JSON.stringify(val) : String(val));
+          if (val !== null) {
+            payload.append(key, typeof val === 'object' ? JSON.stringify(val) : String(val));
+          }
         }
       }
     }
@@ -246,8 +255,13 @@ export function MasterCRUDTemplate({
   }
 
   const handleDelete = (id: string) => {
-    if (confirm(`Are you sure you want to delete this ${title}?`)) {
-      deleteMutation.mutate(id)
+    setItemToDelete(id)
+  }
+
+  const confirmDelete = () => {
+    if (itemToDelete) {
+      deleteMutation.mutate(itemToDelete)
+      setItemToDelete(null)
     }
   }
 
@@ -523,6 +537,21 @@ export function MasterCRUDTemplate({
               </Button>
             </div>
           </form>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={!!itemToDelete} onOpenChange={(open) => !open && setItemToDelete(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirm Deletion</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete this {title.toLowerCase()}? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="mt-4">
+            <Button variant="outline" onClick={() => setItemToDelete(null)}>Cancel</Button>
+            <Button variant="destructive" onClick={confirmDelete}>Confirm</Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>
