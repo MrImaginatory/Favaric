@@ -39,6 +39,7 @@ export const navigationConfig: { navMain: NavItem[] } = {
         { title: "Dimensions", url: "/master/dimensions" },
         { title: "Fabric", url: "/master/fabric" },
         { title: "Length", url: "/master/length" },
+        { title: "Metric", url: "/master/metric" },
         { title: "Occassion", url: "/master/occassion" },
         { title: "Pattern", url: "/master/pattern" },
         { title: "ProductTypes", url: "/master/producttypes" },

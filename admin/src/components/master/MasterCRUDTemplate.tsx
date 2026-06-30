@@ -407,15 +407,56 @@ export function MasterCRUDTemplate({
                     )}
                   />
                 ) : field.type === "file" ? (
-                  <Input
-                    id={field.name}
-                    type="file"
-                    {...register(field.name)}
-                    className={
-                      "cursor-pointer file:cursor-pointer file:border file:border-border file:rounded-md file:bg-muted/50 file:px-3 file:py-1 file:mr-4 file:text-xs file:font-medium file:text-foreground hover:file:bg-muted text-muted-foreground h-9 pt-1.5 px-1.5 " +
-                      (errors[field.name] ? "border-destructive" : "")
-                    }
+                  <Controller
+                    name={field.name}
+                    control={control}
+                    render={({ field: { onChange, value } }) => {
+                      let previewUrl = null;
+                      if (typeof value === 'string' && value) {
+                        if (value.startsWith('http')) {
+                          previewUrl = value;
+                        } else {
+                          const hasPath = value.includes('/');
+                          const pathValue = hasPath ? value : `uploads/${queryKey}/${value}`;
+                          const leadingSlash = pathValue.startsWith('/') ? '' : '/';
+                          previewUrl = `${import.meta.env.VITE_API_BASE_URL}${leadingSlash}${pathValue}`;
+                        }
+                      } else if (value instanceof FileList && value.length > 0) {
+                        previewUrl = URL.createObjectURL(value[0]);
+                      } else if (value instanceof File) {
+                        previewUrl = URL.createObjectURL(value);
+                      }
+
+                      return (
+                        <div className="flex flex-col gap-3">
+                          {previewUrl && (
+                            <div className="relative w-32 h-32 border rounded-md overflow-hidden bg-muted/50 flex items-center justify-center group">
+                              <img src={previewUrl} alt="Preview" className="max-w-full max-h-full object-contain" />
+                              <button
+                                type="button"
+                                onClick={() => onChange(null)}
+                                className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm hover:bg-destructive/90"
+                                title="Remove Image"
+                              >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                              </button>
+                            </div>
+                          )}
+                          <Input
+                            key={previewUrl ? "has-file" : "no-file"}
+                            id={field.name}
+                            type="file"
+                            onChange={(e) => onChange(e.target.files)}
+                            className={
+                              "cursor-pointer file:cursor-pointer file:border file:border-border file:rounded-md file:bg-muted/50 file:px-3 file:py-1 file:mr-4 file:text-xs file:font-medium file:text-foreground hover:file:bg-muted text-muted-foreground h-9 pt-1.5 px-1.5 " +
+                              (errors[field.name] ? "border-destructive" : "")
+                            }
+                          />
+                        </div>
+                      )
+                    }}
                   />
+
                 ) : field.type === "color" ? (
                   <Controller
                     name={field.name}

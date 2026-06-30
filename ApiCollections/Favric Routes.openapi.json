@@ -663,6 +663,179 @@
         ]
       }
     },
+    "/product/brands/searchBrand": {
+      "get": {
+        "summary": "Search brands",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "brand",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "Nike",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "brandName": {
+                    "type": "string"
+                  },
+                  "brandDescription": {
+                    "type": "string"
+                  },
+                  "brandLogo": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "brandName",
+                  "brandDescription",
+                  "brandLogo"
+                ]
+              },
+              "example": ""
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "brandId": {
+                            "type": "string"
+                          },
+                          "brandName": {
+                            "type": "string"
+                          },
+                          "brandSlug": {
+                            "type": "string"
+                          },
+                          "brandDescription": {
+                            "type": "string"
+                          },
+                          "brandLogo": {
+                            "type": "string"
+                          },
+                          "metaTitle": {
+                            "type": "string"
+                          },
+                          "metaDescription": {
+                            "type": "string"
+                          },
+                          "metaKeywords": {
+                            "type": "string"
+                          },
+                          "uploadedBy": {
+                            "type": "string"
+                          },
+                          "lastModifiedBy": {
+                            "type": "string"
+                          },
+                          "deletedAt": {
+                            "type": "null"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          },
+                          "uploader": {
+                            "type": "object",
+                            "properties": {
+                              "userName": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "userName"
+                            ]
+                          },
+                          "modifier": {
+                            "type": "object",
+                            "properties": {
+                              "userName": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "userName"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "success",
+                    "message",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": [
+                    {
+                      "brandId": "f398a502-472d-4ea5-9b55-884ebcbcc47e",
+                      "brandName": "Nike",
+                      "brandSlug": "nike",
+                      "brandDescription": "This is Nike Brand",
+                      "brandLogo": "http://placeimg.com/640/480",
+                      "metaTitle": "Nike | Favric",
+                      "metaDescription": "This is Nike Brand | Favric",
+                      "metaKeywords": "Nike | Favric",
+                      "uploadedBy": "c3f4a78b-7fde-493a-847f-498c13a1d958",
+                      "lastModifiedBy": "c3f4a78b-7fde-493a-847f-498c13a1d958",
+                      "deletedAt": null,
+                      "createdAt": "2026-06-09T06:56:45.806Z",
+                      "updatedAt": "2026-06-09T06:56:45.806Z",
+                      "uploader": {
+                        "userName": "minnie.kutch"
+                      },
+                      "modifier": {
+                        "userName": "minnie.kutch"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/product/brands/addBrand": {
       "post": {
         "summary": "Add Brand",
@@ -1553,6 +1726,92 @@
                 }
               }
             }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/categories/searchCategory": {
+      "get": {
+        "summary": "Search Categories",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "sample",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "records": [],
+                    "nextCursor": null
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/colors/searchColor": {
+      "get": {
+        "summary": "Search Color",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "color",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "Red",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
           }
         },
         "security": [
@@ -2648,6 +2907,112 @@
         ]
       }
     },
+    "/product/countries/searchCountries": {
+      "get": {
+        "summary": "Search Countries",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "India",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "records": [
+                      {
+                        "countryOfOriginId": "ed0e241f-50f2-4956-b423-38614c7584fa",
+                        "countryOfOriginName": "India",
+                        "countryOfOriginSlug": "india",
+                        "countryOfOriginDescription": "Product is Made in India",
+                        "metaTitle": "India | Favric",
+                        "metaDescription": "Product is Made in India | Favric",
+                        "metaKeywords": "India | Favric",
+                        "uploadedBy": "99d0b65b-43cb-4878-baa5-4fc0a0b0d6f6",
+                        "lastModifiedBy": "99d0b65b-43cb-4878-baa5-4fc0a0b0d6f6",
+                        "deletedAt": null,
+                        "createdAt": "2026-06-22T11:47:29.126Z",
+                        "updatedAt": "2026-06-22T11:47:29.126Z",
+                        "uploader": {
+                          "userName": "mr.imaginatory@gmail.com"
+                        },
+                        "modifier": {
+                          "userName": "mr.imaginatory@gmail.com"
+                        }
+                      }
+                    ],
+                    "nextCursor": null
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/dimensions/searchDimension": {
+      "get": {
+        "summary": "Search Dimension",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "dimension",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "sample",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/product/dimensions/addDimension": {
       "post": {
         "summary": "Create Dimension",
@@ -2662,7 +3027,7 @@
                 "type": "object",
                 "properties": {}
               },
-              "example": "{\r\n    \"dimensionName\":\"SampleDimension{{$number.int(min=1,max=1000)}}\", \r\n    \"dimensionDescription\":\"This is an Sample Dimension Description\", \r\n    \"dimensionLength\":{{$number.int(min=1,max=1000)}}, \r\n    \"dimensionBreadth\":{{$number.int(min=1,max=1000)}}, \r\n    \"dimensionHeight\":{{$number.int(min=1,max=1000)}}\r\n}"
+              "example": "{\r\n    \"dimensionName\":\"SampleDimension{{$number.int(min=1,max=1000)}}\", \r\n    \"dimensionDescription\":\"This is an Sample Dimension Description\", \r\n    \"dimensionLength\":{{$number.int(min=1,max=1000)}}, \r\n    \"dimensionBreadth\":{{$number.int(min=1,max=1000)}}, \r\n    \"dimensionHeight\":{{$number.int(min=1,max=1000)}},\r\n    \"metricId\":\"3e814f06-7c8e-4519-a2f0-13319a559516\"\r\n}"
             }
           }
         },
@@ -2712,7 +3077,7 @@
                 "type": "object",
                 "properties": {}
               },
-              "example": "{\r\n    \"dimensionName\":\"SampleDimension{{$number.int(min=1,max=100)}}\", \r\n    \"dimensionDescription\":\"This is an Sample Dimension Description\", \r\n    \"dimensionLength\":{{$number.int(min=1,max=100)}}, \r\n    \"dimensionBreadth\":{{$number.int(min=1,max=100)}}, \r\n    \"dimensionHeight\":{{$number.int(min=1,max=100)}}\r\n}"
+              "example": "{\r\n    \"dimensionName\":\"SampleDimension{{$number.int(min=1,max=100)}}\", \r\n    \"dimensionDescription\":\"This is an Sample Dimension Description\", \r\n    \"dimensionLength\":{{$number.int(min=1,max=100)}}, \r\n    \"dimensionBreadth\":{{$number.int(min=1,max=100)}}, \r\n    \"dimensionHeight\":{{$number.int(min=1,max=100)}},\r\n    \"metricId\":\"3e814f06-7c8e-4519-a2f0-13319a559516\"\r\n}"
             }
           }
         },
@@ -3139,6 +3504,74 @@
         ]
       }
     },
+    "/product/fabrics/searchFabric": {
+      "get": {
+        "summary": "Search Fabrics",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "fabric",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "sample",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "records": [
+                      {
+                        "fabricId": "a533a673-7447-4f4a-ba39-47a1827a965a",
+                        "fabricName": "Cotton",
+                        "fabricSlug": "cotton",
+                        "fabricDescription": "This Fabric Is Made Up Of 100% Cotton",
+                        "metaTitle": "Cotton | Favric",
+                        "metaDescription": "This Fabric Is Made Up Of 100% Cotton | Favric",
+                        "metaKeywords": "Cotton | Favric",
+                        "uploadedBy": "99d0b65b-43cb-4878-baa5-4fc0a0b0d6f6",
+                        "lastModifiedBy": "99d0b65b-43cb-4878-baa5-4fc0a0b0d6f6",
+                        "deletedAt": null,
+                        "createdAt": "2026-06-22T11:49:28.825Z",
+                        "updatedAt": "2026-06-22T12:20:24.132Z",
+                        "uploader": {
+                          "userName": "mr.imaginatory@gmail.com"
+                        },
+                        "modifier": {
+                          "userName": "mr.imaginatory@gmail.com"
+                        }
+                      }
+                    ],
+                    "nextCursor": null
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/product/lengths/addLength": {
       "post": {
         "summary": "Add Length",
@@ -3153,7 +3586,7 @@
                 "type": "object",
                 "properties": {}
               },
-              "example": "{\r\n    \"lengthName\":\"Length{{$number.int(min=1,max=100)}}\",\r\n    \"lengthDescription\":\"THis is and Description for the Length Length{{$number.int(min=1,max=100)}}\",\r\n    \"lengthValue\":{{$number.int(min=1,max=100)}}\r\n}"
+              "example": "{\r\n    \"lengthName\":\"Length{{$number.int(min=1,max=100)}}\",\r\n    \"lengthDescription\":\"THis is and Description for the Length Length{{$number.int(min=1,max=100)}}\",\r\n    \"lengthValue\":{{$number.int(min=1,max=100)}},\r\n    \"metricId\":\"3e814f06-7c8e-4519-a2f0-13319a559516\"\r\n}"
             }
           },
           "required": true
@@ -3184,7 +3617,8 @@
                   }
                 }
               }
-            }
+            },
+            "headers": {}
           }
         },
         "security": [
@@ -3288,7 +3722,7 @@
                 "type": "object",
                 "properties": {}
               },
-              "example": "{\r\n    \"lengthName\":\"Length{{$number.int(min=1,max=100)}}\",\r\n    \"lengthDescription\":\"THis is and Description for the Length Length{{$number.int(min=1,max=100)}}\",\r\n    \"lengthValue\":{{$number.int(min=1,max=100)}}\r\n}"
+              "example": "{\r\n    \"lengthName\":\"Length{{$number.int(min=1,max=100)}}\",\r\n    \"lengthDescription\":\"THis is and Description for the Length Length{{$number.int(min=1,max=100)}}\",\r\n    \"lengthValue\":{{$number.int(min=1,max=100)}},\r\n    \"metricId\":\"3e814f06-7c8e-4519-a2f0-13319a559516\"\r\n}"
             }
           },
           "required": true
@@ -3365,6 +3799,401 @@
             "description": "",
             "required": true,
             "example": "183b6fc3-3e27-4440-affe-652d36edb8c4",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/lengths/searchLength": {
+      "get": {
+        "summary": "Search length",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "length",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "sample",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/metrics/getMetrics": {
+      "get": {
+        "summary": "Get All Metrics",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "records": [
+                      {
+                        "metricId": "b4b6cb96-b5bd-4fe3-aa69-e265f9a213bf",
+                        "metricName": "cm",
+                        "uploadedBy": null,
+                        "lastModifiedBy": null,
+                        "deletedAt": null,
+                        "createdAt": "2026-06-25T13:03:53.421Z",
+                        "updatedAt": "2026-06-25T13:03:53.421Z",
+                        "uploader": null,
+                        "modifier": null
+                      },
+                      {
+                        "metricId": "69931227-7522-4032-b7a3-5aaac12dd8d4",
+                        "metricName": "m",
+                        "uploadedBy": null,
+                        "lastModifiedBy": null,
+                        "deletedAt": null,
+                        "createdAt": "2026-06-25T13:03:53.421Z",
+                        "updatedAt": "2026-06-25T13:03:53.421Z",
+                        "uploader": null,
+                        "modifier": null
+                      },
+                      {
+                        "metricId": "4fd3e20d-6040-45ed-afec-4f4161c38eeb",
+                        "metricName": "mm",
+                        "uploadedBy": null,
+                        "lastModifiedBy": null,
+                        "deletedAt": null,
+                        "createdAt": "2026-06-25T13:03:53.421Z",
+                        "updatedAt": "2026-06-25T13:03:53.421Z",
+                        "uploader": null,
+                        "modifier": null
+                      },
+                      {
+                        "metricId": "aabef6f7-90f9-41c9-b62d-90a5055a28d2",
+                        "metricName": "in",
+                        "uploadedBy": null,
+                        "lastModifiedBy": null,
+                        "deletedAt": null,
+                        "createdAt": "2026-06-25T13:03:53.421Z",
+                        "updatedAt": "2026-06-25T13:03:53.421Z",
+                        "uploader": null,
+                        "modifier": null
+                      },
+                      {
+                        "metricId": "9c9d0621-0a15-43b7-8a1c-8788d493ae74",
+                        "metricName": "ft",
+                        "uploadedBy": null,
+                        "lastModifiedBy": null,
+                        "deletedAt": null,
+                        "createdAt": "2026-06-25T13:03:53.421Z",
+                        "updatedAt": "2026-06-25T13:03:53.421Z",
+                        "uploader": null,
+                        "modifier": null
+                      },
+                      {
+                        "metricId": "5d1aa53c-67b5-4956-8bf4-523ef83d31e4",
+                        "metricName": "kg",
+                        "uploadedBy": null,
+                        "lastModifiedBy": null,
+                        "deletedAt": null,
+                        "createdAt": "2026-06-25T13:03:53.421Z",
+                        "updatedAt": "2026-06-25T13:03:53.421Z",
+                        "uploader": null,
+                        "modifier": null
+                      },
+                      {
+                        "metricId": "d10a676e-7cd9-4e65-a629-b5755196c81b",
+                        "metricName": "g",
+                        "uploadedBy": null,
+                        "lastModifiedBy": null,
+                        "deletedAt": null,
+                        "createdAt": "2026-06-25T13:03:53.421Z",
+                        "updatedAt": "2026-06-25T13:03:53.421Z",
+                        "uploader": null,
+                        "modifier": null
+                      },
+                      {
+                        "metricId": "d1957be0-df81-479f-9cf5-fe06ed7dee88",
+                        "metricName": "mg",
+                        "uploadedBy": null,
+                        "lastModifiedBy": null,
+                        "deletedAt": null,
+                        "createdAt": "2026-06-25T13:03:53.421Z",
+                        "updatedAt": "2026-06-25T13:03:53.421Z",
+                        "uploader": null,
+                        "modifier": null
+                      },
+                      {
+                        "metricId": "00dbd607-fbee-4b44-b5dd-8938345edf59",
+                        "metricName": "lb",
+                        "uploadedBy": null,
+                        "lastModifiedBy": null,
+                        "deletedAt": null,
+                        "createdAt": "2026-06-25T13:03:53.421Z",
+                        "updatedAt": "2026-06-25T13:03:53.421Z",
+                        "uploader": null,
+                        "modifier": null
+                      },
+                      {
+                        "metricId": "7297be1e-c121-4d2e-9b8d-a53f9a822862",
+                        "metricName": "oz",
+                        "uploadedBy": null,
+                        "lastModifiedBy": null,
+                        "deletedAt": null,
+                        "createdAt": "2026-06-25T13:03:53.421Z",
+                        "updatedAt": "2026-06-25T13:03:53.421Z",
+                        "uploader": null,
+                        "modifier": null
+                      }
+                    ],
+                    "nextCursor": null
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/metrics/getMetric/{id}": {
+      "get": {
+        "summary": "Get metric By Id",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "b4b6cb96-b5bd-4fe3-aa69-e265f9a213bf",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/metrics/addMetric": {
+      "post": {
+        "summary": "Add Metrics",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "metricName": "km"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/metrics/updateMetric/{id}": {
+      "patch": {
+        "summary": "Update Metric",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "b7ebf960-38da-405f-b63c-2093e144d00c",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": {
+                "metricName": "kiloMeter"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/metrics/searchMetric": {
+      "get": {
+        "summary": "Search Metric",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "metric",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "k",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/metrics/deleteMetric/{id}": {
+      "delete": {
+        "summary": "Delete Metric",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "b7ebf960-38da-405f-b63c-2093e144d00c",
             "schema": {
               "type": "string"
             }
@@ -3620,6 +4449,74 @@
         ]
       }
     },
+    "/product/occasions/searchOccasion": {
+      "get": {
+        "summary": "Search occasions",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "occasion",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "sample",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "records": [
+                      {
+                        "occasionId": "69670632-cfa9-4193-b417-d8be3f1b7d84",
+                        "occasionName": "Diwali",
+                        "occasionSlug": "diwali",
+                        "occasionDescription": "Festival Of Lights Occurs During the October to November",
+                        "metaTitle": "Diwali | Favric",
+                        "metaDescription": "Diwali | Favric",
+                        "metaKeywords": "Diwali | Favric",
+                        "uploadedBy": "99d0b65b-43cb-4878-baa5-4fc0a0b0d6f6",
+                        "lastModifiedBy": "99d0b65b-43cb-4878-baa5-4fc0a0b0d6f6",
+                        "deletedAt": null,
+                        "createdAt": "2026-06-22T12:22:38.792Z",
+                        "updatedAt": "2026-06-22T12:23:18.063Z",
+                        "uploader": {
+                          "userName": "mr.imaginatory@gmail.com"
+                        },
+                        "modifier": {
+                          "userName": "mr.imaginatory@gmail.com"
+                        }
+                      }
+                    ],
+                    "nextCursor": null
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/product/patterns/addPattern": {
       "post": {
         "summary": "Add Pattern",
@@ -3846,6 +4743,74 @@
         ]
       }
     },
+    "/product/patterns/searchPattern": {
+      "get": {
+        "summary": "Search pattern",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "pattern",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "sample",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "records": [
+                      {
+                        "patternId": "e99d9222-3162-4563-8f94-54a37ae70828",
+                        "patternName": "Banarsi",
+                        "patternSlug": "banarsi",
+                        "patternDescription": "Banarsi Ethnic pattern",
+                        "metaTitle": "Banarsi | Favric",
+                        "metaDescription": "Banarsi | Favric",
+                        "metaKeywords": "Banarsi | Favric",
+                        "uploadedBy": "99d0b65b-43cb-4878-baa5-4fc0a0b0d6f6",
+                        "lastModifiedBy": "99d0b65b-43cb-4878-baa5-4fc0a0b0d6f6",
+                        "deletedAt": null,
+                        "createdAt": "2026-06-22T12:23:41.625Z",
+                        "updatedAt": "2026-06-22T12:23:41.625Z",
+                        "uploader": {
+                          "userName": "mr.imaginatory@gmail.com"
+                        },
+                        "modifier": {
+                          "userName": "mr.imaginatory@gmail.com"
+                        }
+                      }
+                    ],
+                    "nextCursor": null
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/product/productTypes/addProductType": {
       "post": {
         "summary": "Add ProductType",
@@ -4057,6 +5022,74 @@
                 }
               }
             }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/productTypes/searchProductType": {
+      "get": {
+        "summary": "Search productTypes",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "productType",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "sample",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "records": [
+                      {
+                        "productTypeId": "4444dfa3-5b52-4dd0-9a95-183df107cd68",
+                        "productTypeName": "Fetaured",
+                        "productTypeSlug": "fetaured",
+                        "productTypeDescription": "Featured Product",
+                        "metaTitle": "Fetaured | Favric",
+                        "metaDescription": "Fetaured | Favric",
+                        "metaKeywords": "Fetaured | Favric",
+                        "uploadedBy": "99d0b65b-43cb-4878-baa5-4fc0a0b0d6f6",
+                        "lastModifiedBy": "99d0b65b-43cb-4878-baa5-4fc0a0b0d6f6",
+                        "deletedAt": null,
+                        "createdAt": "2026-06-22T12:24:07.648Z",
+                        "updatedAt": "2026-06-22T12:24:07.648Z",
+                        "uploader": {
+                          "userName": "mr.imaginatory@gmail.com"
+                        },
+                        "modifier": {
+                          "userName": "mr.imaginatory@gmail.com"
+                        }
+                      }
+                    ],
+                    "nextCursor": null
+                  }
+                }
+              }
+            },
+            "headers": {}
           }
         },
         "security": [
@@ -4333,6 +5366,76 @@
         ]
       }
     },
+    "/product/shippingCharges/searchShippingCharge": {
+      "get": {
+        "summary": "Search Shipping Charges",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "shippingCharge",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "sample",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "records": [
+                      {
+                        "shippingChargeId": "929414d2-4244-4ebd-8ee4-4934cbb6f053",
+                        "shippingBaseCountry": "India",
+                        "shippingPrice": "100.00",
+                        "isFreeShipping": false,
+                        "shippingMinimumOrderAmount": "499.00",
+                        "shippingWeightSlabFrom": "1.00",
+                        "shippingWeightSlabTo": "2.00",
+                        "shippingStatus": "active",
+                        "shippingChargeCurrency": "INR",
+                        "uploadedBy": "99d0b65b-43cb-4878-baa5-4fc0a0b0d6f6",
+                        "lastModifiedBy": "99d0b65b-43cb-4878-baa5-4fc0a0b0d6f6",
+                        "deletedAt": null,
+                        "createdAt": "2026-06-22T12:24:38.886Z",
+                        "updatedAt": "2026-06-22T12:24:38.886Z",
+                        "uploader": {
+                          "userName": "mr.imaginatory@gmail.com"
+                        },
+                        "modifier": {
+                          "userName": "mr.imaginatory@gmail.com"
+                        }
+                      }
+                    ],
+                    "nextCursor": null
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/product/sizes/addSize": {
       "post": {
         "summary": "Add Size",
@@ -4555,6 +5658,45 @@
                 }
               }
             }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/sizes/searchSize": {
+      "get": {
+        "summary": "Search Sizes",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "size",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "sample",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
           }
         },
         "security": [
@@ -4862,6 +6004,81 @@
         ]
       }
     },
+    "/product/subcategories/searchSubCategory": {
+      "get": {
+        "summary": "Search SubCategory",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "subCategory",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "sample",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": {
+                    "records": [
+                      {
+                        "subCategoryId": "597f3d5f-5200-4bec-9e1b-a13d28982d26",
+                        "subcategoryName": "Cotton Sports Wear",
+                        "subcategorySlug": "cotton_sports_wear",
+                        "subcategoryDescription": "Cotton fabric Sports Wear",
+                        "subcategoryImage": "uploads/subcategory/subcategoryImage-1782133594204-720798676.webp",
+                        "categoryId": "6d235169-5e2c-4edd-9690-523b902279c3",
+                        "isFeatured": false,
+                        "isPopular": false,
+                        "metaTitle": "Cotton Sports Wear | Favric",
+                        "metaDescription": "Cotton fabric Sports Wear | Favric",
+                        "metaKeywords": "Cotton Sports Wear | Favric",
+                        "uploadedBy": "99d0b65b-43cb-4878-baa5-4fc0a0b0d6f6",
+                        "lastModifiedBy": "99d0b65b-43cb-4878-baa5-4fc0a0b0d6f6",
+                        "deletedAt": null,
+                        "createdAt": "2026-06-22T13:06:34.222Z",
+                        "updatedAt": "2026-06-22T13:06:34.222Z",
+                        "category": {
+                          "categoryName": "Sports"
+                        },
+                        "uploader": {
+                          "userName": "mr.imaginatory@gmail.com"
+                        },
+                        "modifier": {
+                          "userName": "mr.imaginatory@gmail.com"
+                        }
+                      }
+                    ],
+                    "nextCursor": null
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/product/weights/addWeight": {
       "post": {
         "summary": "Add Weight",
@@ -4878,7 +6095,8 @@
               },
               "example": {
                 "weightName": "One Kg",
-                "weightValue": "1"
+                "weightValue": "1",
+                "metricId": "3e814f06-7c8e-4519-a2f0-13319a559516"
               }
             }
           },
@@ -4932,7 +6150,8 @@
               },
               "example": {
                 "weightName": "One Kg",
-                "weightValue": "1000"
+                "weightValue": "1000",
+                "metricId": "3e814f06-7c8e-4519-a2f0-13319a559516"
               }
             }
           },
@@ -5100,6 +6319,45 @@
                 }
               }
             }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/product/weights/searchWeight": {
+      "get": {
+        "summary": "Search Weight",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "weight",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "sample",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
           }
         },
         "security": [
@@ -5372,6 +6630,1419 @@
           }
         ]
       }
+    },
+    "/countryCodes/getCountryCodes": {
+      "get": {
+        "summary": "Get Country Codes",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "success": true,
+                  "message": "Operation completed successfully.",
+                  "data": [
+                    {
+                      "countryCodeId": "c0d0c06e-ccb0-4c3b-a59f-b05d4642be6e",
+                      "countryName": "Afghanistan",
+                      "callingCode": "93",
+                      "isoCode": "AFG"
+                    },
+                    {
+                      "countryCodeId": "54db9dfa-90ca-4005-9e62-f0715b9163a3",
+                      "countryName": "Albania",
+                      "callingCode": "355",
+                      "isoCode": "ALB"
+                    },
+                    {
+                      "countryCodeId": "38f60465-ac4f-4fda-81e9-4c5fc537fa3a",
+                      "countryName": "Algeria",
+                      "callingCode": "213",
+                      "isoCode": "DZA"
+                    },
+                    {
+                      "countryCodeId": "15b39ac0-dc3e-4068-9b6f-e8fe2281d0ed",
+                      "countryName": "American Samoa",
+                      "callingCode": "1-684",
+                      "isoCode": "ASM"
+                    },
+                    {
+                      "countryCodeId": "7f2b20a7-8442-43db-909a-e7b802b3ecc1",
+                      "countryName": "Andorra",
+                      "callingCode": "376",
+                      "isoCode": "AND"
+                    },
+                    {
+                      "countryCodeId": "372e6642-bb0b-4eea-8fd6-4e4b43e84f47",
+                      "countryName": "Angola",
+                      "callingCode": "244",
+                      "isoCode": "AGO"
+                    },
+                    {
+                      "countryCodeId": "79ef6800-857f-4bfd-b69f-402d93a42268",
+                      "countryName": "Anguilla",
+                      "callingCode": "1-264",
+                      "isoCode": "AIA"
+                    },
+                    {
+                      "countryCodeId": "781be3cc-f6b4-49eb-9955-9318bd8175a1",
+                      "countryName": "Antigua and Barbuda",
+                      "callingCode": "1-268",
+                      "isoCode": "ATG"
+                    },
+                    {
+                      "countryCodeId": "e8d8dd72-331c-44a6-a9cc-3ff0dba665d9",
+                      "countryName": "Argentina",
+                      "callingCode": "54",
+                      "isoCode": "ARG"
+                    },
+                    {
+                      "countryCodeId": "5ea71f30-21db-42c5-972f-9620b7d448d7",
+                      "countryName": "Armenia",
+                      "callingCode": "374",
+                      "isoCode": "ARM"
+                    },
+                    {
+                      "countryCodeId": "f66abb76-3804-4607-b694-4123902d4128",
+                      "countryName": "Aruba",
+                      "callingCode": "297",
+                      "isoCode": "ABW"
+                    },
+                    {
+                      "countryCodeId": "ac56b240-98b4-4f92-b092-c2b91e5093cc",
+                      "countryName": "Australia",
+                      "callingCode": "61",
+                      "isoCode": "AUS"
+                    },
+                    {
+                      "countryCodeId": "949dcff4-a434-4f64-8b62-1de35c253e20",
+                      "countryName": "Austria",
+                      "callingCode": "43",
+                      "isoCode": "AUT"
+                    },
+                    {
+                      "countryCodeId": "a140433c-652b-4c55-b773-1aa807c19bed",
+                      "countryName": "Azerbaijan",
+                      "callingCode": "994",
+                      "isoCode": "AZE"
+                    },
+                    {
+                      "countryCodeId": "f05a5dfe-224f-414d-8a60-57b961dbefb5",
+                      "countryName": "Bahamas",
+                      "callingCode": "1-242",
+                      "isoCode": "BHS"
+                    },
+                    {
+                      "countryCodeId": "22e7723c-e7bb-401d-ae5f-93df4cf68a5a",
+                      "countryName": "Bahrain",
+                      "callingCode": "973",
+                      "isoCode": "BHR"
+                    },
+                    {
+                      "countryCodeId": "bc1d614b-40a3-4c3a-b1b1-49b03c7f97c1",
+                      "countryName": "Bangladesh",
+                      "callingCode": "880",
+                      "isoCode": "BGD"
+                    },
+                    {
+                      "countryCodeId": "34300ef5-e5cc-4133-b541-af3676e7b897",
+                      "countryName": "Barbados",
+                      "callingCode": "1-246",
+                      "isoCode": "BRB"
+                    },
+                    {
+                      "countryCodeId": "d410464b-813f-4a14-baf0-93bcd3323204",
+                      "countryName": "Belarus",
+                      "callingCode": "375",
+                      "isoCode": "BLR"
+                    },
+                    {
+                      "countryCodeId": "de30fe6f-68d0-48f5-b05f-0fc9836982ae",
+                      "countryName": "Belgium",
+                      "callingCode": "32",
+                      "isoCode": "BEL"
+                    },
+                    {
+                      "countryCodeId": "899fa055-f6f4-4f56-9fe3-b473fd43c6e9",
+                      "countryName": "Belize",
+                      "callingCode": "501",
+                      "isoCode": "BLZ"
+                    },
+                    {
+                      "countryCodeId": "ba5c43f7-f913-415e-bfde-3a63d79b0f82",
+                      "countryName": "Benin",
+                      "callingCode": "229",
+                      "isoCode": "BEN"
+                    },
+                    {
+                      "countryCodeId": "6fa81c61-3ef4-48eb-9e88-6213567673ee",
+                      "countryName": "Bermuda",
+                      "callingCode": "1-441",
+                      "isoCode": "BMU"
+                    },
+                    {
+                      "countryCodeId": "964a2939-7a54-4cdb-8915-2defe7c1d7ac",
+                      "countryName": "Bhutan",
+                      "callingCode": "975",
+                      "isoCode": "BTN"
+                    },
+                    {
+                      "countryCodeId": "facc4f4a-9ae3-4c38-b9c5-530aa53424a0",
+                      "countryName": "Bolivia",
+                      "callingCode": "591",
+                      "isoCode": "BOL"
+                    },
+                    {
+                      "countryCodeId": "a6346984-adde-466b-960b-fa9da2d4ae68",
+                      "countryName": "Bosnia and Herzegovina",
+                      "callingCode": "387",
+                      "isoCode": "BIH"
+                    },
+                    {
+                      "countryCodeId": "eb4019bb-dc82-4c69-aa14-2618c5795f23",
+                      "countryName": "Botswana",
+                      "callingCode": "267",
+                      "isoCode": "BWA"
+                    },
+                    {
+                      "countryCodeId": "c72e28c1-1fb5-4a46-a8d7-39cae063aee2",
+                      "countryName": "Brazil",
+                      "callingCode": "55",
+                      "isoCode": "BRA"
+                    },
+                    {
+                      "countryCodeId": "e6334849-94ca-4869-a4dc-57c307e1a202",
+                      "countryName": "British Virgin Islands",
+                      "callingCode": "1-284",
+                      "isoCode": "VGB"
+                    },
+                    {
+                      "countryCodeId": "99db81d0-f358-490f-a2ea-740490773177",
+                      "countryName": "Brunei",
+                      "callingCode": "673",
+                      "isoCode": "BRN"
+                    },
+                    {
+                      "countryCodeId": "23bae963-69a3-441a-adfc-57b2d78587d7",
+                      "countryName": "Bulgaria",
+                      "callingCode": "359",
+                      "isoCode": "BGR"
+                    },
+                    {
+                      "countryCodeId": "fde86ead-6ed4-4a02-9aba-2ab2c8001409",
+                      "countryName": "Burkina Faso",
+                      "callingCode": "226",
+                      "isoCode": "BFA"
+                    },
+                    {
+                      "countryCodeId": "9f4cf9d7-7a17-4d40-822c-d04ba378113f",
+                      "countryName": "Burundi",
+                      "callingCode": "257",
+                      "isoCode": "BDI"
+                    },
+                    {
+                      "countryCodeId": "bb8c900c-18fc-4efd-8034-14e1d5f4dae1",
+                      "countryName": "Cabo Verde",
+                      "callingCode": "238",
+                      "isoCode": "CPV"
+                    },
+                    {
+                      "countryCodeId": "1d5ff04c-9c1a-4144-9020-11d584716b96",
+                      "countryName": "Cambodia",
+                      "callingCode": "855",
+                      "isoCode": "KHM"
+                    },
+                    {
+                      "countryCodeId": "02183fc5-c69b-41d1-b970-29154a1deb20",
+                      "countryName": "Cameroon",
+                      "callingCode": "237",
+                      "isoCode": "CMR"
+                    },
+                    {
+                      "countryCodeId": "6442b5d0-817e-4c88-902e-85bd366d5820",
+                      "countryName": "Canada",
+                      "callingCode": "1",
+                      "isoCode": "CAN"
+                    },
+                    {
+                      "countryCodeId": "95b7274d-9987-4941-ae6e-f60b1a3d5ab1",
+                      "countryName": "Cayman Islands",
+                      "callingCode": "1-345",
+                      "isoCode": "CYM"
+                    },
+                    {
+                      "countryCodeId": "eaa3dcfc-585d-4e11-a23a-670a85e6d60f",
+                      "countryName": "Central African Republic",
+                      "callingCode": "236",
+                      "isoCode": "CAF"
+                    },
+                    {
+                      "countryCodeId": "7ba381e3-8a77-43e8-80bc-61a22b07ce4d",
+                      "countryName": "Chad",
+                      "callingCode": "235",
+                      "isoCode": "TCD"
+                    },
+                    {
+                      "countryCodeId": "43c3d1b4-8f3a-42fb-b5d2-0ccb0bcf0c90",
+                      "countryName": "Chile",
+                      "callingCode": "56",
+                      "isoCode": "CHL"
+                    },
+                    {
+                      "countryCodeId": "386f251e-b930-4db6-a7d1-e8c308b4589a",
+                      "countryName": "China",
+                      "callingCode": "86",
+                      "isoCode": "CHN"
+                    },
+                    {
+                      "countryCodeId": "d9dcbc88-ecba-4353-91f0-c7411d8b7d6b",
+                      "countryName": "Colombia",
+                      "callingCode": "57",
+                      "isoCode": "COL"
+                    },
+                    {
+                      "countryCodeId": "1a03442d-b4f5-4f6e-b442-9bbeff9b289c",
+                      "countryName": "Comoros",
+                      "callingCode": "269",
+                      "isoCode": "COM"
+                    },
+                    {
+                      "countryCodeId": "39bb0f06-d9bb-46c7-b4ef-e75d2ab4ca48",
+                      "countryName": "Congo",
+                      "callingCode": "242",
+                      "isoCode": "COG"
+                    },
+                    {
+                      "countryCodeId": "68d22577-835a-4988-9612-2897fcf61b9e",
+                      "countryName": "Cook Islands",
+                      "callingCode": "682",
+                      "isoCode": "COK"
+                    },
+                    {
+                      "countryCodeId": "5e22b5ad-e134-4496-adb2-8c24e1076553",
+                      "countryName": "Costa Rica",
+                      "callingCode": "506",
+                      "isoCode": "CRI"
+                    },
+                    {
+                      "countryCodeId": "c3e4c28d-0d7c-485c-9456-af8a9395e578",
+                      "countryName": "Côte d'Ivoire",
+                      "callingCode": "225",
+                      "isoCode": "CIV"
+                    },
+                    {
+                      "countryCodeId": "ddd12e56-f1ba-4121-a6e9-aca5033adea1",
+                      "countryName": "Croatia",
+                      "callingCode": "385",
+                      "isoCode": "HRV"
+                    },
+                    {
+                      "countryCodeId": "f663917b-dd26-41da-b935-3d6adc3e5dcb",
+                      "countryName": "Cuba",
+                      "callingCode": "53",
+                      "isoCode": "CUB"
+                    },
+                    {
+                      "countryCodeId": "ef80fd44-25bd-438f-8f64-5da229dec4a7",
+                      "countryName": "Curaçao",
+                      "callingCode": "599",
+                      "isoCode": "CUW"
+                    },
+                    {
+                      "countryCodeId": "f815e1eb-87a2-4ad7-89c0-26dad505326b",
+                      "countryName": "Cyprus",
+                      "callingCode": "357",
+                      "isoCode": "CYP"
+                    },
+                    {
+                      "countryCodeId": "b6e19284-8ee1-492d-9c3f-a9aea5b46699",
+                      "countryName": "Czech Republic (Czechia)",
+                      "callingCode": "420",
+                      "isoCode": "CZE"
+                    },
+                    {
+                      "countryCodeId": "bbecd68c-d994-4acd-ba36-514c4e4b94a8",
+                      "countryName": "Denmark",
+                      "callingCode": "45",
+                      "isoCode": "DNK"
+                    },
+                    {
+                      "countryCodeId": "42afd668-7619-41f6-b629-5f4828c8b391",
+                      "countryName": "Djibouti",
+                      "callingCode": "253",
+                      "isoCode": "DJI"
+                    },
+                    {
+                      "countryCodeId": "8223e151-041a-4c61-b406-d30c4dc34028",
+                      "countryName": "Dominica",
+                      "callingCode": "1-767",
+                      "isoCode": "DMA"
+                    },
+                    {
+                      "countryCodeId": "bc99992f-6b69-4a94-9060-546328b5d828",
+                      "countryName": "Dominican Republic",
+                      "callingCode": "1-809, 1-829, 1-849",
+                      "isoCode": "DOM"
+                    },
+                    {
+                      "countryCodeId": "034a3ef2-d606-4868-b71a-c26b83550265",
+                      "countryName": "DR Congo",
+                      "callingCode": "243",
+                      "isoCode": "COD"
+                    },
+                    {
+                      "countryCodeId": "3b71d5b9-025c-40e7-b1f5-9e6f49df8a5f",
+                      "countryName": "Ecuador",
+                      "callingCode": "593",
+                      "isoCode": "ECU"
+                    },
+                    {
+                      "countryCodeId": "66055520-9b3b-4b7e-88ff-c98f11fbdfef",
+                      "countryName": "Egypt",
+                      "callingCode": "20",
+                      "isoCode": "EGY"
+                    },
+                    {
+                      "countryCodeId": "dc82dbe6-a5e6-442f-89ed-d2746201a174",
+                      "countryName": "El Salvador",
+                      "callingCode": "503",
+                      "isoCode": "SLV"
+                    },
+                    {
+                      "countryCodeId": "5f4216e2-a791-4b28-ac03-fe236d463438",
+                      "countryName": "Equatorial Guinea",
+                      "callingCode": "240",
+                      "isoCode": "GNQ"
+                    },
+                    {
+                      "countryCodeId": "d429fe77-c7a6-4203-a63d-61572d86b09f",
+                      "countryName": "Eritrea",
+                      "callingCode": "291",
+                      "isoCode": "ERI"
+                    },
+                    {
+                      "countryCodeId": "785f6bee-9cb2-4738-b5c9-16a7ac5abfd1",
+                      "countryName": "Estonia",
+                      "callingCode": "372",
+                      "isoCode": "EST"
+                    },
+                    {
+                      "countryCodeId": "3a3e1d17-c9e3-44ce-8124-18f2affd987a",
+                      "countryName": "Eswatini",
+                      "callingCode": "268",
+                      "isoCode": "SWZ"
+                    },
+                    {
+                      "countryCodeId": "ba9ee7d3-32fb-49cf-bb10-256ccf148049",
+                      "countryName": "Ethiopia",
+                      "callingCode": "251",
+                      "isoCode": "ETH"
+                    },
+                    {
+                      "countryCodeId": "fbfeb18d-38fc-44df-b737-80bf80db97d2",
+                      "countryName": "Faeroe Islands",
+                      "callingCode": "298",
+                      "isoCode": "FRO"
+                    },
+                    {
+                      "countryCodeId": "112e53b0-1cb6-4553-a1f4-7f547c146fb9",
+                      "countryName": "Falkland Islands",
+                      "callingCode": "500",
+                      "isoCode": "FLK"
+                    },
+                    {
+                      "countryCodeId": "9ae907ff-8e61-453f-b316-b930bec213d8",
+                      "countryName": "Fiji",
+                      "callingCode": "679",
+                      "isoCode": "FJI"
+                    },
+                    {
+                      "countryCodeId": "5bc8280b-1435-4863-94e9-bf3c55c32cbf",
+                      "countryName": "Finland",
+                      "callingCode": "358",
+                      "isoCode": "FIN"
+                    },
+                    {
+                      "countryCodeId": "86910abb-15f4-4ae6-b32e-2ced6b05548f",
+                      "countryName": "France",
+                      "callingCode": "33",
+                      "isoCode": "FRA"
+                    },
+                    {
+                      "countryCodeId": "6dd0f64d-e84f-4a6b-b077-fca1eee6d9c4",
+                      "countryName": "French Polynesia",
+                      "callingCode": "689",
+                      "isoCode": "PYF"
+                    },
+                    {
+                      "countryCodeId": "5bbf47b3-4e35-4b0a-9ccf-8ab12a9a85d9",
+                      "countryName": "Gabon",
+                      "callingCode": "241",
+                      "isoCode": "GAB"
+                    },
+                    {
+                      "countryCodeId": "3f2eb417-bb98-40d9-a290-af8ffee53151",
+                      "countryName": "Gambia",
+                      "callingCode": "220",
+                      "isoCode": "GMB"
+                    },
+                    {
+                      "countryCodeId": "cc06a464-9e9f-49c7-9511-0837e461184d",
+                      "countryName": "Georgia",
+                      "callingCode": "995",
+                      "isoCode": "GEO"
+                    },
+                    {
+                      "countryCodeId": "8e0c88d6-af26-4a33-8c3d-033694ce38f1",
+                      "countryName": "Germany",
+                      "callingCode": "49",
+                      "isoCode": "DEU"
+                    },
+                    {
+                      "countryCodeId": "2074118e-b5ce-47b1-bbf1-4153ec380b59",
+                      "countryName": "Ghana",
+                      "callingCode": "233",
+                      "isoCode": "GHA"
+                    },
+                    {
+                      "countryCodeId": "140226d0-7382-47b5-a87b-b72955c2c945",
+                      "countryName": "Gibraltar",
+                      "callingCode": "350",
+                      "isoCode": "GIB"
+                    },
+                    {
+                      "countryCodeId": "99f5cfad-5e2b-473f-af92-9cc0703b2d44",
+                      "countryName": "Greece",
+                      "callingCode": "30",
+                      "isoCode": "GRC"
+                    },
+                    {
+                      "countryCodeId": "01298d9a-86b9-40e9-b7bc-46c78e4d56ff",
+                      "countryName": "Greenland",
+                      "callingCode": "299",
+                      "isoCode": "GRL"
+                    },
+                    {
+                      "countryCodeId": "36223698-c620-4f2c-8f3a-7ebc9d21326a",
+                      "countryName": "Grenada",
+                      "callingCode": "1-473",
+                      "isoCode": "GRD"
+                    },
+                    {
+                      "countryCodeId": "6ee392fc-a058-40ab-bf69-9e05c431200d",
+                      "countryName": "Guam",
+                      "callingCode": "1-671",
+                      "isoCode": "GUM"
+                    },
+                    {
+                      "countryCodeId": "7a04241b-2cb2-46b5-8d26-c136f1d3f66e",
+                      "countryName": "Guatemala",
+                      "callingCode": "502",
+                      "isoCode": "GTM"
+                    },
+                    {
+                      "countryCodeId": "4dfd43d8-cebe-4301-8aa7-41da26f9fd0c",
+                      "countryName": "Guinea",
+                      "callingCode": "224",
+                      "isoCode": "GIN"
+                    },
+                    {
+                      "countryCodeId": "6ba580c1-4d11-4b0a-9906-36f634580245",
+                      "countryName": "Guinea-Bissau",
+                      "callingCode": "245",
+                      "isoCode": "GNB"
+                    },
+                    {
+                      "countryCodeId": "7e86fbb5-5943-48f0-87df-76bbfb974a51",
+                      "countryName": "Guyana",
+                      "callingCode": "592",
+                      "isoCode": "GUY"
+                    },
+                    {
+                      "countryCodeId": "9b3d2a7c-ebbd-41a6-b045-7c2b3eeec09b",
+                      "countryName": "Haiti",
+                      "callingCode": "509",
+                      "isoCode": "HTI"
+                    },
+                    {
+                      "countryCodeId": "aec69cb0-961c-45a5-a591-4935c24bf947",
+                      "countryName": "Holy See",
+                      "callingCode": "379",
+                      "isoCode": "VAT"
+                    },
+                    {
+                      "countryCodeId": "97156a74-75e0-4bba-a646-06a8bb3a3e65",
+                      "countryName": "Honduras",
+                      "callingCode": "504",
+                      "isoCode": "HND"
+                    },
+                    {
+                      "countryCodeId": "8d6410f9-5128-44d2-b3f8-a4cb49e4dfcc",
+                      "countryName": "Hong Kong",
+                      "callingCode": "852",
+                      "isoCode": "HKG"
+                    },
+                    {
+                      "countryCodeId": "7255e324-7207-4c2e-8a62-492a581c696c",
+                      "countryName": "Hungary",
+                      "callingCode": "36",
+                      "isoCode": "HUN"
+                    },
+                    {
+                      "countryCodeId": "1d2e083b-498e-4ff9-aa87-04545922dea2",
+                      "countryName": "Iceland",
+                      "callingCode": "354",
+                      "isoCode": "ISL"
+                    },
+                    {
+                      "countryCodeId": "ebf2cbe8-b173-4ff8-9f3d-bef37f67107f",
+                      "countryName": "India",
+                      "callingCode": "91",
+                      "isoCode": "IND"
+                    },
+                    {
+                      "countryCodeId": "8fe441ad-f1e6-45b4-985c-fa4c881b7bc7",
+                      "countryName": "Indonesia",
+                      "callingCode": "62",
+                      "isoCode": "IDN"
+                    },
+                    {
+                      "countryCodeId": "5268d3c5-c515-4f1e-9eb5-86f542395255",
+                      "countryName": "Iran",
+                      "callingCode": "98",
+                      "isoCode": "IRN"
+                    },
+                    {
+                      "countryCodeId": "4e401f69-76b8-4803-8b47-b50fff3701e5",
+                      "countryName": "Iraq",
+                      "callingCode": "964",
+                      "isoCode": "IRQ"
+                    },
+                    {
+                      "countryCodeId": "f05bcb5e-ac55-4415-97c7-6e78b1910c61",
+                      "countryName": "Ireland",
+                      "callingCode": "353",
+                      "isoCode": "IRL"
+                    },
+                    {
+                      "countryCodeId": "bdbc4cf0-faa7-46fa-8bae-17bd5d82999a",
+                      "countryName": "Isle of Man",
+                      "callingCode": "44-1624",
+                      "isoCode": "IMN"
+                    },
+                    {
+                      "countryCodeId": "3a1af246-f7bd-4331-b072-d6aec844cbce",
+                      "countryName": "Israel",
+                      "callingCode": "972",
+                      "isoCode": "ISR"
+                    },
+                    {
+                      "countryCodeId": "db1b5380-a7cd-4bd6-8331-7c6683749802",
+                      "countryName": "Italy",
+                      "callingCode": "39",
+                      "isoCode": "ITA"
+                    },
+                    {
+                      "countryCodeId": "521cd064-73be-4b8c-9fa2-599370c439d9",
+                      "countryName": "Jamaica",
+                      "callingCode": "1-876",
+                      "isoCode": "JAM"
+                    },
+                    {
+                      "countryCodeId": "146e7443-f011-4158-898f-ad10902cd22a",
+                      "countryName": "Japan",
+                      "callingCode": "81",
+                      "isoCode": "JPN"
+                    },
+                    {
+                      "countryCodeId": "1cf1adf0-c890-4292-946b-df25a8c3fd32",
+                      "countryName": "Jordan",
+                      "callingCode": "962",
+                      "isoCode": "JOR"
+                    },
+                    {
+                      "countryCodeId": "eecfd439-b6bb-4512-bb53-427692f387ef",
+                      "countryName": "Kazakhstan",
+                      "callingCode": "7",
+                      "isoCode": "KAZ"
+                    },
+                    {
+                      "countryCodeId": "c37bb967-cf93-4ed7-9e15-612088e5386f",
+                      "countryName": "Kenya",
+                      "callingCode": "254",
+                      "isoCode": "KEN"
+                    },
+                    {
+                      "countryCodeId": "ac22b97c-14df-4233-b40d-967babc076a5",
+                      "countryName": "Kiribati",
+                      "callingCode": "686",
+                      "isoCode": "KIR"
+                    },
+                    {
+                      "countryCodeId": "9dd40f89-1db3-4643-93ef-a94ae99bee81",
+                      "countryName": "Kuwait",
+                      "callingCode": "965",
+                      "isoCode": "KWT"
+                    },
+                    {
+                      "countryCodeId": "5895347d-9b86-464d-a9f5-3b945bbbff81",
+                      "countryName": "Kyrgyzstan",
+                      "callingCode": "996",
+                      "isoCode": "KGZ"
+                    },
+                    {
+                      "countryCodeId": "d963f9e6-b6b0-45ce-9cb3-bd574f69f69b",
+                      "countryName": "Laos",
+                      "callingCode": "856",
+                      "isoCode": "LAO"
+                    },
+                    {
+                      "countryCodeId": "5ad85f1f-21bf-4bfb-aaca-adb2a4bdcba4",
+                      "countryName": "Latvia",
+                      "callingCode": "371",
+                      "isoCode": "LVA"
+                    },
+                    {
+                      "countryCodeId": "fa939a63-4b22-4811-b334-002cf3dd1bca",
+                      "countryName": "Lebanon",
+                      "callingCode": "961",
+                      "isoCode": "LBN"
+                    },
+                    {
+                      "countryCodeId": "29f71d6c-48df-4212-8d04-88a8f627d77c",
+                      "countryName": "Lesotho",
+                      "callingCode": "266",
+                      "isoCode": "LSO"
+                    },
+                    {
+                      "countryCodeId": "6fac28d8-f046-43ca-8781-43d2d8869b99",
+                      "countryName": "Liberia",
+                      "callingCode": "231",
+                      "isoCode": "LBR"
+                    },
+                    {
+                      "countryCodeId": "a8580377-f59e-4905-9a9e-075f8247b424",
+                      "countryName": "Libya",
+                      "callingCode": "218",
+                      "isoCode": "LBY"
+                    },
+                    {
+                      "countryCodeId": "f5f41d9f-ff7a-4548-9918-eaf9d86fc554",
+                      "countryName": "Liechtenstein",
+                      "callingCode": "423",
+                      "isoCode": "LIE"
+                    },
+                    {
+                      "countryCodeId": "3f5efade-c347-4014-97c2-ae1543395547",
+                      "countryName": "Lithuania",
+                      "callingCode": "370",
+                      "isoCode": "LTU"
+                    },
+                    {
+                      "countryCodeId": "6a37cda9-124b-457b-bdf2-3da5b8493eb3",
+                      "countryName": "Luxembourg",
+                      "callingCode": "352",
+                      "isoCode": "LUX"
+                    },
+                    {
+                      "countryCodeId": "53dd05e5-ce7d-4e21-ba4a-b7254e2b54a7",
+                      "countryName": "Macao",
+                      "callingCode": "853",
+                      "isoCode": "MAC"
+                    },
+                    {
+                      "countryCodeId": "8dba6f99-1251-4eb7-95b8-2dccddec3caa",
+                      "countryName": "Madagascar",
+                      "callingCode": "261",
+                      "isoCode": "MDG"
+                    },
+                    {
+                      "countryCodeId": "a594a974-11fc-49d3-8774-df0818f3f5fd",
+                      "countryName": "Malawi",
+                      "callingCode": "265",
+                      "isoCode": "MWI"
+                    },
+                    {
+                      "countryCodeId": "81b5af84-8fda-48ec-875f-193f22a96079",
+                      "countryName": "Malaysia",
+                      "callingCode": "60",
+                      "isoCode": "MYS"
+                    },
+                    {
+                      "countryCodeId": "f10167ab-140e-4fcb-b44e-fa31384e3c72",
+                      "countryName": "Maldives",
+                      "callingCode": "960",
+                      "isoCode": "MDV"
+                    },
+                    {
+                      "countryCodeId": "dce0f1dc-7db4-4648-a4bb-59fd340e066c",
+                      "countryName": "Mali",
+                      "callingCode": "223",
+                      "isoCode": "MLI"
+                    },
+                    {
+                      "countryCodeId": "27d44589-45be-4202-b03c-62bc0ddb81aa",
+                      "countryName": "Malta",
+                      "callingCode": "356",
+                      "isoCode": "MLT"
+                    },
+                    {
+                      "countryCodeId": "292340c9-e574-473b-840b-e1947156c537",
+                      "countryName": "Marshall Islands",
+                      "callingCode": "692",
+                      "isoCode": "MHL"
+                    },
+                    {
+                      "countryCodeId": "8d6b5242-f5a4-4bd2-95d5-050ceadb3fe2",
+                      "countryName": "Mauritania",
+                      "callingCode": "222",
+                      "isoCode": "MRT"
+                    },
+                    {
+                      "countryCodeId": "c8e7160d-1b94-4e15-8253-905684df0f2b",
+                      "countryName": "Mauritius",
+                      "callingCode": "230",
+                      "isoCode": "MUS"
+                    },
+                    {
+                      "countryCodeId": "bc7b2cf6-e9fa-4ad1-a928-b9e4748d31d5",
+                      "countryName": "Mayotte",
+                      "callingCode": "262",
+                      "isoCode": "MYT"
+                    },
+                    {
+                      "countryCodeId": "977754c5-6a70-49c3-be03-dbd7b2003487",
+                      "countryName": "Mexico",
+                      "callingCode": "52",
+                      "isoCode": "MEX"
+                    },
+                    {
+                      "countryCodeId": "3fd4609b-313d-4392-84fd-f8eb5006f06f",
+                      "countryName": "Micronesia",
+                      "callingCode": "691",
+                      "isoCode": "FSM"
+                    },
+                    {
+                      "countryCodeId": "3ee579b8-b873-4e8f-b7af-271a7a2508d3",
+                      "countryName": "Moldova",
+                      "callingCode": "373",
+                      "isoCode": "MDA"
+                    },
+                    {
+                      "countryCodeId": "eaa86a35-3e52-4f3d-b004-0b40f9a97422",
+                      "countryName": "Monaco",
+                      "callingCode": "377",
+                      "isoCode": "MCO"
+                    },
+                    {
+                      "countryCodeId": "f7e636e0-6970-4511-8b6d-964b26122438",
+                      "countryName": "Mongolia",
+                      "callingCode": "976",
+                      "isoCode": "MNG"
+                    },
+                    {
+                      "countryCodeId": "9d3629e0-69d9-4791-98c0-ebb49a702670",
+                      "countryName": "Montenegro",
+                      "callingCode": "382",
+                      "isoCode": "MNE"
+                    },
+                    {
+                      "countryCodeId": "e8053c5a-401e-4246-96cd-f105ba9efc15",
+                      "countryName": "Montserrat",
+                      "callingCode": "1-664",
+                      "isoCode": "MSR"
+                    },
+                    {
+                      "countryCodeId": "0eac13f4-a7b8-444d-9b73-adbfdf9cbcfe",
+                      "countryName": "Morocco",
+                      "callingCode": "212",
+                      "isoCode": "MAR"
+                    },
+                    {
+                      "countryCodeId": "8a82f40f-4f2e-480e-aa43-936c71feacb1",
+                      "countryName": "Mozambique",
+                      "callingCode": "258",
+                      "isoCode": "MOZ"
+                    },
+                    {
+                      "countryCodeId": "12f0f4ce-b8ee-4196-9198-53abd3407e84",
+                      "countryName": "Myanmar",
+                      "callingCode": "95",
+                      "isoCode": "MMR"
+                    },
+                    {
+                      "countryCodeId": "9d0a569b-6e1f-46bd-ac49-962521c873d8",
+                      "countryName": "Namibia",
+                      "callingCode": "264",
+                      "isoCode": "NAM"
+                    },
+                    {
+                      "countryCodeId": "f91e0843-8bb8-4548-92e4-4da66d76dde5",
+                      "countryName": "Nauru",
+                      "callingCode": "674",
+                      "isoCode": "NRU"
+                    },
+                    {
+                      "countryCodeId": "59b70188-ab36-441b-ab04-5f9330c79a9d",
+                      "countryName": "Nepal",
+                      "callingCode": "977",
+                      "isoCode": "NPL"
+                    },
+                    {
+                      "countryCodeId": "a0ddbee4-eb10-4dce-8daa-190adf5ed412",
+                      "countryName": "Netherlands",
+                      "callingCode": "31",
+                      "isoCode": "NLD"
+                    },
+                    {
+                      "countryCodeId": "0b5a3a6c-1994-400d-bfe7-8411ec06c7aa",
+                      "countryName": "New Caledonia",
+                      "callingCode": "687",
+                      "isoCode": "NCL"
+                    },
+                    {
+                      "countryCodeId": "02fbc56d-0185-445e-9e82-61b39ce5c2cf",
+                      "countryName": "New Zealand",
+                      "callingCode": "64",
+                      "isoCode": "NZL"
+                    },
+                    {
+                      "countryCodeId": "01b88c8c-06b1-47d4-b068-91a19c9a470e",
+                      "countryName": "Nicaragua",
+                      "callingCode": "505",
+                      "isoCode": "NIC"
+                    },
+                    {
+                      "countryCodeId": "a60aee5b-d2b3-497f-9b5f-bea1f873e471",
+                      "countryName": "Niger",
+                      "callingCode": "227",
+                      "isoCode": "NER"
+                    },
+                    {
+                      "countryCodeId": "b77026dc-02ec-46bf-9035-1248a65d1bec",
+                      "countryName": "Nigeria",
+                      "callingCode": "234",
+                      "isoCode": "NGA"
+                    },
+                    {
+                      "countryCodeId": "54b3146c-b1c5-4f79-b310-319668078933",
+                      "countryName": "Niue",
+                      "callingCode": "683",
+                      "isoCode": "NIU"
+                    },
+                    {
+                      "countryCodeId": "1f39e141-5834-4591-bcd3-0a17b45a9367",
+                      "countryName": "North Korea",
+                      "callingCode": "850",
+                      "isoCode": "PRK"
+                    },
+                    {
+                      "countryCodeId": "7d96a693-3c99-4e97-8589-a9709c7d6ce8",
+                      "countryName": "North Macedonia",
+                      "callingCode": "389",
+                      "isoCode": "MKD"
+                    },
+                    {
+                      "countryCodeId": "4ec66e67-81f6-4176-aec0-66cfe4dd316b",
+                      "countryName": "Northern Mariana Islands",
+                      "callingCode": "1-670",
+                      "isoCode": "MNP"
+                    },
+                    {
+                      "countryCodeId": "e95b7a1d-4b11-4bd0-846d-c10d61f7252e",
+                      "countryName": "Norway",
+                      "callingCode": "47",
+                      "isoCode": "NOR"
+                    },
+                    {
+                      "countryCodeId": "7df364ab-4275-4adf-a275-eda6c1ebee17",
+                      "countryName": "Oman",
+                      "callingCode": "968",
+                      "isoCode": "OMN"
+                    },
+                    {
+                      "countryCodeId": "7f55eb0b-b8ae-49f1-a478-aa8b6ca6ecba",
+                      "countryName": "Pakistan",
+                      "callingCode": "92",
+                      "isoCode": "PAK"
+                    },
+                    {
+                      "countryCodeId": "2da35fdc-dcd1-4198-9ad7-b2070a883d00",
+                      "countryName": "Palau",
+                      "callingCode": "680",
+                      "isoCode": "PLW"
+                    },
+                    {
+                      "countryCodeId": "b4c823a4-e4a2-4fa1-be90-13e9e8b62ccf",
+                      "countryName": "Panama",
+                      "callingCode": "507",
+                      "isoCode": "PAN"
+                    },
+                    {
+                      "countryCodeId": "9802003b-8161-4be6-a664-6048344609c8",
+                      "countryName": "Papua New Guinea",
+                      "callingCode": "675",
+                      "isoCode": "PNG"
+                    },
+                    {
+                      "countryCodeId": "14a71ac6-0242-4742-9820-69eca8a9613d",
+                      "countryName": "Paraguay",
+                      "callingCode": "595",
+                      "isoCode": "PRY"
+                    },
+                    {
+                      "countryCodeId": "2b4177f1-1cc7-4877-83f7-88d2cee8a783",
+                      "countryName": "Peru",
+                      "callingCode": "51",
+                      "isoCode": "PER"
+                    },
+                    {
+                      "countryCodeId": "e5b34381-1257-4880-be3e-139e0dc015e9",
+                      "countryName": "Philippines",
+                      "callingCode": "63",
+                      "isoCode": "PHL"
+                    },
+                    {
+                      "countryCodeId": "4be47bf5-a5a8-440c-b4e8-f260c12de65b",
+                      "countryName": "Poland",
+                      "callingCode": "48",
+                      "isoCode": "POL"
+                    },
+                    {
+                      "countryCodeId": "0bf1d585-ac80-44fa-93a6-249da4fed377",
+                      "countryName": "Portugal",
+                      "callingCode": "351",
+                      "isoCode": "PRT"
+                    },
+                    {
+                      "countryCodeId": "1c8f2e7b-1f67-4859-b464-5df34730d164",
+                      "countryName": "Puerto Rico",
+                      "callingCode": "1-787, 1-939",
+                      "isoCode": "PRI"
+                    },
+                    {
+                      "countryCodeId": "051d2dc6-1dc0-44ae-8d85-4f393fc36706",
+                      "countryName": "Qatar",
+                      "callingCode": "974",
+                      "isoCode": "QAT"
+                    },
+                    {
+                      "countryCodeId": "df5ba1da-3e1e-4759-b831-b783a7902a3f",
+                      "countryName": "Réunion",
+                      "callingCode": "262",
+                      "isoCode": "REU"
+                    },
+                    {
+                      "countryCodeId": "27d45a8f-5712-437d-b0c7-bcc4bfca6dbe",
+                      "countryName": "Romania",
+                      "callingCode": "40",
+                      "isoCode": "ROU"
+                    },
+                    {
+                      "countryCodeId": "381fa04c-c3bd-48dd-b8a5-9078378450a7",
+                      "countryName": "Russia",
+                      "callingCode": "7",
+                      "isoCode": "RUS"
+                    },
+                    {
+                      "countryCodeId": "bce8e668-3fea-46d7-a0e5-ac37089cd1f2",
+                      "countryName": "Rwanda",
+                      "callingCode": "250",
+                      "isoCode": "RWA"
+                    },
+                    {
+                      "countryCodeId": "590f6b64-63b5-490a-8e8a-be52a927e622",
+                      "countryName": "Saint Barthelemy",
+                      "callingCode": "590",
+                      "isoCode": "BLM"
+                    },
+                    {
+                      "countryCodeId": "7895448f-1d2d-4beb-bf68-6d72b838bcc8",
+                      "countryName": "Saint Helena",
+                      "callingCode": "290",
+                      "isoCode": "SHN"
+                    },
+                    {
+                      "countryCodeId": "05747c23-a1ae-42c0-8b05-8829b965638e",
+                      "countryName": "Saint Kitts & Nevis",
+                      "callingCode": "1-869",
+                      "isoCode": "KNA"
+                    },
+                    {
+                      "countryCodeId": "e9a36dc6-56ac-414c-81c9-5b2e6b07a770",
+                      "countryName": "Saint Lucia",
+                      "callingCode": "1-758",
+                      "isoCode": "LCA"
+                    },
+                    {
+                      "countryCodeId": "40d6d1bf-9f5e-48f8-a42b-7cce70922478",
+                      "countryName": "Saint Martin",
+                      "callingCode": "590",
+                      "isoCode": "MAF"
+                    },
+                    {
+                      "countryCodeId": "eef560e9-97ae-4681-8d20-000b08c88ba6",
+                      "countryName": "Saint Pierre & Miquelon",
+                      "callingCode": "508",
+                      "isoCode": "SPM"
+                    },
+                    {
+                      "countryCodeId": "4fc097e7-5394-4943-92ba-a4842675e4db",
+                      "countryName": "Samoa",
+                      "callingCode": "685",
+                      "isoCode": "WSM"
+                    },
+                    {
+                      "countryCodeId": "072c8d57-3241-42a6-8fe1-29dcb6c35fec",
+                      "countryName": "San Marino",
+                      "callingCode": "378",
+                      "isoCode": "SMR"
+                    },
+                    {
+                      "countryCodeId": "e7fcfd05-c21c-4ff2-a2d6-3f5d7e2ea5b7",
+                      "countryName": "Sao Tome & Principe",
+                      "callingCode": "239",
+                      "isoCode": "STP"
+                    },
+                    {
+                      "countryCodeId": "b655e297-ac60-4eff-beda-fc04b698c068",
+                      "countryName": "Saudi Arabia",
+                      "callingCode": "966",
+                      "isoCode": "SAU"
+                    },
+                    {
+                      "countryCodeId": "3e6ebe10-64e6-4a5f-a11a-d8d46a28d2a1",
+                      "countryName": "Senegal",
+                      "callingCode": "221",
+                      "isoCode": "SEN"
+                    },
+                    {
+                      "countryCodeId": "b6818069-ac61-4eb9-8ba5-69a5e0a7de86",
+                      "countryName": "Serbia",
+                      "callingCode": "381",
+                      "isoCode": "SRB"
+                    },
+                    {
+                      "countryCodeId": "58526b57-17b7-4efb-a6f4-9156eb5d0f01",
+                      "countryName": "Seychelles",
+                      "callingCode": "248",
+                      "isoCode": "SYC"
+                    },
+                    {
+                      "countryCodeId": "c522f6ac-afad-45bc-8cd1-f43ac1a61ded",
+                      "countryName": "Sierra Leone",
+                      "callingCode": "232",
+                      "isoCode": "SLE"
+                    },
+                    {
+                      "countryCodeId": "34c9f679-f1f4-4ed0-b0b5-805cd25d7e3d",
+                      "countryName": "Singapore",
+                      "callingCode": "65",
+                      "isoCode": "SGP"
+                    },
+                    {
+                      "countryCodeId": "27144b04-a889-4ebd-a82b-b874e01a141a",
+                      "countryName": "Sint Maarten",
+                      "callingCode": "1-721",
+                      "isoCode": "SXM"
+                    },
+                    {
+                      "countryCodeId": "9336a4b8-eb22-4b61-9589-b2d6753a190c",
+                      "countryName": "Slovakia",
+                      "callingCode": "421",
+                      "isoCode": "SVK"
+                    },
+                    {
+                      "countryCodeId": "2266e377-2ec4-4426-8981-40e51315183d",
+                      "countryName": "Slovenia",
+                      "callingCode": "386",
+                      "isoCode": "SVN"
+                    },
+                    {
+                      "countryCodeId": "d9ee10be-c69a-4d5c-9723-640e305dc34f",
+                      "countryName": "Solomon Islands",
+                      "callingCode": "677",
+                      "isoCode": "SLB"
+                    },
+                    {
+                      "countryCodeId": "9f5c3ce4-e731-4dc8-a2f7-04ac2a5103bc",
+                      "countryName": "Somalia",
+                      "callingCode": "252",
+                      "isoCode": "SOM"
+                    },
+                    {
+                      "countryCodeId": "2536618a-50e0-4e29-ab54-409570b72b87",
+                      "countryName": "South Africa",
+                      "callingCode": "27",
+                      "isoCode": "ZAF"
+                    },
+                    {
+                      "countryCodeId": "74b2f127-6150-47aa-af41-45f9fe329414",
+                      "countryName": "South Korea",
+                      "callingCode": "82",
+                      "isoCode": "KOR"
+                    },
+                    {
+                      "countryCodeId": "91714e40-fc51-4ef3-a7a8-990e3901e0dd",
+                      "countryName": "South Sudan",
+                      "callingCode": "211",
+                      "isoCode": "SSD"
+                    },
+                    {
+                      "countryCodeId": "d7ee3496-fc4e-4726-a20f-3ffc904f3540",
+                      "countryName": "Spain",
+                      "callingCode": "34",
+                      "isoCode": "ESP"
+                    },
+                    {
+                      "countryCodeId": "26fb165e-f730-474e-bc31-c0c2155177ef",
+                      "countryName": "Sri Lanka",
+                      "callingCode": "94",
+                      "isoCode": "LKA"
+                    },
+                    {
+                      "countryCodeId": "23183dc3-60c4-4135-b096-6ec6b11a5f67",
+                      "countryName": "St. Vincent & Grenadines",
+                      "callingCode": "1-784",
+                      "isoCode": "VCT"
+                    },
+                    {
+                      "countryCodeId": "87eda4c9-dfa6-46b9-a405-b3f09f9b3599",
+                      "countryName": "State of Palestine",
+                      "callingCode": "970",
+                      "isoCode": "PSE"
+                    },
+                    {
+                      "countryCodeId": "9bc8ad6b-f516-48ef-bbde-ba5f944d6118",
+                      "countryName": "Sudan",
+                      "callingCode": "249",
+                      "isoCode": "SDN"
+                    },
+                    {
+                      "countryCodeId": "3782c006-7a9a-434b-82ff-b8556a4f21a7",
+                      "countryName": "Suriname",
+                      "callingCode": "597",
+                      "isoCode": "SUR"
+                    },
+                    {
+                      "countryCodeId": "379d78bd-3423-4229-9203-1a62ca361e91",
+                      "countryName": "Sweden",
+                      "callingCode": "46",
+                      "isoCode": "SWE"
+                    },
+                    {
+                      "countryCodeId": "698848d6-1c1f-4e06-a18c-f7002eaa5b14",
+                      "countryName": "Switzerland",
+                      "callingCode": "41",
+                      "isoCode": "CHE"
+                    },
+                    {
+                      "countryCodeId": "fb8806a5-86e9-4214-a4b9-a1f15a109488",
+                      "countryName": "Syria",
+                      "callingCode": "963",
+                      "isoCode": "SYR"
+                    },
+                    {
+                      "countryCodeId": "a67526fd-61cd-4f3a-b7e8-7f5b9c1ffa24",
+                      "countryName": "Taiwan",
+                      "callingCode": "886",
+                      "isoCode": "TWN"
+                    },
+                    {
+                      "countryCodeId": "8cb4fac2-8460-43c7-a9ba-fa41eeb8e55c",
+                      "countryName": "Tajikistan",
+                      "callingCode": "992",
+                      "isoCode": "TJK"
+                    },
+                    {
+                      "countryCodeId": "a9f8dd40-52e6-4a05-86c0-318061fc5d08",
+                      "countryName": "Tanzania",
+                      "callingCode": "255",
+                      "isoCode": "TZA"
+                    },
+                    {
+                      "countryCodeId": "c425421d-3c5b-4516-8a5c-537921e17532",
+                      "countryName": "Thailand",
+                      "callingCode": "66",
+                      "isoCode": "THA"
+                    },
+                    {
+                      "countryCodeId": "df2afd35-c982-4b5f-a51b-94cb4d1acfca",
+                      "countryName": "Timor-Leste",
+                      "callingCode": "670",
+                      "isoCode": "TLS"
+                    },
+                    {
+                      "countryCodeId": "c9d62982-b4df-4b7a-b956-de575216454d",
+                      "countryName": "Togo",
+                      "callingCode": "228",
+                      "isoCode": "TGO"
+                    },
+                    {
+                      "countryCodeId": "fa2ade38-2f44-48ab-ad95-c2c4ed2e5b2a",
+                      "countryName": "Tokelau",
+                      "callingCode": "690",
+                      "isoCode": "TKL"
+                    },
+                    {
+                      "countryCodeId": "6cbf60ee-d629-4b0c-8317-d6accd0c64cf",
+                      "countryName": "Tonga",
+                      "callingCode": "676",
+                      "isoCode": "TON"
+                    },
+                    {
+                      "countryCodeId": "36bdfc19-6ddb-4bc3-87ce-cb66331e8ee1",
+                      "countryName": "Trinidad and Tobago",
+                      "callingCode": "1-868",
+                      "isoCode": "TTO"
+                    },
+                    {
+                      "countryCodeId": "e2cd4f5c-b763-4714-8fe9-8591efe2cfad",
+                      "countryName": "Tunisia",
+                      "callingCode": "216",
+                      "isoCode": "TUN"
+                    },
+                    {
+                      "countryCodeId": "a1ce5703-a92a-4ba3-8e60-efd681893449",
+                      "countryName": "Turkey",
+                      "callingCode": "90",
+                      "isoCode": "TUR"
+                    },
+                    {
+                      "countryCodeId": "cc6f5b0a-231f-482a-9936-8a2093029a68",
+                      "countryName": "Turkmenistan",
+                      "callingCode": "993",
+                      "isoCode": "TKM"
+                    },
+                    {
+                      "countryCodeId": "3faa260b-8038-4bc9-9284-ec756eeb2635",
+                      "countryName": "Turks and Caicos",
+                      "callingCode": "1-649",
+                      "isoCode": "TCA"
+                    },
+                    {
+                      "countryCodeId": "b9dd32c3-6222-4739-8eb8-6fab4944d49a",
+                      "countryName": "Tuvalu",
+                      "callingCode": "688",
+                      "isoCode": "TUV"
+                    },
+                    {
+                      "countryCodeId": "76bee685-fa51-4db2-b740-d12868b9ebc4",
+                      "countryName": "U.S. Virgin Islands",
+                      "callingCode": "1-340",
+                      "isoCode": "VIR"
+                    },
+                    {
+                      "countryCodeId": "d23209a1-85ea-4745-ab1e-4d5caa1435fc",
+                      "countryName": "Uganda",
+                      "callingCode": "256",
+                      "isoCode": "UGA"
+                    },
+                    {
+                      "countryCodeId": "a8f9a0a9-ddb9-42e0-9e62-bb17b3556feb",
+                      "countryName": "Ukraine",
+                      "callingCode": "380",
+                      "isoCode": "UKR"
+                    },
+                    {
+                      "countryCodeId": "31372bed-b9b0-4636-afbd-ec18f166ec20",
+                      "countryName": "United Arab Emirates",
+                      "callingCode": "971",
+                      "isoCode": "ARE"
+                    },
+                    {
+                      "countryCodeId": "c5eac009-0ff6-4c7f-a9a8-87fcd8498b8e",
+                      "countryName": "United Kingdom",
+                      "callingCode": "44",
+                      "isoCode": "GBR"
+                    },
+                    {
+                      "countryCodeId": "43321ac0-9732-49de-a214-8dc58e34c8e3",
+                      "countryName": "United States",
+                      "callingCode": "1",
+                      "isoCode": "USA"
+                    },
+                    {
+                      "countryCodeId": "1c750a1d-f5ba-450e-8a41-398d65448b24",
+                      "countryName": "Uruguay",
+                      "callingCode": "598",
+                      "isoCode": "URY"
+                    },
+                    {
+                      "countryCodeId": "94af4994-42cc-420f-956b-d47f602db2da",
+                      "countryName": "Uzbekistan",
+                      "callingCode": "998",
+                      "isoCode": "UZB"
+                    },
+                    {
+                      "countryCodeId": "bc8ba3a0-a46e-4c4f-9452-380250c2cddc",
+                      "countryName": "Vanuatu",
+                      "callingCode": "678",
+                      "isoCode": "VUT"
+                    },
+                    {
+                      "countryCodeId": "d77253fb-31a8-40c3-ad8e-9fe74cf2522f",
+                      "countryName": "Venezuela",
+                      "callingCode": "58",
+                      "isoCode": "VEN"
+                    },
+                    {
+                      "countryCodeId": "62ccb96f-1628-415f-9537-884853d081a1",
+                      "countryName": "Vietnam",
+                      "callingCode": "84",
+                      "isoCode": "VNM"
+                    },
+                    {
+                      "countryCodeId": "80cace3d-059a-4ea2-801c-86ab45063f8d",
+                      "countryName": "Wallis & Futuna",
+                      "callingCode": "681",
+                      "isoCode": "WLF"
+                    },
+                    {
+                      "countryCodeId": "01ab3d3f-491a-48fd-b122-01fa320f40cb",
+                      "countryName": "Western Sahara",
+                      "callingCode": "212",
+                      "isoCode": "ESH"
+                    },
+                    {
+                      "countryCodeId": "849a72f4-9ae7-46ca-abde-f1c3500922bc",
+                      "countryName": "Yemen",
+                      "callingCode": "967",
+                      "isoCode": "YEM"
+                    },
+                    {
+                      "countryCodeId": "3ab52930-f400-4dad-a733-8ca05038245a",
+                      "countryName": "Zambia",
+                      "callingCode": "260",
+                      "isoCode": "ZMB"
+                    },
+                    {
+                      "countryCodeId": "9fc7a6f2-00d8-4f45-91db-d37e498fff8a",
+                      "countryName": "Zimbabwe",
+                      "callingCode": "263",
+                      "isoCode": "ZWE"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -5386,7 +8057,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3001/api/v1",
+      "url": "http://localhost:3001/Ecommerce/api/v1",
       "description": "Develop Env"
     },
     {

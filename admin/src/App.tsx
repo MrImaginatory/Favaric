@@ -21,6 +21,7 @@ import Shipping from "@/pages/master/Shipping"
 import Size from "@/pages/master/Size"
 import Subcategory from "@/pages/master/Subcategory"
 import Weight from "@/pages/master/Weight"
+import Metric from "@/pages/master/Metric"
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAuth()
@@ -65,6 +66,7 @@ export function App() {
           <Route path="master/dimensions" element={<Dimensions />} />
           <Route path="master/fabric" element={<Fabric />} />
           <Route path="master/length" element={<Length />} />
+          <Route path="master/metric" element={<Metric />} />
           <Route path="master/occassion" element={<Occassion />} />
           <Route path="master/pattern" element={<Pattern />} />
           <Route path="master/product" element={<Product />} />
