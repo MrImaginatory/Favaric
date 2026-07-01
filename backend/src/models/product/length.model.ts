@@ -21,11 +21,11 @@ Length.init({
         primaryKey: true
     },
     lengthName: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     lengthSlug: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     lengthValue: {

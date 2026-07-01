@@ -43,7 +43,7 @@ export function AppSidebar() {
   const logoPath = import.meta.env.VITE_APP_LOGO || "/logo.svg"
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar variant="floating" collapsible="icon">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>

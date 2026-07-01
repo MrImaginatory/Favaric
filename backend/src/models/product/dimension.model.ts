@@ -25,15 +25,15 @@ Dimension.init({
         primaryKey: true
     },
     dimensionName: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     dimensionSlug: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     dimensionDescription: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true
     },
     dimensionLength: {

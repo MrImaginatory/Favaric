@@ -38,15 +38,15 @@ User.init({
         primaryKey: true
     },
     firstName: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     lastName: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     userName: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
         unique: true,
         set(value: string) {
@@ -54,7 +54,7 @@ User.init({
         }
     },
     email: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
         unique: true,
         set(value: string) {
@@ -62,7 +62,7 @@ User.init({
         }
     },
     password: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     countryCode: {
@@ -70,7 +70,7 @@ User.init({
         allowNull: false
     },
     mobile: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
         unique: true
     },
@@ -79,7 +79,7 @@ User.init({
         allowNull: true
     },
     whatsAppNumber: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
         unique: true
     },
@@ -88,19 +88,19 @@ User.init({
         allowNull: true
     },
     profilePicture: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true
     },
     country: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true
     },
     state: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true
     },
     city: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true
     },
     role: {
@@ -109,7 +109,7 @@ User.init({
         defaultValue: "Customer"
     },
     resetPasswordToken: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
     },
     resetPasswordExpires: {

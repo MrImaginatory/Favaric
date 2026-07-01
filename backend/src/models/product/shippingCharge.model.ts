@@ -24,7 +24,7 @@ ShippingCharge.init({
         primaryKey: true
     },
     shippingBaseCountry: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     shippingPrice: {
@@ -55,7 +55,7 @@ ShippingCharge.init({
         defaultValue: "active"
     },
     shippingChargeCurrency: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
         defaultValue: "INR",
         comment: "ISO 4217 currency code"

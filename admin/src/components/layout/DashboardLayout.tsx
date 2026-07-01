@@ -1,7 +1,7 @@
 import { Menu } from "lucide-react"
 import { Outlet, Link, useLocation } from "react-router-dom"
 
-import { SidebarProvider, useSidebar } from "@/components/ui/sidebar"
+import { SidebarProvider, useSidebar, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/layout/AppSidebar"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { navigationConfig } from "@/config/navigation"
@@ -46,8 +46,13 @@ export function DashboardLayout() {
     <TooltipProvider>
       <SidebarProvider>
         <AppSidebar />
-        <main className="flex-1 overflow-auto bg-background p-6 pb-24 md:pb-6">
-          <Outlet />
+        <main className="flex-1 flex flex-col overflow-auto bg-background">
+          <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background/95 px-4 backdrop-blur sm:h-auto sm:border-0 sm:bg-transparent sm:px-6 sm:pt-6">
+            <SidebarTrigger className="-ml-2" />
+          </header>
+          <div className="flex-1 p-4 sm:p-6 pb-24 md:pb-6">
+            <Outlet />
+          </div>
         </main>
         <MobileBottomNav />
       </SidebarProvider>

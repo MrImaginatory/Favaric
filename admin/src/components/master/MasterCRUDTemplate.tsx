@@ -271,7 +271,21 @@ export function MasterCRUDTemplate({
   // Grid Columns Definition
   const baseColumns = [
     { field: "seqId", headerName: "#", width: 70, cellDataType: "number" },
-    ...gridColumns.map((col: any) => ({ ...col, cellDataType: col.cellDataType || "text" })),
+    ...gridColumns.map((col: any) => {
+      const fieldType = fields.find((f) => f.name === col.field)?.type;
+      const cellRenderer = col.cellRenderer || (fieldType === "richtext"
+        ? (params: any) => {
+            if (!params.value) return <span className="text-muted-foreground italic">N/A</span>;
+            return (
+              <div
+                className="text-sm leading-snug overflow-hidden text-ellipsis line-clamp-3"
+                dangerouslySetInnerHTML={{ __html: params.value }}
+              />
+            );
+          }
+        : undefined);
+      return { ...col, cellDataType: col.cellDataType || "text", ...(cellRenderer && { cellRenderer }) };
+    }),
     { 
       field: "createdAt", 
       headerName: "Created At", 

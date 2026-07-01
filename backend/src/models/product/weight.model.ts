@@ -20,11 +20,11 @@ Weight.init({
         primaryKey: true
     },
     weightName: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     weightSlug: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     weightValue: {

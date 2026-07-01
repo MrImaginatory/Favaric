@@ -19,11 +19,11 @@ Volume.init({
         primaryKey: true
     },
     volumeName: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     volumeSlug: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     volumeValue: {

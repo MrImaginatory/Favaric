@@ -25,11 +25,11 @@ Catalog.init({
         primaryKey: true
     },
     catalogName: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     catalogSlug: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     catalogDescription: {
@@ -37,7 +37,7 @@ Catalog.init({
         allowNull: false
     },
     catalogImage: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     catalogSubImages: {
@@ -45,7 +45,7 @@ Catalog.init({
         allowNull: false
     },
     metaTitle: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     metaDescription: {

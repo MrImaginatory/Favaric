@@ -15,7 +15,7 @@ class UserSession extends Model {
 }
 UserSession.init({
     sessionId: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         primaryKey: true,
     },
     userId: {
@@ -23,19 +23,19 @@ UserSession.init({
         allowNull: false,
     },
     userName: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
     },
     ipAddress: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
     },
     location: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
     },
     os: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
     },
     refreshToken: {

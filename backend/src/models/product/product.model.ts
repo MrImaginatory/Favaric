@@ -81,15 +81,15 @@ Product.init({
         primaryKey: true
     },
     productName: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     productTitle: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     productSlug: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     productDescription: {
@@ -105,7 +105,7 @@ Product.init({
         allowNull: false
     },
     currency: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
         defaultValue: "INR"
     },
@@ -122,11 +122,11 @@ Product.init({
         allowNull: false
     },
     thumbnailImage: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     image: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     subImages: {
@@ -148,15 +148,15 @@ Product.init({
         defaultValue: 1
     },
     designCode: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     sku: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     hsn: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     fabric: {
@@ -176,7 +176,7 @@ Product.init({
         allowNull: false
     },
     transparency: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     countryOfOrigin: {
@@ -232,7 +232,7 @@ Product.init({
         allowNull: false
     },
     quantityPerUnit: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     shippingCharge: {
@@ -252,7 +252,7 @@ Product.init({
         allowNull: false
     },
     metaTitle: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     metaDescription: {

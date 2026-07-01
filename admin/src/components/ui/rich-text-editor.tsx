@@ -25,10 +25,28 @@ export function RichTextEditor({ value, onChange, placeholder = "Type something.
     }
   }, [value]);
 
+  const cleanHtml = (html: string): string => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    const allowedStyles = ["padding", "border", "width", "border-collapse", "margin-bottom", "margin-top"];
+    doc.querySelectorAll("[style]").forEach((el) => {
+      const styles = el.getAttribute("style") || "";
+      const kept = styles
+        .split(";")
+        .map((s) => s.trim())
+        .filter((s) => allowedStyles.some((a) => s.startsWith(a)));
+      if (kept.length > 0) {
+        el.setAttribute("style", kept.join("; "));
+      } else {
+        el.removeAttribute("style");
+      }
+    });
+    return doc.body.innerHTML;
+  };
+
   const handleInput = () => {
     if (editorRef.current) {
       const html = editorRef.current.innerHTML;
-      onChange(html);
+      onChange(cleanHtml(html));
     }
     checkTableSelection();
   };
@@ -46,11 +64,62 @@ export function RichTextEditor({ value, onChange, placeholder = "Type something.
   };
 
   const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
-    if (!maxLength) return;
-    const html = editorRef.current?.innerHTML || "";
-    const textOnly = html.replace(/<[^>]*>?/gm, '');
-    const pastedText = e.clipboardData.getData('text/plain');
-    if (textOnly.length + pastedText.length > maxLength) e.preventDefault();
+    e.preventDefault();
+    let pastedHTML = e.clipboardData.getData('text/html');
+
+    if (!pastedHTML) {
+      pastedHTML = e.clipboardData.getData('text/plain').replace(/\n/g, '<br>');
+    } else {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(pastedHTML, 'text/html');
+
+      const cleanNode = (node: Node) => {
+        if (node.nodeType === Node.COMMENT_NODE) {
+          node.parentNode?.removeChild(node);
+          return;
+        }
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          const el = node as HTMLElement;
+          if (el.tagName === 'META' || el.tagName === 'STYLE' || el.tagName === 'SCRIPT') {
+            el.remove();
+            return;
+          }
+          const attributes = Array.from(el.attributes);
+          for (const attr of attributes) {
+            // Keep basic table formatting, strip everything else
+            if (el.tagName === 'TABLE' && attr.name === 'border') continue;
+            if ((el.tagName === 'TD' || el.tagName === 'TH') && (attr.name === 'colspan' || attr.name === 'rowspan')) continue;
+            el.removeAttribute(attr.name);
+          }
+        }
+
+        // Iterate safely as children might be modified
+        Array.from(node.childNodes).forEach(cleanNode);
+
+        // Unwrap meaningless spans/divs left over after attribute stripping
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          const el = node as HTMLElement;
+          if ((el.tagName === 'SPAN' || el.tagName === 'DIV') && el.attributes.length === 0) {
+            while (el.firstChild) {
+              el.parentNode?.insertBefore(el.firstChild, el);
+            }
+            el.parentNode?.removeChild(el);
+          }
+        }
+      };
+
+      cleanNode(doc.body);
+      pastedHTML = doc.body.innerHTML;
+    }
+
+    if (maxLength) {
+      const html = editorRef.current?.innerHTML || "";
+      const textOnly = html.replace(/<[^>]*>?/gm, '');
+      const pastedTextOnly = pastedHTML.replace(/<[^>]*>?/gm, '');
+      if (textOnly.length + pastedTextOnly.length > maxLength) return;
+    }
+
+    executeCommand("insertHTML", pastedHTML);
   };
 
   const executeCommand = (command: string, arg?: string) => {
@@ -68,7 +137,7 @@ export function RichTextEditor({ value, onChange, placeholder = "Type something.
       let node = sel.anchorNode;
       let td: HTMLTableCellElement | null = null;
       let table: HTMLTableElement | null = null;
-      
+
       while (node && node !== editorRef.current) {
         if (node.nodeName === "TD" || node.nodeName === "TH") {
           td = node as HTMLTableCellElement;
@@ -79,7 +148,7 @@ export function RichTextEditor({ value, onChange, placeholder = "Type something.
         }
         node = node.parentNode;
       }
-      
+
       setActiveTableNode(table);
       setActiveCellNode(td);
     } else {
@@ -224,7 +293,7 @@ export function RichTextEditor({ value, onChange, placeholder = "Type something.
           <ListOrdered className="h-4 w-4" />
         </Button>
         <div className="w-px h-4 bg-border mx-1" />
-        
+
         {/* Table Selector Popover */}
         <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
           <PopoverTrigger asChild>
@@ -238,11 +307,11 @@ export function RichTextEditor({ value, onChange, placeholder = "Type something.
               <TableIcon className="h-4 w-4" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent 
-            className="w-auto p-2" 
-            side="bottom" 
-            align="start" 
-            onOpenAutoFocus={(e) => e.preventDefault()} 
+          <PopoverContent
+            className="w-auto p-2"
+            side="bottom"
+            align="start"
+            onOpenAutoFocus={(e) => e.preventDefault()}
             onCloseAutoFocus={(e) => e.preventDefault()}
           >
             <div className="flex flex-col gap-1" onMouseDown={(e) => e.preventDefault()}>
@@ -331,7 +400,7 @@ export function RichTextEditor({ value, onChange, placeholder = "Type something.
       <div
         ref={editorRef}
         contentEditable
-        className="min-h-[120px] p-3 focus:outline-none prose dark:prose-invert max-w-none text-sm break-words [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4 [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:border-border [&_td]:p-2"
+        className="min-h-[120px] p-3 focus:outline-none text-sm break-words"
         onInput={handleInput}
         onBlur={handleInput}
         onKeyDown={handleKeyDown}
@@ -341,10 +410,12 @@ export function RichTextEditor({ value, onChange, placeholder = "Type something.
         data-placeholder={placeholder}
         style={{
           lineHeight: "1.5",
-          lineBreak: "anywhere"
+          lineBreak: "anywhere",
+          listStyleType: "disc",
+          marginLeft: "1rem",
         }}
       />
-      
+
       {/* Character Counter */}
       {maxLength && (
         <div className={`text-xs p-2 text-right border-t ${isOverLimit ? 'text-destructive font-medium' : 'text-muted-foreground'}`}>

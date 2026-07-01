@@ -17,7 +17,7 @@ Metrics.init({
         primaryKey: true
     },
     metricName: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
     },
     uploadedBy: {

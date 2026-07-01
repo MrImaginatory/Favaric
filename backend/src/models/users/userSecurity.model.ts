@@ -15,7 +15,7 @@ UserSecurity.init({
         allowNull: false
     },
     customSalt: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
         get() {
             const rawValue = this.getDataValue('customSalt');
@@ -26,7 +26,7 @@ UserSecurity.init({
         }
     },
     pepper: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
         get() {
             const rawValue = this.getDataValue('pepper');
