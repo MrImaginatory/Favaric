@@ -3,7 +3,8 @@ import { MasterCRUDTemplate, type FormField } from "@/components/master/MasterCR
 export default function CountryOfOrigin() {
   const fields: FormField[] = [
     { name: "countryOfOriginName", label: "Country Name", type: "text", required: true },
-    { name: "countryOfOriginDescription", label: "Description", type: "richtext", required: false },
+    { name: "countryOfOriginDescription", label: "Description", type: "richtext",
+      maxLength: 255, required: false },
   ]
 
   const columns = [

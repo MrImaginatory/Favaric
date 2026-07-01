@@ -3,7 +3,8 @@ import { MasterCRUDTemplate, type FormField } from "@/components/master/MasterCR
 export default function ProductTypes() {
   const fields: FormField[] = [
     { name: "productTypeName", label: "Product Type Name", type: "text", required: true },
-    { name: "productTypeDescription", label: "Description", type: "richtext", required: false },
+    { name: "productTypeDescription", label: "Description", type: "richtext",
+      maxLength: 255, required: false },
   ]
 
   const columns = [

@@ -53,12 +53,6 @@ Color.init({
 });
 
 (Color as any).associate = (models: any) => {
-    Color.belongsToMany(models.Product, {
-        through: "product_colors",
-        foreignKey: "colorId",
-        otherKey: "productId",
-        as: "products"
-    });
     Color.belongsTo(models.User, {
         foreignKey: "uploadedBy",
         as: "uploader"

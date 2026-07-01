@@ -3,7 +3,8 @@ import { MasterCRUDTemplate, type FormField } from "@/components/master/MasterCR
 export default function Fabric() {
   const fields: FormField[] = [
     { name: "fabricName", label: "Fabric Name", type: "text", required: true },
-    { name: "fabricDescription", label: "Description", type: "richtext", required: false },
+    { name: "fabricDescription", label: "Description", type: "richtext",
+      maxLength: 255, required: false },
   ]
 
   const columns = [

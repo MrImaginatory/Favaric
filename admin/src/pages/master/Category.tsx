@@ -3,7 +3,8 @@ import { MasterCRUDTemplate, type FormField } from "@/components/master/MasterCR
 export default function Category() {
   const fields: FormField[] = [
     { name: "categoryName", label: "Category Name", type: "text", required: true },
-    { name: "categoryDescription", label: "Description", type: "richtext", required: false },
+    { name: "categoryDescription", label: "Description", type: "richtext",
+      maxLength: 1000, required: false },
     { name: "categoryImage", label: "Category Image", type: "file", required: false },
   ]
 

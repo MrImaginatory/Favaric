@@ -3,7 +3,8 @@ import { MasterCRUDTemplate, type FormField } from "@/components/master/MasterCR
 export default function Pattern() {
   const fields: FormField[] = [
     { name: "patternName", label: "Pattern Name", type: "text", required: true },
-    { name: "patternDescription", label: "Description", type: "richtext", required: false },
+    { name: "patternDescription", label: "Description", type: "richtext",
+      maxLength: 255, required: false },
   ]
 
   const columns = [

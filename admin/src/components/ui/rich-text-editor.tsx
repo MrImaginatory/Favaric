@@ -6,9 +6,10 @@ interface RichTextEditorProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  maxLength?: number;
 }
 
-export function RichTextEditor({ value, onChange, placeholder = "Type something..." }: RichTextEditorProps) {
+export function RichTextEditor({ value, onChange, placeholder = "Type something...", maxLength }: RichTextEditorProps) {
   const editorRef = useRef<HTMLDivElement>(null);
 
   // Initialize value only once on mount or when value changes externally
@@ -20,9 +21,22 @@ export function RichTextEditor({ value, onChange, placeholder = "Type something.
 
   const handleInput = () => {
     if (editorRef.current) {
-      onChange(editorRef.current.innerHTML);
+      const html = editorRef.current.innerHTML;
+      if (maxLength) {
+        // Strip HTML to check length
+        const textOnly = html.replace(/<[^>]*>?/gm, '');
+        if (textOnly.length > maxLength) {
+          // You could optionally revert or block typing here, but for a rich text editor 
+          // it's tricky without messing up cursor position. We'll rely on the visual indicator
+          // and form validation.
+        }
+      }
+      onChange(html);
     }
   };
+
+  const textLength = (value || "").replace(/<[^>]*>?/gm, '').length;
+  const isOverLimit = maxLength ? textLength > maxLength : false;
 
   const executeCommand = (command: string, arg?: string) => {
     document.execCommand(command, false, arg);
@@ -43,6 +57,7 @@ export function RichTextEditor({ value, onChange, placeholder = "Type something.
           className="h-8 w-8 p-0"
           onClick={() => executeCommand("bold")}
           title="Bold"
+          tabIndex={-1}
         >
           <Bold className="h-4 w-4" />
         </Button>
@@ -53,6 +68,7 @@ export function RichTextEditor({ value, onChange, placeholder = "Type something.
           className="h-8 w-8 p-0"
           onClick={() => executeCommand("italic")}
           title="Italic"
+          tabIndex={-1}
         >
           <Italic className="h-4 w-4" />
         </Button>
@@ -63,6 +79,7 @@ export function RichTextEditor({ value, onChange, placeholder = "Type something.
           className="h-8 w-8 p-0"
           onClick={() => executeCommand("underline")}
           title="Underline"
+          tabIndex={-1}
         >
           <Underline className="h-4 w-4" />
         </Button>
@@ -74,6 +91,7 @@ export function RichTextEditor({ value, onChange, placeholder = "Type something.
           className="h-8 w-8 p-0"
           onClick={() => executeCommand("insertUnorderedList")}
           title="Bullet List"
+          tabIndex={-1}
         >
           <List className="h-4 w-4" />
         </Button>
@@ -84,6 +102,7 @@ export function RichTextEditor({ value, onChange, placeholder = "Type something.
           className="h-8 w-8 p-0"
           onClick={() => executeCommand("insertOrderedList")}
           title="Numbered List"
+          tabIndex={-1}
         >
           <ListOrdered className="h-4 w-4" />
         </Button>
@@ -101,6 +120,13 @@ export function RichTextEditor({ value, onChange, placeholder = "Type something.
           lineHeight: "1.5",
         }}
       />
+      
+      {/* Character Counter */}
+      {maxLength && (
+        <div className={`text-xs p-2 text-right border-t ${isOverLimit ? 'text-destructive font-medium' : 'text-muted-foreground'}`}>
+          {textLength} / {maxLength}
+        </div>
+      )}
     </div>
   );
 }

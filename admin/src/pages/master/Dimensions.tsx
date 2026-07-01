@@ -19,7 +19,8 @@ export default function Dimensions() {
 
   const fields: FormField[] = [
     { name: "dimensionName", label: "Dimension Name", type: "text", required: true },
-    { name: "dimensionDescription", label: "Description", type: "richtext", required: false },
+    { name: "dimensionDescription", label: "Description", type: "richtext",
+      maxLength: 255, required: false },
     { name: "dimensionLength", label: "Length", type: "number", required: true },
     { name: "dimensionBreadth", label: "Breadth", type: "number", required: true },
     { name: "dimensionHeight", label: "Height", type: "number", required: true },

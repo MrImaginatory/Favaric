@@ -19,10 +19,13 @@ import catalogRouter from "./catalog/catalog.route.js";
 import categoryRouter from "./category/category.route.js";
 import subcategoryRouter from "./subcategory/subcategory.route.js";
 import productEntityRouter from "./product/product.route.js";
+import referenceController from "../../../controller/v1/product/reference.controller.js";
 
 const productRouter = Router();
 
 productRouter.use(protect);
+
+productRouter.get("/referenceData", referenceController.getAllReferenceData);
 
 productRouter.use("/colors", colorRouter);
 productRouter.use("/brands", brandRouter);

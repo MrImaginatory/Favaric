@@ -3,7 +3,8 @@ import { MasterCRUDTemplate, type FormField } from "@/components/master/MasterCR
 export default function Brand() {
   const fields: FormField[] = [
     { name: "brandName", label: "Brand Name", type: "text", required: true },
-    { name: "brandDescription", label: "Description", type: "richtext", required: false },
+    { name: "brandDescription", label: "Description", type: "richtext",
+      maxLength: 255, required: false },
     { name: "brandLogo", label: "Logo", type: "file", required: false },
   ]
 

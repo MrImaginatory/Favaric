@@ -373,20 +373,20 @@ const updateProduct = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const productIncludes = [
-    { model: Category, as: "categoryDetails" },
-    { model: Brand, as: "brandDetails" },
-    { model: Fabric, as: "fabricDetails" },
-    { model: Occasion, as: "occasionDetails" },
-    { model: Pattern, as: "patternDetails" },
-    { model: Length, as: "lengthDetails" },
-    { model: CountryOfOrigin, as: "countryOfOriginDetails" },
-    { model: Color, as: "colorDetails" },
-    { model: Size, as: "sizeDetails" },
-    { model: Weight, as: "weightDetails" },
-    { model: Dimensions, as: "dimensionDetails" },
-    { model: ProductType, as: "productTypeDetails" },
-    { model: Catalog, as: "catalogDetails" },
-    { model: ShippingCharge, as: "shippingChargeDetails" },
+    { model: Category, as: "categoryDetails", attributes: ["categoryId", "categoryName"] },
+    { model: Brand, as: "brandDetails", attributes: ["brandId", "brandName"] },
+    { model: Fabric, as: "fabricDetails", attributes: ["fabricId", "fabricName"] },
+    { model: Occasion, as: "occasionDetails", attributes: ["occasionId", "occasionName"] },
+    { model: Pattern, as: "patternDetails", attributes: ["patternId", "patternName"] },
+    { model: Length, as: "lengthDetails", attributes: ["lengthId", "lengthName", "lengthValue"] },
+    { model: CountryOfOrigin, as: "countryOfOriginDetails", attributes: ["countryOfOriginId", "countryOfOriginName"] },
+    { model: Color, as: "colorDetails", attributes: ["colorId", "colorName", "colorCode"] },
+    { model: Size, as: "sizeDetails", attributes: ["sizeId", "sizeName", "sizeValue"] },
+    { model: Weight, as: "weightDetails", attributes: ["weightId", "weightName", "weightValue"] },
+    { model: Dimensions, as: "dimensionDetails", attributes: ["dimensionId", "dimensionName", "dimensionLength", "dimensionBreadth", "dimensionHeight"] },
+    { model: ProductType, as: "productTypeDetails", attributes: ["productTypeId", "productTypeName"] },
+    { model: Catalog, as: "catalogDetails", attributes: ["catalogId", "catalogName"] },
+    { model: ShippingCharge, as: "shippingChargeDetails", attributes: ["shippingChargeId", "shippingBaseCountry", "shippingPrice"] },
     { model: User, as: "uploader", attributes: ["userName"] },
     { model: User, as: "modifier", attributes: ["userName"] }
 ];
@@ -487,24 +487,7 @@ const deleteProduct = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const searchProduct = searchRecordsController(Product, ["productName", "productTitle", "productDescription", "designCode", "sku", "hsn"], {
-    include: [
-        { model: Category, as: "categoryDetails" },
-        { model: Brand, as: "brandDetails" },
-        { model: Fabric, as: "fabricDetails" },
-        { model: Occasion, as: "occasionDetails" },
-        { model: Pattern, as: "patternDetails" },
-        { model: Length, as: "lengthDetails" },
-        { model: CountryOfOrigin, as: "countryOfOriginDetails" },
-        { model: Color, as: "colorDetails" },
-        { model: Size, as: "sizeDetails" },
-        { model: Weight, as: "weightDetails" },
-        { model: Dimensions, as: "dimensionDetails" },
-        { model: ProductType, as: "productTypeDetails" },
-        { model: Catalog, as: "catalogDetails" },
-        { model: ShippingCharge, as: "shippingChargeDetails" },
-        { model: User, as: "uploader", attributes: ["userName"] },
-        { model: User, as: "modifier", attributes: ["userName"] }
-    ]
+    include: productIncludes
 }, "product");
 
 export default {

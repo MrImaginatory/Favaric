@@ -3,7 +3,8 @@ import { MasterCRUDTemplate, type FormField } from "@/components/master/MasterCR
 export default function Occassion() {
   const fields: FormField[] = [
     { name: "occasionName", label: "Occasion Name", type: "text", required: true },
-    { name: "occasionDescription", label: "Description", type: "richtext", required: false },
+    { name: "occasionDescription", label: "Description", type: "richtext",
+      maxLength: 255, required: false },
   ]
 
   const columns = [

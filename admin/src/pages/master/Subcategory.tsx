@@ -21,7 +21,8 @@ export default function Subcategory() {
   const fields: FormField[] = [
     { name: "subcategoryName", label: "Subcategory Name", type: "text", required: true },
     { name: "categoryId", label: "Category", type: "select", options: categoryOptions, required: true },
-    { name: "subcategoryDescription", label: "Description", type: "richtext", required: false },
+    { name: "subcategoryDescription", label: "Description", type: "richtext",
+      maxLength: 1000, required: false },
     { name: "subcategoryImage", label: "Image", type: "file", required: true },
   ]
 

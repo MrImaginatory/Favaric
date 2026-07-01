@@ -3,7 +3,8 @@ import { MasterCRUDTemplate, type FormField } from "@/components/master/MasterCR
 export default function Catalog() {
   const fields: FormField[] = [
     { name: "catalogName", label: "Catalog Name", type: "text", required: true },
-    { name: "catalogDescription", label: "Description", type: "richtext", required: true },
+    { name: "catalogDescription", label: "Description", type: "richtext",
+      maxLength: 1000, required: true },
     { name: "catalogImage", label: "Primary Image", type: "file", required: true },
     { name: "catalogSubImages", label: "Sub Images", type: "file", required: false, multiple: true },
   ]
@@ -45,7 +46,7 @@ export default function Catalog() {
       endpoints={endpoints}
       fields={fields}
       gridColumns={columns}
-      idField="id"
+      idField="catalogId"
     />
   )
 }

@@ -31,12 +31,13 @@ import {
 import { GpGrid } from "@gp-grid/react"
 import "@gp-grid/react/dist/styles.css"
 
-export type FormField = {
+export interface FormField {
   name: string
   label: string
   type?: "text" | "number" | "textarea" | "boolean" | "file" | "richtext" | "color" | "status_checkbox" | "select"
   required?: boolean
   multiple?: boolean
+  maxLength?: number
   options?: { label: string; value: string | number }[]
 }
 
@@ -416,9 +417,10 @@ export function MasterCRUDTemplate({
                     control={control}
                     render={({ field: { onChange, value } }) => (
                       <RichTextEditor
-                        value={typeof value === 'string' ? value : ""}
+                        value={(value as string) || ""}
                         onChange={onChange}
                         placeholder={`Enter ${field.label.toLowerCase()}...`}
+                        maxLength={field.maxLength}
                       />
                     )}
                   />
